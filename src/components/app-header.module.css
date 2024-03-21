@@ -1,5 +1,24 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+.header > * {
+    flex: 1;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.personal {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.anchor {
+    display: flex;
+    align-items: center;
 }
