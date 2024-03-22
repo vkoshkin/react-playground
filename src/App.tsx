@@ -3,14 +3,14 @@ import './App.css';
 import AppHeader from './components/header/app-header';
 import BurgerIngredients from './components/burger-ingredients';
 import BurgerConstructor from './components/burger-constructor';
-import data from './utils/data';
+import testData from './utils/data';
 
 function App() {
     return (
         <div className="app">
             <AppHeader />
             <main className="main">
-                <BurgerIngredients />
+                <BurgerIngredients data={testData}/>
                 <BurgerConstructor />
             </main>
         </div>

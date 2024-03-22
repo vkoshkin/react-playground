@@ -1,4 +1,4 @@
-export default data = [
+const testData = [
     {
         "_id": "60666c42cc7b410027a1a9b1",
         "name": "Краторная булка N-200i",
@@ -210,3 +210,5 @@ export default data = [
         "__v": 0
     }
 ];
+
+export default testData;
