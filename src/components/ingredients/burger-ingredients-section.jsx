@@ -1,5 +1,5 @@
 import React from 'react';
-import {  } from '@ya.praktikum/react-developer-burger-ui-components'
+import {  } from '@ya.praktikum/react-developer-burger-ui-components';
 
 class BurgerIngredientsSection extends React.Component {
 
