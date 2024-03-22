@@ -1,0 +1,9 @@
+.ingredients {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabs {
+    display: flex;
+    flex-direction: row;
+}
