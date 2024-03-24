@@ -19,6 +19,8 @@
 }
 
 .anchor {
+    composes: p-5 mt-4 mb-4 from global;
     display: flex;
     align-items: center;
+    text-decoration: none;
 }

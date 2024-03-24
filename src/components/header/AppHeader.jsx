@@ -8,29 +8,29 @@ class AppHeader extends React.Component {
         return (
             <header className={styles.header}>
                 <nav className={styles.nav}>
-                    <div className="p-5 mt-4 mb-4">
-                        <span className={styles.anchor}>
+                    <div>
+                        <a className={styles.anchor} href="/">
                             <BurgerIcon type="primary" />
                             <span className="text text_type_main-default pl-2">Конструктор</span>
-                        </span>
+                        </a>
                     </div>
 
-                    <div className="p-5 mt-4 mb-4 ml-2">
-                        <span className={styles.anchor}>
+                    <div className="ml-2">
+                        <a className={styles.anchor} href="/">
                             <ListIcon type="secondary" />
                             <span className="text text_type_main-default text_color_inactive pl-2">Лента заказов</span>
-                        </span>
+                        </a>
                     </div>
                 </nav>
 
                 <Logo />
 
                 <div className={styles.personal}>
-                    <div className="p-5 mt-4 mb-4">
-                        <span className={styles.anchor}>
+                    <div>
+                        <a className={styles.anchor} href="/">
                             <ProfileIcon type="secondary" />
                             <span className="text text_type_main-default text_color_inactive pl-2">Личный кабинет</span>
-                        </span>
+                        </a>
                     </div>
                 </div>
             </header>
