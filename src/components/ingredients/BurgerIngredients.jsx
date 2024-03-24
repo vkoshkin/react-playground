@@ -8,7 +8,7 @@ class BurgerIngredients extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { 
+        this.state = {
             currentTab: "buns",
         }
     }
@@ -21,7 +21,7 @@ class BurgerIngredients extends React.Component {
 
         return (
             <div className={styles.ingredients}>
-                <h1 className="text text_type_main-large pt-10 pb-5">Собери бургер</h1>
+                <h1 className={styles.header}>Собери бургер</h1>
 
                 <nav className={styles.tabs}>
                     <Tab value="buns" active={this.state.currentTab === "buns"} >
@@ -35,26 +35,28 @@ class BurgerIngredients extends React.Component {
                     </Tab>
                 </nav>
 
-                <section>
-                    <h2 className="text text_type_main-medium pt-10">Булки</h2>
-                    <div className={styles.container}>
-                        {buns.map(data => <BurgerIngredientsItem item={data}/>)}
-                    </div>
-                </section>
+                <div className={styles.sections}>
+                    <section>
+                        <h2 className="text text_type_main-medium pt-10">Булки</h2>
+                        <div className={styles.section_container}>
+                            {buns.map(data => <BurgerIngredientsItem item={data} />)}
+                        </div>
+                    </section>
 
-                <section>
-                    <h2 className="text text_type_main-medium pt-10">Соусы</h2>
-                    <div className={styles.container}>
-                        {sauces.map(data => <BurgerIngredientsItem item={data}/>)}
-                    </div>
-                </section>
+                    <section>
+                        <h2 className="text text_type_main-medium pt-10">Соусы</h2>
+                        <div className={styles.section_container}>
+                            {sauces.map(data => <BurgerIngredientsItem item={data} />)}
+                        </div>
+                    </section>
 
-                <section>
-                    <h2 className="text text_type_main-medium pt-10">Начинки</h2>
-                    <div className={styles.container}>
-                        {mains.map(data => <BurgerIngredientsItem item={data}/>)}
-                    </div>
-                </section>
+                    <section>
+                        <h2 className="text text_type_main-medium pt-10">Начинки</h2>
+                        <div className={styles.section_container}>
+                            {mains.map(data => <BurgerIngredientsItem item={data} />)}
+                        </div>
+                    </section>
+                </div>
             </div>
         );
     }
