@@ -11,7 +11,7 @@ class BurgerIngredientsItem extends React.PureComponent {
                 <div>
                     <img className="pl-4 pr-4 mb-1" src={this.props.item.image} alt={this.props.item.name} />
                     <div className={styles.item_price}>
-                        <span className="text text_type_digits-default">{this.props.item.price}</span>
+                        <span className="text text_type_digits-default mr-1">{this.props.item.price}</span>
                         <CurrencyIcon type="primary" />
                     </div>
                     <div className={styles.item_description}>
@@ -20,7 +20,7 @@ class BurgerIngredientsItem extends React.PureComponent {
                         </p>
                     </div>
                 </div>
-                { this.props.count > 0 && <Counter count={this.props.count} size="default"/>}
+                {this.props.count > 0 && <Counter count={this.props.count} size="default" />}
             </div>
         );
     }
