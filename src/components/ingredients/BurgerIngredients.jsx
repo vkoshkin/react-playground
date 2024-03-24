@@ -10,7 +10,19 @@ class BurgerIngredients extends React.Component {
 
         this.state = {
             currentTab: "buns",
+            selectedIngredients: {}
         }
+    }
+
+    onAddIngredient = (selectedId) => {
+        console.log("clicked " + selectedId);
+        let updatedSelectedIngredients = { ...this.state.selectedIngredients}
+        if (!updatedSelectedIngredients[selectedId]) {
+            updatedSelectedIngredients[selectedId] = 1;
+        } else {
+            updatedSelectedIngredients[selectedId] = updatedSelectedIngredients[selectedId] + 1;
+        }
+        this.setState({ ...this.state, selectedIngredients: updatedSelectedIngredients})
     }
 
     render() {
@@ -39,21 +51,33 @@ class BurgerIngredients extends React.Component {
                     <section>
                         <h2 className="text text_type_main-medium pt-10">Булки</h2>
                         <div className={styles.section_container}>
-                            {buns.map(data => <BurgerIngredientsItem item={data} />)}
+                            {buns.map(data => <BurgerIngredientsItem
+                                key={data._id}
+                                item={data}
+                                count={this.state.selectedIngredients[data._id]}
+                                onAdd={() => this.onAddIngredient(data._id)} />)}
                         </div>
                     </section>
 
                     <section>
                         <h2 className="text text_type_main-medium pt-10">Соусы</h2>
                         <div className={styles.section_container}>
-                            {sauces.map(data => <BurgerIngredientsItem item={data} />)}
+                            {sauces.map(data => <BurgerIngredientsItem
+                                key={data._id}
+                                item={data}
+                                count={this.state.selectedIngredients[data._id]}
+                                onAdd={() => this.onAddIngredient(data._id)} />)}
                         </div>
                     </section>
 
                     <section>
                         <h2 className="text text_type_main-medium pt-10">Начинки</h2>
                         <div className={styles.section_container}>
-                            {mains.map(data => <BurgerIngredientsItem item={data} />)}
+                            {mains.map(data => <BurgerIngredientsItem
+                                key={data._id}
+                                item={data}
+                                count={this.state.selectedIngredients[data._id]}
+                                onAdd={() => this.onAddIngredient(data._id)} />)}
                         </div>
                     </section>
                 </div>

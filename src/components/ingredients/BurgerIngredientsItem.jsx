@@ -3,11 +3,11 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 
 import styles from './BurgerIngredientsItem.module.css';
 
-class BurgerIngredientsItem extends React.Component {
+class BurgerIngredientsItem extends React.PureComponent {
 
     render() {
         return (
-            <div className={styles.item}>
+            <div className={styles.item} onClick={this.props.onAdd}>
                 <div>
                     <img className="pl-4 pr-4 mb-1" src={this.props.item.image} alt={this.props.item.name} />
                     <div className={styles.item_price}>
