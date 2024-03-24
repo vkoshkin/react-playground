@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import BurgerIngredientsSection from './BurgerIngredientsSection';
+
+import BurgerIngredientsItem from './BurgerIngredientsItem'
 import styles from './BurgerIngredients.module.css';
 
 class BurgerIngredients extends React.Component {
@@ -34,9 +35,26 @@ class BurgerIngredients extends React.Component {
                     </Tab>
                 </nav>
 
-                <BurgerIngredientsSection title="Булки" data={buns} />
-                <BurgerIngredientsSection title="Соусы" data={sauces} />
-                <BurgerIngredientsSection title="Начинки" data={mains} />
+                <section>
+                    <h2 className="text text_type_main-medium pt-10">Булки</h2>
+                    <div className={styles.container}>
+                        {buns.map(data => <BurgerIngredientsItem item={data}/>)}
+                    </div>
+                </section>
+
+                <section>
+                    <h2 className="text text_type_main-medium pt-10">Соусы</h2>
+                    <div className={styles.container}>
+                        {sauces.map(data => <BurgerIngredientsItem item={data}/>)}
+                    </div>
+                </section>
+
+                <section>
+                    <h2 className="text text_type_main-medium pt-10">Начинки</h2>
+                    <div className={styles.container}>
+                        {mains.map(data => <BurgerIngredientsItem item={data}/>)}
+                    </div>
+                </section>
             </div>
         );
     }
