@@ -1,4 +1,18 @@
 .item {
-    border: 1px black solid;
+    composes: mt-6 mb-8 ml-4 from global;
     max-width: 272px;
+    min-height: 208px;
+}
+
+.item_price {
+    composes: mt-1 from global;
+    display: flex;
+    justify-content: center;
+}
+
+.item_description {
+    composes: mt-1 ml-1 mr-1 from global;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
