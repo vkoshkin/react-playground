@@ -15,7 +15,6 @@ class BurgerIngredients extends React.Component {
     }
 
     onAddIngredient = (selectedId) => {
-        console.log("clicked " + selectedId);
         let updatedSelectedIngredients = { ...this.state.selectedIngredients}
         if (!updatedSelectedIngredients[selectedId]) {
             updatedSelectedIngredients[selectedId] = 1;
