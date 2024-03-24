@@ -5,13 +5,11 @@ class BurgerIngredientsSection extends React.Component {
 
     render() {
         return (
-            <>
+            <section>
                 <h2 className="text text_type_main-medium pt-10">
                     {this.props.title}
                 </h2>
-                <section>
-                </section>
-            </>
+            </section>
         );
     }
 }
