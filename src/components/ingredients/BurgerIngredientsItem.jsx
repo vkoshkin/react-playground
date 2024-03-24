@@ -8,7 +8,7 @@ class BurgerIngredientsItem extends React.Component {
     render() {
         return (
             <div className={styles.item}>
-                <img className="pl-4 pr-4 pb-1" src={this.props.item.image_large} alt=""/>
+                <img className="pl-4 pr-4 pb-1" src={this.props.item.image} alt={this.props.item.name} />
                 <div>
                     <span className="text text_type_digits-default">{this.props.item.price}</span>
                     <CurrencyIcon type="primary" />
