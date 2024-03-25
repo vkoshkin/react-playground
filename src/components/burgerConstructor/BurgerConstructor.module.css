@@ -1,0 +1,19 @@
+.constructor {
+    min-width: 600px;
+}
+
+.constructor_price_number {
+    composes: text text_type_digits-medium mr-2 from global;
+}
+
+.constructor_price {
+    composes: mr-10 from global;
+}
+
+.constructor_footer {
+    composes: mt-10 from global;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
