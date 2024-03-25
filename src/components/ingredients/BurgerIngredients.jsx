@@ -10,25 +10,26 @@ class BurgerIngredients extends React.Component {
 
         this.state = {
             currentTab: "buns",
-            selectedIngredients: {}
         }
-    }
-
-    onAddIngredient = (selectedId) => {
-        let updatedSelectedIngredients = { ...this.state.selectedIngredients}
-        if (!updatedSelectedIngredients[selectedId]) {
-            updatedSelectedIngredients[selectedId] = 1;
-        } else {
-            updatedSelectedIngredients[selectedId] = updatedSelectedIngredients[selectedId] + 1;
-        }
-        this.setState({ ...this.state, selectedIngredients: updatedSelectedIngredients})
     }
 
     render() {
-        const { data } = this.props;
+        const { data, ingredients } = this.props;
         const buns = data.filter((row) => row.type === "bun");
         const sauces = data.filter((row) => row.type === "sauce");
         const mains = data.filter((row) => row.type === "main");
+        
+        const counts = {};
+        if (ingredients.top !== null && ingredients.bottom !== null) {
+            counts[ingredients.top._id] = 1;
+        }
+        for (const ingredient of ingredients.main) {
+            if (!counts[ingredient._id]) {
+                counts[ingredient._id] = 1;
+            } else {
+                counts[ingredient._id] += 1;
+            }
+        }
 
         return (
             <div className={styles.ingredients}>
@@ -53,8 +54,8 @@ class BurgerIngredients extends React.Component {
                             {buns.map(data => <BurgerIngredientsItem
                                 key={data._id}
                                 item={data}
-                                count={this.state.selectedIngredients[data._id]}
-                                onAdd={() => this.onAddIngredient(data._id)} />)}
+                                count={counts[data._id]}
+                                onAdd={() => this.props.hook(data)} />)}
                         </div>
                     </section>
 
@@ -64,8 +65,8 @@ class BurgerIngredients extends React.Component {
                             {sauces.map(data => <BurgerIngredientsItem
                                 key={data._id}
                                 item={data}
-                                count={this.state.selectedIngredients[data._id]}
-                                onAdd={() => this.onAddIngredient(data._id)} />)}
+                                count={counts[data._id]}
+                                onAdd={() => this.props.hook(data)} />)}
                         </div>
                     </section>
 
@@ -75,8 +76,8 @@ class BurgerIngredients extends React.Component {
                             {mains.map(data => <BurgerIngredientsItem
                                 key={data._id}
                                 item={data}
-                                count={this.state.selectedIngredients[data._id]}
-                                onAdd={() => this.onAddIngredient(data._id)} />)}
+                                count={counts[data._id]}
+                                onAdd={() => this.props.hook(data)} />)}
                         </div>
                     </section>
                 </div>
