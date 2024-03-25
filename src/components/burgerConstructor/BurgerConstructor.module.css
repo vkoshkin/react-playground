@@ -1,5 +1,6 @@
 .constructor {
     min-width: 600px;
+    border: 1px black solid;
 }
 
 .constructor_price_number {
