@@ -1,7 +1,7 @@
 .ingredients {
     display: flex;
     flex-direction: column;
-    max-width: 600px;
+    height: 100%;
 }
 
 .header {
@@ -20,7 +20,7 @@
 .sections {
     flex-grow: 1;
     
-    height: 0px;
+    height: 0;
     overflow: scroll;
     overflow-x: hidden;
 }
