@@ -6,9 +6,13 @@ import styles from './BurgerConstructorItem.module.css';
 class BurgerIngredientsItem extends React.PureComponent {
 
     render() {
-        const { type, isLocked, name, price, image } = this.props;
+        const { type, isLocked, name, price, image, extraClass } = this.props;
+        let styleClasses = styles.container;
+        if (extraClass !== null) {
+            styleClasses += ' ' + extraClass;
+        }
         return (
-            <div className={styles.container}>
+            <div className={styleClasses}>
                 {isLocked &&
                     <div className={styles.drag}>
                         <DragIcon type="primary" />
