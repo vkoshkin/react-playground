@@ -1,7 +1,7 @@
 import React from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import styles from './BurgerConstructorItem.module.css';
+import styles from './burger-constructor-item.module.css';
 
 class BurgerIngredientsItem extends React.PureComponent {
 

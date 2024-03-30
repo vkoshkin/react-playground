@@ -1,8 +1,8 @@
 import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import BurgerIngredientsItem from './BurgerIngredientsItem'
-import styles from './BurgerIngredients.module.css';
+import BurgerIngredientsItem from './burger-ingredients-item'
+import styles from './burger-ingredients.module.css';
 
 class BurgerIngredients extends React.Component {
     constructor(props) {

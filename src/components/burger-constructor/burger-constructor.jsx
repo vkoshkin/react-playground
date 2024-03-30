@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import BurgerConstructorItem from './BurgerConstructorItem';
-import styles from './BurgerConstructor.module.css';
+import BurgerConstructorItem from './burger-constructor-item';
+import styles from './burger-constructor.module.css';
 
 class BurgerConstructor extends React.Component {
 
