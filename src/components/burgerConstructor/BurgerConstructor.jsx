@@ -34,8 +34,8 @@ class BurgerConstructor extends React.Component {
                             return (
                                 <BurgerConstructorItem ingredient={ingredient}
                                     isLocked="false"
-                                    key={index}
-                                    extraClass={style} />
+                                    extraClass={style} 
+                                    key={index} />
                             );
                         })}
                     </div>
