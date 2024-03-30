@@ -1,30 +1,56 @@
 .constructor {
-    min-width: 600px;
-    border: 1px black solid;
-}
-
-.constructor_list {
-    composes: mt-25 from global;
+    background-color: red;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
+.list {
+    flex-grow: 1;
+    background-color: blue;
+    height: 0;
+
+    composes: pt-25 from global;
+    display: flex;
+    flex-direction: column;
+}
+
+.list_scroll {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.constructor_container {
+    background-color: green;
+    composes: mb-4 from global;
+    display: flex;
+    flex-direction: row;
+}
+
+.constructor_drag {
+    background-color: yellow;
+    composes: ml-4 from global;
+    display: flex;
+    align-items: center;
+}
+
 .constructor_element {
-    composes: mb-4 ml-4 mr-4 from global;
+    composes: mr-4 from global;
+    margin-left: auto;
 }
 
-.constructor_price {
-    composes: mr-10 from global;
-}
-
-.constructor_price_number {
-    composes: text text_type_digits-medium mr-2 from global;
-}
-
-.constructor_footer {
-    composes: mt-10 mr-4 from global;
+.footer {
+    composes: mt-10 mr-4 mb-6 from global;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+}
+
+.footer_price {
+    composes: mr-10 from global;
+}
+
+.footer_price_number {
+    composes: text text_type_digits-medium mr-2 from global;
 }
