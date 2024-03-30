@@ -31,10 +31,14 @@ class App extends React.Component {
             <div className="app">
                 <AppHeader />
                 <main className="main">
-                    <BurgerIngredients data={this.state.data}
-                        ingredients={this.state.ingredients}
-                        hook={(ingredient) => this.onAddIngredient(ingredient)} />
-                    <BurgerConstructor ingredients={this.state.ingredients} />
+                    <div className="panel">
+                        <BurgerIngredients data={this.state.data}
+                            ingredients={this.state.ingredients}
+                            hook={(ingredient) => this.onAddIngredient(ingredient)} />
+                    </div>
+                    <div className="panel">
+                        <BurgerConstructor ingredients={this.state.ingredients} />
+                    </div>
                 </main>
             </div>
         );
