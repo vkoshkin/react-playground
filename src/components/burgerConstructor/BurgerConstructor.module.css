@@ -1,5 +1,4 @@
 .constructor {
-    background-color: red;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -7,7 +6,6 @@
 
 .list {
     flex-grow: 1;
-    background-color: blue;
     height: 0;
 
     composes: pt-25 from global;
@@ -24,8 +22,6 @@
 }
 
 .list_scroll {
-    border: 1px red solid;
-
     overflow: scroll;
     overflow-x: hidden;
 }

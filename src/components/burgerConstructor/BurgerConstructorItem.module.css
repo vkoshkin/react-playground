@@ -1,11 +1,9 @@
 .container {
-    background-color: green;
     display: flex;
     flex-direction: row;
 }
 
 .drag {
-    background-color: yellow;
     composes: ml-4 from global;
     display: flex;
     align-items: center;

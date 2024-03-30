@@ -9,9 +9,11 @@ class BurgerIngredientsItem extends React.PureComponent {
         const { type, isLocked, name, price, image } = this.props;
         return (
             <div className={styles.container}>
-                {isLocked && <div className={styles.drag}>
-                    <DragIcon type="primary" />
-                </div>}
+                {isLocked &&
+                    <div className={styles.drag}>
+                        <DragIcon type="primary" />
+                    </div>
+                }
                 <ConstructorElement
                     type={type}
                     isLocked={isLocked}

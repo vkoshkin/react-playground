@@ -18,7 +18,7 @@ class BurgerIngredients extends React.Component {
         const buns = data.filter((row) => row.type === "bun");
         const sauces = data.filter((row) => row.type === "sauce");
         const mains = data.filter((row) => row.type === "main");
-        
+
         const counts = {};
         if (ingredients.top !== null && ingredients.bottom !== null) {
             counts[ingredients.top._id] = 1;
@@ -51,33 +51,39 @@ class BurgerIngredients extends React.Component {
                     <section>
                         <h2 className="text text_type_main-medium pt-10">Булки</h2>
                         <div className={styles.section_container}>
-                            {buns.map(data => <BurgerIngredientsItem
-                                key={data._id}
-                                item={data}
-                                count={counts[data._id]}
-                                onAdd={() => this.props.hook(data)} />)}
+                            {buns.map(data =>
+                                <BurgerIngredientsItem
+                                    key={data._id}
+                                    item={data}
+                                    count={counts[data._id]}
+                                    onAdd={() => this.props.hook(data)} />
+                            )}
                         </div>
                     </section>
 
                     <section>
                         <h2 className="text text_type_main-medium pt-10">Соусы</h2>
                         <div className={styles.section_container}>
-                            {sauces.map(data => <BurgerIngredientsItem
-                                key={data._id}
-                                item={data}
-                                count={counts[data._id]}
-                                onAdd={() => this.props.hook(data)} />)}
+                            {sauces.map(data =>
+                                <BurgerIngredientsItem
+                                    key={data._id}
+                                    item={data}
+                                    count={counts[data._id]}
+                                    onAdd={() => this.props.hook(data)} />
+                            )}
                         </div>
                     </section>
 
                     <section>
                         <h2 className="text text_type_main-medium pt-10">Начинки</h2>
                         <div className={styles.section_container}>
-                            {mains.map(data => <BurgerIngredientsItem
-                                key={data._id}
-                                item={data}
-                                count={counts[data._id]}
-                                onAdd={() => this.props.hook(data)} />)}
+                            {mains.map(data =>
+                                <BurgerIngredientsItem
+                                    key={data._id}
+                                    item={data}
+                                    count={counts[data._id]}
+                                    onAdd={() => this.props.hook(data)} />
+                            )}
                         </div>
                     </section>
                 </div>
