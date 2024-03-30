@@ -26,6 +26,7 @@ class BurgerConstructor extends React.Component {
                     {topIngredient !== null &&
                         <BurgerConstructorItem ingredient={topIngredient}
                             type="top"
+                            isLocked={true}
                             extraClass={styles.list_top} />
                     }
                     <div className={styles.list_scroll}>
@@ -33,7 +34,7 @@ class BurgerConstructor extends React.Component {
                             const style = (index !== mainIngredients.length - 1) ? styles.list_main : null;
                             return (
                                 <BurgerConstructorItem ingredient={ingredient}
-                                    isLocked="false"
+                                    isLocked={false}
                                     extraClass={style} 
                                     key={index} />
                             );
@@ -42,6 +43,7 @@ class BurgerConstructor extends React.Component {
                     {bottomIngredient !== null &&
                         <BurgerConstructorItem ingredient={bottomIngredient}
                             type="bottom"
+                            isLocked={true}
                             extraClass={styles.list_bottom} />
                     }
                 </div>
