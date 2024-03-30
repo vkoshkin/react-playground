@@ -1,9 +1,10 @@
 import React from 'react';
-import './App.css';
-import AppHeader from './components/header/AppHeader';
-import BurgerIngredients from './components/ingredients/BurgerIngredients';
-import BurgerConstructor from './components/burgerConstructor/BurgerConstructor';
-import testData from './utils/data';
+
+import AppHeader from '../header/AppHeader';
+import BurgerIngredients from '../ingredients/BurgerIngredients';
+import BurgerConstructor from '../burgerConstructor/BurgerConstructor';
+import testData from '../../utils/data';
+import styles from './app.module.css';
 
 class App extends React.Component {
     state = {
@@ -28,15 +29,15 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="app">
+            <div className={styles.app}>
                 <AppHeader />
-                <main className="main">
-                    <div className="panel">
+                <main className={styles.main}>
+                    <div className={styles.panel}>
                         <BurgerIngredients data={this.state.data}
                             ingredients={this.state.ingredients}
                             hook={(ingredient) => this.onAddIngredient(ingredient)} />
                     </div>
-                    <div className="panel">
+                    <div className={styles.panel}>
                         <BurgerConstructor ingredients={this.state.ingredients} />
                     </div>
                 </main>
