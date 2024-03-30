@@ -13,7 +13,7 @@ class BurgerIngredientsItem extends React.PureComponent {
         }
         return (
             <div className={styleClasses}>
-                {isLocked &&
+                {!isLocked &&
                     <div className={styles.drag}>
                         <DragIcon type="primary" />
                     </div>
