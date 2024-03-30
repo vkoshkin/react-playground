@@ -6,7 +6,7 @@ class AppHeader extends React.Component {
 
     render() {
         return (
-            <div>
+            <header>
                 <nav className={styles.nav}>
                     <div className={styles.menu_group}>
                         <div>
@@ -41,7 +41,7 @@ class AppHeader extends React.Component {
                         </div>
                     </div>
                 </nav>
-            </div>
+            </header>
         );
     }
 }
