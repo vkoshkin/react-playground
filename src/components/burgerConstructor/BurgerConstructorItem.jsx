@@ -8,8 +8,8 @@ class BurgerIngredientsItem extends React.PureComponent {
     render() {
         const { type, isLocked, name, price, image } = this.props;
         return (
-            <div className={styles.constructor_container}>
-                {isLocked && <div className={styles.constructor_drag}>
+            <div className={styles.container}>
+                {isLocked && <div className={styles.drag}>
                     <DragIcon type="primary" />
                 </div>}
                 <ConstructorElement
@@ -18,7 +18,7 @@ class BurgerIngredientsItem extends React.PureComponent {
                     text={name}
                     price={price}
                     thumbnail={image}
-                    extraClass={styles.constructor_element}
+                    extraClass={styles.element}
                 />
             </div>
         );

@@ -15,9 +15,23 @@
     flex-direction: column;
 }
 
+.list_top {
+    composes: mb-4 from global;
+}
+
+.list_bottom {
+    composes: mt-4 from global;
+}
+
 .list_scroll {
+    border: 1px red solid;
+
     overflow: scroll;
     overflow-x: hidden;
+}
+
+.list_main {
+    composes: mb-4 from global;
 }
 
 .footer {

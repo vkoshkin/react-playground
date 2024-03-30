@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import BurgerConstructorItem from './BurgerConstructorItem';
 import styles from './BurgerConstructor.module.css';
@@ -23,11 +23,26 @@ class BurgerConstructor extends React.Component {
         return (
             <div className={styles.constructor}>
                 <div className={styles.list}>
-                    {topIngredient !== null && <BurgerConstructorItem {...topIngredient} type="top" />}
+                    {topIngredient !== null &&
+                        <div className={styles.list_top}>
+                            <BurgerConstructorItem {...topIngredient} type="top" />
+                        </div>
+                    }
                     <div className={styles.list_scroll}>
-                        {mainIngredients.map(ingredient => <BurgerConstructorItem {...ingredient} isLocked="false" />)}
+                        {mainIngredients.map((ingredient, index) => {
+                            const style = (index !== mainIngredients.length - 1) ? styles.list_main : null;
+                            return (
+                                <div className={style}>
+                                    <BurgerConstructorItem {...ingredient} isLocked="false" />
+                                </div>
+                            );
+                        })}
                     </div>
-                    {bottomIngredient !== null && <BurgerConstructorItem {...bottomIngredient} type="bottom" />}
+                    {bottomIngredient !== null &&
+                        <div className={styles.list_bottom}>
+                            <BurgerConstructorItem {...bottomIngredient} type="bottom" />
+                        </div>
+                    }
                 </div>
                 <div className={styles.footer}>
                     <div className={styles.footer_price}>

@@ -1,18 +1,17 @@
-.constructor_container {
+.container {
     background-color: green;
-    composes: mb-4 from global;
     display: flex;
     flex-direction: row;
 }
 
-.constructor_drag {
+.drag {
     background-color: yellow;
     composes: ml-4 from global;
     display: flex;
     align-items: center;
 }
 
-.constructor_element {
+.element {
     composes: mr-4 from global;
     margin-left: auto;
 }
