@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import BurgerConstructorItem from './BurgerConstructorItem';
 import styles from './BurgerConstructor.module.css';
 
 class BurgerConstructor extends React.Component {
@@ -15,43 +16,18 @@ class BurgerConstructor extends React.Component {
         for (const ingredient of ingredients.main) {
             price += ingredient.price;
         }
+        const topIngredient = this.props.ingredients.top;
+        const mainIngredients = this.props.ingredients.main;
+        const bottomIngredient = this.props.ingredients.bottom;
 
         return (
             <div className={styles.constructor}>
                 <div className={styles.list}>
-                    {this.props.ingredients.top !== null && <div className={styles.constructor_container}>
-                        <ConstructorElement
-                            type="top"
-                            isLocked={true}
-                            text={this.props.ingredients.top.name}
-                            price={this.props.ingredients.bottom.price}
-                            thumbnail={this.props.ingredients.top.image}
-                            extraClass={styles.constructor_element}
-                        />
-                    </div>}
+                    {topIngredient !== null && <BurgerConstructorItem {...topIngredient} type="top" />}
                     <div className={styles.list_scroll}>
-                        {this.props.ingredients.main.map(ingredient => <div className={styles.constructor_container}>
-                            <div className={styles.constructor_drag}>
-                                <DragIcon type="primary" />
-                            </div>
-                            <ConstructorElement
-                                text={ingredient.name}
-                                price={ingredient.price}
-                                thumbnail={ingredient.image}
-                                extraClass={styles.constructor_element}
-                            />
-                        </div>)}
+                        {mainIngredients.map(ingredient => <BurgerConstructorItem {...ingredient} isLocked="false" />)}
                     </div>
-                    {this.props.ingredients.bottom !== null && <div className={styles.constructor_container}>
-                        <ConstructorElement
-                            type="bottom"
-                            isLocked={true}
-                            text={this.props.ingredients.bottom.name}
-                            price={this.props.ingredients.bottom.price}
-                            thumbnail={this.props.ingredients.bottom.image}
-                            extraClass={styles.constructor_element}
-                        />
-                    </div>}
+                    {bottomIngredient !== null && <BurgerConstructorItem {...bottomIngredient} type="bottom" />}
                 </div>
                 <div className={styles.footer}>
                     <div className={styles.footer_price}>
