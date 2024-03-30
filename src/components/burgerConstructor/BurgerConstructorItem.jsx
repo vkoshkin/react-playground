@@ -6,7 +6,7 @@ import styles from './BurgerConstructorItem.module.css';
 class BurgerIngredientsItem extends React.PureComponent {
 
     render() {
-        const { type, isLocked, name, price, image, extraClass } = this.props;
+        const { ingredient, type, isLocked, extraClass } = this.props;
         let styleClasses = styles.container;
         if (extraClass !== null) {
             styleClasses += ' ' + extraClass;
@@ -21,9 +21,9 @@ class BurgerIngredientsItem extends React.PureComponent {
                 <ConstructorElement
                     type={type}
                     isLocked={isLocked}
-                    text={name}
-                    price={price}
-                    thumbnail={image}
+                    text={ingredient.name}
+                    price={ingredient.price}
+                    thumbnail={ingredient.image}
                     extraClass={styles.element}
                 />
             </div>

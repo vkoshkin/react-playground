@@ -24,18 +24,25 @@ class BurgerConstructor extends React.Component {
             <div className={styles.constructor}>
                 <div className={styles.list}>
                     {topIngredient !== null &&
-                        <BurgerConstructorItem {...topIngredient} type="top" extraClass={styles.list_top} />
+                        <BurgerConstructorItem ingredient={topIngredient}
+                            type="top"
+                            extraClass={styles.list_top} />
                     }
                     <div className={styles.list_scroll}>
                         {mainIngredients.map((ingredient, index) => {
                             const style = (index !== mainIngredients.length - 1) ? styles.list_main : null;
                             return (
-                                <BurgerConstructorItem {...ingredient} isLocked="false" key={index} extraClass={style}/>
+                                <BurgerConstructorItem ingredient={ingredient}
+                                    isLocked="false"
+                                    key={index}
+                                    extraClass={style} />
                             );
                         })}
                     </div>
                     {bottomIngredient !== null &&
-                        <BurgerConstructorItem {...bottomIngredient} type="bottom" extraClass={styles.list_bottom} />
+                        <BurgerConstructorItem ingredient={bottomIngredient}
+                            type="bottom"
+                            extraClass={styles.list_bottom} />
                     }
                 </div>
                 <div className={styles.footer}>
