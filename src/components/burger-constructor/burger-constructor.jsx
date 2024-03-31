@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import BurgerConstructorItem from './burger-constructor-item';
 import styles from './burger-constructor.module.css';
+import ingredientType from '../../utils/types';
 
 class BurgerConstructor extends React.Component {
 
@@ -35,7 +37,7 @@ class BurgerConstructor extends React.Component {
                             return (
                                 <BurgerConstructorItem ingredient={ingredient}
                                     isLocked={false}
-                                    extraClass={style} 
+                                    extraClass={style}
                                     key={index} />
                             );
                         })}
@@ -60,5 +62,13 @@ class BurgerConstructor extends React.Component {
         );
     }
 }
+
+BurgerConstructor.propTypes = {
+    ingredients: PropTypes.exact({
+        top: PropTypes.instanceOf(ingredientType),
+        ingredients : PropTypes.arrayOf(ingredientType).isRequired,
+        bottom: PropTypes.instanceOf(ingredientType),
+    }).isRequired
+};
 
 export default BurgerConstructor;

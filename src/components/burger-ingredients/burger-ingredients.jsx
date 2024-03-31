@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import BurgerIngredientsItem from './burger-ingredients-item'
 import styles from './burger-ingredients.module.css';
+import ingredientType from '../../utils/types';
 
 class BurgerIngredients extends React.Component {
     constructor(props) {
@@ -54,9 +56,9 @@ class BurgerIngredients extends React.Component {
                             {buns.map(data =>
                                 <BurgerIngredientsItem
                                     key={data._id}
-                                    item={data}
+                                    ingredient={data}
                                     count={counts[data._id]}
-                                    onAdd={() => this.props.hook(data)} />
+                                    onAdd={() => this.props.onAdd(data)} />
                             )}
                         </div>
                     </section>
@@ -67,9 +69,9 @@ class BurgerIngredients extends React.Component {
                             {sauces.map(data =>
                                 <BurgerIngredientsItem
                                     key={data._id}
-                                    item={data}
+                                    ingredient={data}
                                     count={counts[data._id]}
-                                    onAdd={() => this.props.hook(data)} />
+                                    onAdd={() => this.props.onAdd(data)} />
                             )}
                         </div>
                     </section>
@@ -80,9 +82,9 @@ class BurgerIngredients extends React.Component {
                             {mains.map(data =>
                                 <BurgerIngredientsItem
                                     key={data._id}
-                                    item={data}
+                                    ingredient={data}
                                     count={counts[data._id]}
-                                    onAdd={() => this.props.hook(data)} />
+                                    onAdd={() => this.props.onAdd(data)} />
                             )}
                         </div>
                     </section>
@@ -91,5 +93,15 @@ class BurgerIngredients extends React.Component {
         );
     }
 }
+
+BurgerIngredientsItem.propTypes = {
+    ingredients: PropTypes.exact({
+        top: PropTypes.instanceOf(ingredientType),
+        ingredients : PropTypes.arrayOf(ingredientType).isRequired,
+        bottom: PropTypes.instanceOf(ingredientType),
+    }).isRequired,
+    data: PropTypes.arrayOf(ingredientType).isRequired,
+    onAdd: PropTypes.func.isRequired,
+};
 
 export default BurgerIngredients;

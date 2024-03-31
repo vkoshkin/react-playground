@@ -35,7 +35,7 @@ class App extends React.Component {
                     <div className={styles.panel}>
                         <BurgerIngredients data={this.state.data}
                             ingredients={this.state.ingredients}
-                            hook={(ingredient) => this.onAddIngredient(ingredient)} />
+                            onAdd={(ingredient) => this.onAddIngredient(ingredient)} />
                     </div>
                     <div className={styles.panel}>
                         <BurgerConstructor ingredients={this.state.ingredients} />

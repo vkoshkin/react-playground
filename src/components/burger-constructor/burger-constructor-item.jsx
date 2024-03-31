@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './burger-constructor-item.module.css';
+import ingredientType from '../../utils/types';
 
 class BurgerIngredientsItem extends React.PureComponent {
 
@@ -38,5 +39,12 @@ class BurgerIngredientsItem extends React.PureComponent {
         );
     }
 }
+
+BurgerIngredientsItem.propTypes = {
+    ingredient: PropTypes.instanceOf(ingredientType).isRequired,
+    type: PropTypes.string,
+    isLocked: PropTypes.bool.isRequired,
+    extraClass: PropTypes.string,
+};
 
 export default BurgerIngredientsItem;
