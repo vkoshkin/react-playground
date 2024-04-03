@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.drag {
+    composes: ml-4 from global;
+    display: flex;
+    align-items: center;
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.drag:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.element {
+    composes: mr-4 from global;
+    margin-left: auto;
+}

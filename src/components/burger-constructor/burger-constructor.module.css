@@ -1,0 +1,47 @@
+.constructor {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.list {
+    flex-grow: 1;
+    height: 0;
+
+    composes: pt-25 from global;
+    display: flex;
+    flex-direction: column;
+}
+
+.list_top {
+    composes: mb-4 from global;
+}
+
+.list_main {
+    composes: mb-4 from global;
+}
+
+.list_bottom {
+    composes: mt-4 from global;
+}
+
+.list_scroll {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.footer {
+    composes: mt-10 mr-4 mb-6 from global;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.footer_price {
+    composes: mr-10 from global;
+}
+
+.footer_price_number {
+    composes: text text_type_digits-medium mr-2 from global;
+}
