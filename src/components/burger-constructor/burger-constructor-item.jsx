@@ -4,7 +4,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import styles from './burger-constructor-item.module.css';
 import ingredientType from '../../utils/types';
 
-function BurgerIngredientsItem(props) {
+function BurgerConstructorItem(props) {
     const { ingredient, type, isLocked, extraClass } = props;
     let styleClasses = styles.container;
     if (extraClass !== null) {
@@ -36,11 +36,11 @@ function BurgerIngredientsItem(props) {
     );
 }
 
-BurgerIngredientsItem.propTypes = {
+BurgerConstructorItem.propTypes = {
     ingredient: PropTypes.instanceOf(ingredientType).isRequired,
     type: PropTypes.string,
     isLocked: PropTypes.bool.isRequired,
     extraClass: PropTypes.string,
 };
 
-export default BurgerIngredientsItem;
+export default BurgerConstructorItem;

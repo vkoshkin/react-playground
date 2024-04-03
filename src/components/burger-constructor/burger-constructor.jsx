@@ -62,7 +62,7 @@ function BurgerConstructor(props) {
 BurgerConstructor.propTypes = {
     ingredients: PropTypes.exact({
         top: PropTypes.instanceOf(ingredientType),
-        ingredients: PropTypes.arrayOf(ingredientType).isRequired,
+        main: PropTypes.arrayOf(ingredientType).isRequired,
         bottom: PropTypes.instanceOf(ingredientType),
     }).isRequired
 };

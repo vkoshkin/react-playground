@@ -46,40 +46,40 @@ function BurgerIngredients(props) {
 
             <div className={styles.sections}>
                 <section>
-                    <h2 className="text text_type_main-medium pt-10">Булки</h2>
+                    <h2 className={styles.section_header}>Булки</h2>
                     <div className={styles.section_container}>
-                        {buns.map(data =>
+                        {buns.map(ingredient =>
                             <BurgerIngredientsItem
-                                key={data._id}
-                                ingredient={data}
-                                count={counts[data._id]}
-                                onAdd={() => onAdd(data)} />
+                                key={ingredient._id}
+                                ingredient={ingredient}
+                                count={counts[ingredient._id]}
+                                onAdd={() => onAdd(ingredient)} />
                         )}
                     </div>
                 </section>
 
                 <section>
-                    <h2 className="text text_type_main-medium pt-10">Соусы</h2>
+                    <h2 className={styles.section_header}>Соусы</h2>
                     <div className={styles.section_container}>
-                        {sauces.map(data =>
+                        {sauces.map(ingredient =>
                             <BurgerIngredientsItem
-                                key={data._id}
-                                ingredient={data}
-                                count={counts[data._id]}
-                                onAdd={() => onAdd(data)} />
+                                key={ingredient._id}
+                                ingredient={ingredient}
+                                count={counts[ingredient._id]}
+                                onAdd={() => onAdd(ingredient)} />
                         )}
                     </div>
                 </section>
 
                 <section>
-                    <h2 className="text text_type_main-medium pt-10">Начинки</h2>
+                    <h2 className={styles.section_header}>Начинки</h2>
                     <div className={styles.section_container}>
-                        {mains.map(data =>
+                        {mains.map(ingredient =>
                             <BurgerIngredientsItem
-                                key={data._id}
-                                ingredient={data}
-                                count={counts[data._id]}
-                                onAdd={() => onAdd(data)} />
+                                key={ingredient._id}
+                                ingredient={ingredient}
+                                count={counts[ingredient._id]}
+                                onAdd={() => onAdd(ingredient)} />
                         )}
                     </div>
                 </section>
@@ -88,10 +88,10 @@ function BurgerIngredients(props) {
     );
 }
 
-BurgerIngredientsItem.propTypes = {
+BurgerIngredients.propTypes = {
     ingredients: PropTypes.exact({
         top: PropTypes.instanceOf(ingredientType),
-        ingredients: PropTypes.arrayOf(ingredientType).isRequired,
+        main: PropTypes.arrayOf(ingredientType).isRequired,
         bottom: PropTypes.instanceOf(ingredientType),
     }).isRequired,
     data: PropTypes.arrayOf(ingredientType).isRequired,
