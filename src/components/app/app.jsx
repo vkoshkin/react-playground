@@ -3,18 +3,36 @@ import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import testData from '../../utils/data';
 import styles from './app.module.css';
+
+const API_ENDPOINT = "https://norma.nomoreparties.space/api/ingredients";
 
 function App() {
     const [state, setState] = React.useState({
-        data: testData,
+        data: [],
         ingredients: {
             top: null,
             main: [],
             bottom: null,
         },
+        isLoading: false,
+		hasError: false,
     });
+
+    React.useEffect(() => {
+            const fetchData = async () => {
+                setState({ ...state, isLoading: true, hasError: false });
+                await fetch(API_ENDPOINT)
+                    .then(response => response.json())
+				    .then(responseJson => setState({ ...state, data: responseJson.data, isLoading: false }))
+				    .catch(e => {
+					    setState({ ...state, hasError: true, isLoading: false });
+				    });
+            }
+            fetchData();
+        },
+        []
+    );
 
     const onAddIngredient = (ingredient) => {
         let updatedIngredients = { ...state.ingredients };
@@ -29,8 +47,8 @@ function App() {
 
     return (
         <div className={styles.app}>
-            <AppHeader />
-            <main className={styles.main}>
+            { !state.isLoading && !state.hasError && <AppHeader /> }
+            { !state.isLoading && !state.hasError && <main className={styles.main}>
                 <div className={styles.panel}>
                     <BurgerIngredients data={state.data}
                         ingredients={state.ingredients}
@@ -39,7 +57,7 @@ function App() {
                 <div className={styles.panel}>
                     <BurgerConstructor ingredients={state.ingredients} />
                 </div>
-            </main>
+            </main> }
         </div>
     );
 }
