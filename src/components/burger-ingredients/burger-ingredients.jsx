@@ -90,9 +90,9 @@ function BurgerIngredients(props) {
 
 BurgerIngredients.propTypes = {
     ingredients: PropTypes.exact({
-        top: PropTypes.instanceOf(ingredientType),
+        top: ingredientType,
         main: PropTypes.arrayOf(ingredientType).isRequired,
-        bottom: PropTypes.instanceOf(ingredientType),
+        bottom: ingredientType,
     }).isRequired,
     data: PropTypes.arrayOf(ingredientType).isRequired,
     onAdd: PropTypes.func.isRequired,
