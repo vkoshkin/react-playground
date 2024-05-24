@@ -7,6 +7,7 @@ import BurgerConstructorItem from './burger-constructor-item';
 import styles from './burger-constructor.module.css';
 import ingredientType from '../../utils/types';
 import ModalOverlay from '../modal/modal-overlay';
+import Modal from '../modal/modal';
 
 function BurgerConstructor(props) {
     const [showModal, setShowModal] = React.useState(false);
@@ -61,7 +62,13 @@ function BurgerConstructor(props) {
                 </Button>
             </div>
             {showModal && ReactDOM.createPortal(
-                (<ModalOverlay onClose={() => setShowModal(false)}></ModalOverlay>), 
+                (
+                    <ModalOverlay onClose={() => setShowModal(false)}>
+                        <Modal onClose={() => setShowModal(false)}>
+                            
+                        </Modal>
+                    </ModalOverlay>
+                ),
                 document.body
             )}
         </div>
