@@ -43,12 +43,13 @@ function App() {
             updatedIngredients.main.push(ingredient);
         }
         setState({ ...state, ingredients: updatedIngredients });
-    }
+    };
 
     return (
         <div className={styles.app}>
             { !state.isLoading && !state.hasError && <AppHeader /> }
-            { !state.isLoading && !state.hasError && <main className={styles.main}>
+            { !state.isLoading && !state.hasError && 
+            <main className={styles.main}>
                 <div className={styles.panel}>
                     <BurgerIngredients data={state.data}
                         ingredients={state.ingredients}
