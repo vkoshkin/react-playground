@@ -25,48 +25,46 @@ function BurgerConstructor(props) {
     const bottomIngredient = ingredients.bottom;
 
     return (
-        <>
-            <div className={styles.constructor}>
-                <div className={styles.list}>
-                    {topIngredient !== null &&
-                        <BurgerConstructorItem ingredient={topIngredient}
-                            type="top"
-                            isLocked={true}
-                            extraClass={styles.list_top} />
-                    }
-                    <div className={styles.list_scroll}>
-                        {mainIngredients.map((ingredient, index) => {
-                            const style = (index !== mainIngredients.length - 1) ? styles.list_main : null;
-                            return (
-                                <BurgerConstructorItem ingredient={ingredient}
-                                    isLocked={false}
-                                    extraClass={style}
-                                    key={index} />
-                            );
-                        })}
-                    </div>
-                    {bottomIngredient !== null &&
-                        <BurgerConstructorItem ingredient={bottomIngredient}
-                            type="bottom"
-                            isLocked={true}
-                            extraClass={styles.list_bottom} />
-                    }
+        <div className={styles.constructor}>
+            <div className={styles.list}>
+                {topIngredient !== null &&
+                    <BurgerConstructorItem ingredient={topIngredient}
+                        type="top"
+                        isLocked={true}
+                        extraClass={styles.list_top} />
+                }
+                <div className={styles.list_scroll}>
+                    {mainIngredients.map((ingredient, index) => {
+                        const style = (index !== mainIngredients.length - 1) ? styles.list_main : null;
+                        return (
+                            <BurgerConstructorItem ingredient={ingredient}
+                                isLocked={false}
+                                extraClass={style}
+                                key={index} />
+                        );
+                    })}
                 </div>
-                <div className={styles.footer}>
-                    <div className={styles.footer_price}>
-                        <span className={styles.footer_price_number}>{price}</span>
-                        <CurrencyIcon type="primary" />
-                    </div>
-                    <Button htmlType="button" type="primary" size="medium" onClick={() => setShowModal(true)}>
-                        Оформить заказ
-                    </Button>
+                {bottomIngredient !== null &&
+                    <BurgerConstructorItem ingredient={bottomIngredient}
+                        type="bottom"
+                        isLocked={true}
+                        extraClass={styles.list_bottom} />
+                }
+            </div>
+            <div className={styles.footer}>
+                <div className={styles.footer_price}>
+                    <span className={styles.footer_price_number}>{price}</span>
+                    <CurrencyIcon type="primary" />
                 </div>
+                <Button htmlType="button" type="primary" size="medium" onClick={() => setShowModal(true)}>
+                    Оформить заказ
+                </Button>
             </div>
             {showModal && ReactDOM.createPortal(
                 (<ModalOverlay onClose={() => setShowModal(false)}></ModalOverlay>), 
                 document.body
             )}
-        </>
+        </div>
     );
 }
 
