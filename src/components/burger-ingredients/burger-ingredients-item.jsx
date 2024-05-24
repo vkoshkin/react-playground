@@ -26,7 +26,7 @@ function BurgerIngredientsItem(props) {
 }
 
 BurgerIngredientsItem.propTypes = {
-    ingredient: PropTypes.instanceOf(ingredientType),
+    ingredient: ingredientType,
     count: PropTypes.number,
     onAdd: PropTypes.func.isRequired,
 };
