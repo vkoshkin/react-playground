@@ -27,7 +27,7 @@
 }
 
 .nutritional_values_desc {
-    composes: text text_type_main-default text_color_inactive from global;
+    composes: text text_type_main-default text_color_inactive mb-2 from global;
     text-align: center;
 }
 
