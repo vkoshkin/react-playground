@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import BurgerConstructorItem from './burger-constructor-item';
-import styles from './burger-constructor.module.css';
-import ingredientType from '../../utils/types';
 import ModalOverlay from '../modal/modal-overlay';
 import Modal from '../modal/modal';
+import styles from './burger-constructor.module.css';
+import ingredientType from '../../utils/types';
 
 function BurgerConstructor(props) {
-    const [showModal, setShowModal] = React.useState(false);
+    const [showOrder, setShowOrder] = React.useState(false);
 
     const { ingredients } = props;
     let price = 0;
@@ -57,15 +57,15 @@ function BurgerConstructor(props) {
                     <span className={styles.footer_price_number}>{price}</span>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType="button" type="primary" size="medium" onClick={() => setShowModal(true)}>
+                <Button htmlType="button" type="primary" size="medium" onClick={() => setShowOrder(true)}>
                     Оформить заказ
                 </Button>
             </div>
-            {showModal && ReactDOM.createPortal(
+            {showOrder && ReactDOM.createPortal(
                 (
-                    <ModalOverlay onClose={() => setShowModal(false)}>
-                        <Modal onClose={() => setShowModal(false)}>
-                            
+                    <ModalOverlay onClose={() => setShowOrder(false)}>
+                        <Modal onClose={() => setShowOrder(false)}>
+
                         </Modal>
                     </ModalOverlay>
                 ),
