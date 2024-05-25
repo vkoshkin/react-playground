@@ -37,7 +37,7 @@ function BurgerIngredientsItem(props) {
             
             {showInfo && ReactDOM.createPortal((
                     <ModalOverlay onClose={() => setShowInfo(false)}>
-                        <Modal onClose={() => setShowInfo(false)}>
+                        <Modal header={ingredient.name} onClose={() => setShowInfo(false)}>
                             
                         </Modal>
                     </ModalOverlay>
