@@ -1,6 +1,9 @@
+import PropTypes from 'prop-types';
+
 import ModalOverlay from '../modal/modal-overlay';
 import Modal from '../modal/modal';
 import styles from './burger-ingredients-modal.module.css';
+import ingredientType from '../../utils/types';
 
 function BurgerIngredientsModal(props) {
     const { ingredient, onClose } = props;
@@ -33,5 +36,10 @@ function BurgerIngredientsModal(props) {
         </ModalOverlay>
     );
 }
+
+BurgerIngredientsModal.propTypes = {
+    ingredient: ingredientType.isRequired,
+    onClose: PropTypes.func.isRequired,
+};
 
 export default BurgerIngredientsModal;
