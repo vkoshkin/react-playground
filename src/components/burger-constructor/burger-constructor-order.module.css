@@ -14,6 +14,13 @@
 
 .order_icon {
     composes: mt-15 mb-15 from global;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.order_icon_segment {
+    grid-area: 1 / 1;
 }
 
 .order_info {
