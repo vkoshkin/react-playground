@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AppError from './app-error';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -16,23 +17,21 @@ function App() {
             bottom: null,
         },
         isLoading: false,
-		hasError: false,
+        hasError: false,
     });
 
     React.useEffect(() => {
-            const fetchData = async () => {
-                setState({ ...state, isLoading: true, hasError: false });
-                await fetch(API_ENDPOINT)
-                    .then(response => response.json())
-				    .then(responseJson => setState({ ...state, data: responseJson.data, isLoading: false }))
-				    .catch(e => {
-					    setState({ ...state, hasError: true, isLoading: false });
-				    });
-            }
-            fetchData();
-        },
-        []
-    );
+        const fetchData = async () => {
+            setState({ ...state, isLoading: true, hasError: false });
+            await fetch(API_ENDPOINT)
+                .then(response => response.json())
+                .then(responseJson => setState({ ...state, data: responseJson.data, isLoading: false }))
+                .catch(e => {
+                    setState({ ...state, hasError: true, isLoading: false });
+                });
+        }
+        fetchData();
+    }, []);
 
     const onAddIngredient = (ingredient) => {
         let updatedIngredients = { ...state.ingredients };
@@ -47,18 +46,19 @@ function App() {
 
     return (
         <div className={styles.app}>
-            { !state.isLoading && !state.hasError && <AppHeader /> }
-            { !state.isLoading && !state.hasError && 
-            <main className={styles.main}>
-                <div className={styles.panel}>
-                    <BurgerIngredients data={state.data}
-                        ingredients={state.ingredients}
-                        onAdd={(ingredient) => onAddIngredient(ingredient)} />
-                </div>
-                <div className={styles.panel}>
-                    <BurgerConstructor ingredients={state.ingredients} />
-                </div>
-            </main> }
+            {!state.isLoading && !state.hasError && <AppHeader />}
+            {!state.isLoading && !state.hasError &&
+                <main className={styles.main}>
+                    <div className={styles.panel}>
+                        <BurgerIngredients data={state.data}
+                            ingredients={state.ingredients}
+                            onAdd={(ingredient) => onAddIngredient(ingredient)} />
+                    </div>
+                    <div className={styles.panel}>
+                        <BurgerConstructor ingredients={state.ingredients} />
+                    </div>
+                </main>}
+            {!state.isLoading && state.hasError && <AppError />}
         </div>
     );
 }
