@@ -16,12 +16,10 @@ function BurgerConstructorOrder(props) {
                     <span className={styles.order_id}>034536</span>
                     <span className={styles.order_id_desc}>идентификатор заказа</span>
                     <div className={styles.order_icon}>
-                        <img src={Order1} alt="Заказ" className={styles.order_icon_segment}/>
-                        <img src={Order2} alt="Заказ" className={styles.order_icon_segment}/>
-                        <img src={Order3} alt="Заказ" className={styles.order_icon_segment}/>
-                        <div className={styles.order_icon_segment}>
-                            <CheckMarkIcon type="primary"   />
-                        </div>
+                        <img src={Order1} alt="Заказ" />
+                        <img src={Order2} alt="Заказ" />
+                        <img src={Order3} alt="Заказ" />
+                        <CheckMarkIcon type="primary" />
                     </div>
                     <span className={styles.order_info}>Ваш заказ начали готовить</span>
                     <span className={styles.order_sub}>Дождитесь готовности на орбитальной станции</span>

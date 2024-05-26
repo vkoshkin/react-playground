@@ -19,7 +19,7 @@
     align-items: center;
 }
 
-.order_icon_segment {
+.order_icon > * {
     grid-area: 1 / 1;
 }
 
