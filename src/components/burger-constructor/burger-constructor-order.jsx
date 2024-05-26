@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import ModalOverlay from '../modal/modal-overlay';
@@ -28,5 +29,9 @@ function BurgerConstructorOrder(props) {
         </ModalOverlay>
     );
 }
+
+BurgerConstructorOrder.propTypes = {
+    onClose: PropTypes.func.isRequired,
+};
 
 export default BurgerConstructorOrder;
