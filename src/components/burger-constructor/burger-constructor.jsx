@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import BurgerConstructorItem from './burger-constructor-item';
-import ModalOverlay from '../modal/modal-overlay';
-import Modal from '../modal/modal';
+import BurgerConstructorOrder from './burger-constructor-order';
 import styles from './burger-constructor.module.css';
 import ingredientType from '../../utils/types';
 
@@ -61,13 +60,8 @@ function BurgerConstructor(props) {
                     Оформить заказ
                 </Button>
             </div>
-            {showOrder && ReactDOM.createPortal(
-                (
-                    <ModalOverlay onClose={() => setShowOrder(false)}>
-                        <Modal onClose={() => setShowOrder(false)}>
-
-                        </Modal>
-                    </ModalOverlay>
+            {showOrder && ReactDOM.createPortal((
+                    <BurgerConstructorOrder onClose={() => setShowOrder(false)} />
                 ),
                 document.body
             )}
