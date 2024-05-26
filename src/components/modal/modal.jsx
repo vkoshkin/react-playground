@@ -4,7 +4,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 function Modal(props) {
     const { header, children, onClose } = props;
     return (
-        <div className={styles.modal}>
+        <div className={styles.modal} onClick={e => e.stopPropagation()}>
             <div className={styles.header}>
                 <span className={styles.header_text}>
                     {header}
@@ -13,7 +13,7 @@ function Modal(props) {
                     <CloseIcon type="primary" onClick={onClose}/>
                 </div>
             </div>
-            <div className={styles.content}>
+            <div>
                 {children}
             </div>
         </div>
