@@ -18,18 +18,16 @@ function BurgerIngredientsItem(props) {
     return (
         <div className={styles.item} onClick={onAdd}>
             <div>
-                <img className="pl-4 pr-4 mb-1" 
+                <img className={styles.item_image} 
                     src={ingredient.image} 
                     alt={ingredient.name} 
                     onClick={onIngredientImageClick}/>
                 <div className={styles.item_price}>
-                    <span className="text text_type_digits-default mr-1">{ingredient.price}</span>
+                    <p className={styles.item_price_value}>{ingredient.price}</p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <div className={styles.item_description}>
-                    <p className="text text_type_main-default pt-1">
-                        {ingredient.name}
-                    </p>
+                    <p className={styles.item_description_text}>{ingredient.name}</p>
                 </div>
             </div>
             {count > 0 && <Counter count={count} size="default" />}

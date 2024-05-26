@@ -5,10 +5,19 @@
     min-height: 208px;
 }
 
+.item_image {
+    composes: pl-4 pr-4 mb-1 from global;
+    cursor: pointer;
+}
+
 .item_price {
     composes: mt-1 from global;
     display: flex;
     justify-content: center;
+}
+
+.item_price_value {
+    composes: text text_type_digits-default mr-1 from global;
 }
 
 .item_description {
@@ -16,4 +25,8 @@
     display: flex;
     justify-content: center;
     text-align: center;
+}
+
+.item_description_text {
+    composes: text text_type_main-default pt-1 from global;
 }

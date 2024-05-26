@@ -8,9 +8,7 @@ function Modal(props) {
     return (
         <div className={styles.modal} onClick={e => e.stopPropagation()}>
             <div className={styles.header}>
-                <span className={styles.header_text}>
-                    {header}
-                </span>
+                <p className={styles.header_text}>{header}</p>
                 <div className={styles.close}>
                     <CloseIcon type="primary" onClick={onClose}/>
                 </div>

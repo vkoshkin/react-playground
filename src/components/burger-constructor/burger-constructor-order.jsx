@@ -14,16 +14,16 @@ function BurgerConstructorOrder(props) {
         <ModalOverlay onClose={onClose}>
             <Modal onClose={onClose}>
                 <div className={styles.layout}>
-                    <span className={styles.order_id}>034536</span>
-                    <span className={styles.order_id_desc}>идентификатор заказа</span>
+                    <p className={styles.order_id}>034536</p>
+                    <p className={styles.order_id_desc}>идентификатор заказа</p>
                     <div className={styles.order_icon}>
                         <img src={Order1} alt="Заказ" />
                         <img src={Order2} alt="Заказ" />
                         <img src={Order3} alt="Заказ" />
                         <CheckMarkIcon type="primary" />
                     </div>
-                    <span className={styles.order_info}>Ваш заказ начали готовить</span>
-                    <span className={styles.order_sub}>Дождитесь готовности на орбитальной станции</span>
+                    <p className={styles.order_info}>Ваш заказ начали готовить</p>
+                    <p className={styles.order_sub}>Дождитесь готовности на орбитальной станции</p>
                 </div>
             </Modal>
         </ModalOverlay>
