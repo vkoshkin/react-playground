@@ -3,12 +3,12 @@ import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-component
 
 import ModalOverlay from '../modal/modal-overlay';
 import Modal from '../modal/modal';
-import styles from './burger-constructor-order.module.css';
+import styles from './order-details.module.css';
 import order1 from '../../images/order-1.svg'
 import order2 from '../../images/order-2.svg'
 import order3 from '../../images/order-3.svg'
 
-function BurgerConstructorOrder(props) {
+function OrderDetails(props) {
     const { onClose } = props;
     return (
         <ModalOverlay onClose={onClose}>
@@ -30,8 +30,8 @@ function BurgerConstructorOrder(props) {
     );
 }
 
-BurgerConstructorOrder.propTypes = {
+OrderDetails.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default BurgerConstructorOrder;
+export default OrderDetails;
