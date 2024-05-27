@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 
 import ModalOverlay from '../modal/modal-overlay';
 import Modal from '../modal/modal';
-import styles from './burger-ingredients-modal.module.css';
+import styles from './ingredient-details.module.css';
 import ingredientType from '../../utils/types';
 
-function BurgerIngredientsModal(props) {
+function IngredientDetails(props) {
     const { ingredient, onClose } = props;
     return (
         <ModalOverlay onClose={onClose}>
@@ -37,9 +37,9 @@ function BurgerIngredientsModal(props) {
     );
 }
 
-BurgerIngredientsModal.propTypes = {
+IngredientDetails.propTypes = {
     ingredient: ingredientType.isRequired,
     onClose: PropTypes.func.isRequired,
 };
 
-export default BurgerIngredientsModal;
+export default IngredientDetails;

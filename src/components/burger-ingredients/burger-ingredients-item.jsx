@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import BurgerIngredientsModal from './burger-ingredients-modal';
+import IngredientDetails from './ingredient-details';
 import styles from './burger-ingredients-item.module.css';
 import ingredientType from '../../utils/types';
 
@@ -32,9 +32,10 @@ function BurgerIngredientsItem(props) {
             </div>
             {count > 0 && <Counter count={count} size="default" />}
 
-            {showInfo && ReactDOM.createPortal((
-                <BurgerIngredientsModal ingredient={ingredient} onClose={() => setShowInfo(false)} />
-            ),
+            {showInfo && ReactDOM.createPortal(
+                (
+                    <IngredientDetails ingredient={ingredient} onClose={() => setShowInfo(false)} />
+                ),
                 document.body
             )}
         </div>
