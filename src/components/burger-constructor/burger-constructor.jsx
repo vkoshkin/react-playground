@@ -5,12 +5,11 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import BurgerConstructorItem from './burger-constructor-item';
 import OrderDetails from './order-details';
 import Modal from '../modal/modal';
+import { useModal } from '../hooks/useModal';
 import styles from './burger-constructor.module.css';
 import ingredientType from '../../utils/types';
 
 function BurgerConstructor(props) {
-    const [showOrder, setShowOrder] = React.useState(false);
-
     const { ingredients } = props;
     let price = 0;
     if (ingredients.top !== null && ingredients.bottom != null) {
@@ -23,6 +22,8 @@ function BurgerConstructor(props) {
     const topIngredient = ingredients.top;
     const mainIngredients = ingredients.main;
     const bottomIngredient = ingredients.bottom;
+
+    const { isModalOpen, openModal, closeModal } = useModal();
 
     return (
         <div className={styles.constructor}>
@@ -56,12 +57,12 @@ function BurgerConstructor(props) {
                     <span className={styles.footer_price_number}>{price}</span>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType="button" type="primary" size="medium" onClick={() => setShowOrder(true)}>
+                <Button htmlType="button" type="primary" size="medium" onClick={() => openModal()}>
                     Оформить заказ
                 </Button>
             </div>
-            {showOrder &&
-                <Modal onClose={() => setShowOrder(false)}>
+            {isModalOpen &&
+                <Modal onClose={() => closeModal()}>
                     <OrderDetails />
                 </Modal>
             }

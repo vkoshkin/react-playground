@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import IngredientDetails from './ingredient-details';
+import Modal from '../modal/modal';
+import { useModal } from '../hooks/useModal';
 import styles from './burger-ingredients-item.module.css';
 import ingredientType from '../../utils/types';
-import Modal from '../modal/modal';
 
 function BurgerIngredientsItem(props) {
-    const [showInfo, setShowInfo] = React.useState(false);
     const { ingredient, count, onAdd } = props;
+    const { isModalOpen, openModal, closeModal } = useModal();
 
     const onIngredientImageClick = event => {
         event.stopPropagation();
-        setShowInfo(true);
+        openModal();
     };
     return (
         <div className={styles.item} onClick={onAdd}>
@@ -32,8 +33,8 @@ function BurgerIngredientsItem(props) {
             </div>
             {count > 0 && <Counter count={count} size="default" />}
 
-            {showInfo &&
-                <Modal header={"Детали ингредиента"} onClose={() => setShowInfo(false)}>
+            {isModalOpen &&
+                <Modal header={"Детали ингредиента"} onClose={() => closeModal()}>
                     <IngredientDetails ingredient={ingredient} />
                 </Modal>
             }
