@@ -15,7 +15,7 @@ function ModalOverlay(props) {
         return () => {
             document.removeEventListener("keydown", trackKeyDown);
         }
-    }, []);
+    }, [onClose]);
     return (
         <section className={styles.overlay} onClick={(e) => { e.stopPropagation(); onClose(); }}>
             {children}
