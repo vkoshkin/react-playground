@@ -24,7 +24,12 @@ function App() {
         const fetchData = async () => {
             setState({ ...state, isLoading: true, hasError: false });
             await fetch(API_ENDPOINT)
-                .then(response => response.json())
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    return Promise.reject(`Ошибка ${response.status}`);
+                })
                 .then(responseJson => setState({ ...state, data: responseJson.data, isLoading: false }))
                 .catch(e => {
                     setState({ ...state, hasError: true, isLoading: false });
