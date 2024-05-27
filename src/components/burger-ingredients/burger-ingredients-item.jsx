@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import IngredientDetails from './ingredient-details';
 import styles from './burger-ingredients-item.module.css';
 import ingredientType from '../../utils/types';
+import Modal from '../modal/modal';
 
 function BurgerIngredientsItem(props) {
     const [showInfo, setShowInfo] = React.useState(false);
@@ -32,12 +32,11 @@ function BurgerIngredientsItem(props) {
             </div>
             {count > 0 && <Counter count={count} size="default" />}
 
-            {showInfo && ReactDOM.createPortal(
-                (
-                    <IngredientDetails ingredient={ingredient} onClose={() => setShowInfo(false)} />
-                ),
-                document.body
-            )}
+            {showInfo &&
+                <Modal header={"Детали ингредиента"} onClose={() => setShowInfo(false)}>
+                    <IngredientDetails ingredient={ingredient} />
+                </Modal>
+            }
         </div>
     );
 }

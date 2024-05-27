@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import BurgerConstructorItem from './burger-constructor-item';
 import OrderDetails from './order-details';
+import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 import ingredientType from '../../utils/types';
 
@@ -60,12 +60,11 @@ function BurgerConstructor(props) {
                     Оформить заказ
                 </Button>
             </div>
-            {showOrder && ReactDOM.createPortal(
-                (
-                    <OrderDetails onClose={() => setShowOrder(false)} />
-                ),
-                document.body
-            )}
+            {showOrder &&
+                <Modal onClose={() => setShowOrder(false)}>
+                    <OrderDetails />
+                </Modal>
+            }
         </div>
     );
 }
