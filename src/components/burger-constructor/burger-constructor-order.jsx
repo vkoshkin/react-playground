@@ -4,9 +4,9 @@ import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-component
 import ModalOverlay from '../modal/modal-overlay';
 import Modal from '../modal/modal';
 import styles from './burger-constructor-order.module.css';
-import Order1 from '../../images/order-1.svg'
-import Order2 from '../../images/order-2.svg'
-import Order3 from '../../images/order-3.svg'
+import order1 from '../../images/order-1.svg'
+import order2 from '../../images/order-2.svg'
+import order3 from '../../images/order-3.svg'
 
 function BurgerConstructorOrder(props) {
     const { onClose } = props;
@@ -17,9 +17,9 @@ function BurgerConstructorOrder(props) {
                     <p className={styles.order_id}>034536</p>
                     <p className={styles.order_id_desc}>идентификатор заказа</p>
                     <div className={styles.order_icon}>
-                        <img src={Order1} alt="Заказ" />
-                        <img src={Order2} alt="Заказ" />
-                        <img src={Order3} alt="Заказ" />
+                        <img src={order1} alt="Заказ" />
+                        <img src={order2} alt="Заказ" />
+                        <img src={order3} alt="Заказ" />
                         <CheckMarkIcon type="primary" />
                     </div>
                     <p className={styles.order_info}>Ваш заказ начали готовить</p>

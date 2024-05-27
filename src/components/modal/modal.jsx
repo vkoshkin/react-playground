@@ -10,7 +10,7 @@ function Modal(props) {
             <div className={styles.header}>
                 <p className={styles.header_text}>{header}</p>
                 <div className={styles.close}>
-                    <CloseIcon type="primary" onClick={onClose}/>
+                    <CloseIcon type="primary" onClick={onClose} />
                 </div>
             </div>
             <div>

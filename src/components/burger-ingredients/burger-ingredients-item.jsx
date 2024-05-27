@@ -18,10 +18,10 @@ function BurgerIngredientsItem(props) {
     return (
         <div className={styles.item} onClick={onAdd}>
             <div>
-                <img className={styles.item_image} 
-                    src={ingredient.image} 
-                    alt={ingredient.name} 
-                    onClick={onIngredientImageClick}/>
+                <img className={styles.item_image}
+                    src={ingredient.image}
+                    alt={ingredient.name}
+                    onClick={onIngredientImageClick} />
                 <div className={styles.item_price}>
                     <p className={styles.item_price_value}>{ingredient.price}</p>
                     <CurrencyIcon type="primary" />
@@ -31,10 +31,10 @@ function BurgerIngredientsItem(props) {
                 </div>
             </div>
             {count > 0 && <Counter count={count} size="default" />}
-            
+
             {showInfo && ReactDOM.createPortal((
-                    <BurgerIngredientsModal ingredient={ingredient} onClose={() => setShowInfo(false)}/>
-                ),
+                <BurgerIngredientsModal ingredient={ingredient} onClose={() => setShowInfo(false)} />
+            ),
                 document.body
             )}
         </div>

@@ -61,8 +61,8 @@ function BurgerConstructor(props) {
                 </Button>
             </div>
             {showOrder && ReactDOM.createPortal((
-                    <BurgerConstructorOrder onClose={() => setShowOrder(false)} />
-                ),
+                <BurgerConstructorOrder onClose={() => setShowOrder(false)} />
+            ),
                 document.body
             )}
         </div>
