@@ -17,7 +17,7 @@ function ModalOverlay(props) {
         }
     }, []);
     return (
-        <section className={styles.overlay} onClick={onClose}>
+        <section className={styles.overlay} onClick={(e) => { e.stopPropagation(); onClose(); }}>
             {children}
         </section>
     );
