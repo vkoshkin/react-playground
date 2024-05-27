@@ -5,12 +5,12 @@ import styles from './modal-overlay.module.css';
 
 function ModalOverlay(props) {
     const { children, onClose } = props;
-    const trackKeyDown = (e) => {
-        if (e.key === "Escape") {
-            onClose();
-        }
-    };
     React.useEffect(() => {
+        const trackKeyDown = (e) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
         document.addEventListener("keydown", trackKeyDown);
         return () => {
             document.removeEventListener("keydown", trackKeyDown);
