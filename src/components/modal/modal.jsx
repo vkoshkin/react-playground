@@ -5,6 +5,8 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from './modal-overlay';
 import styles from './modal.module.css';
 
+const modalRoot = document.getElementById("modals");
+
 function Modal(props) {
     const { header, children, onClose } = props;
     return (
@@ -22,7 +24,7 @@ function Modal(props) {
                     </div>
                 </div>
             </ModalOverlay>,
-            document.body
+            modalRoot
         )
     );
 }
