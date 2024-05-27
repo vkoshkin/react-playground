@@ -46,7 +46,9 @@ function App() {
 
     return (
         <div className={styles.app}>
-            {!state.isLoading && !state.hasError && <AppHeader />}
+            {!state.isLoading && !state.hasError &&
+                <AppHeader />
+            }
             {!state.isLoading && !state.hasError &&
                 <main className={styles.main}>
                     <div className={styles.panel}>
@@ -57,8 +59,11 @@ function App() {
                     <div className={styles.panel}>
                         <BurgerConstructor ingredients={state.ingredients} />
                     </div>
-                </main>}
-            {!state.isLoading && state.hasError && <AppError />}
+                </main>
+            }
+            {!state.isLoading && state.hasError &&
+                <AppError />
+            }
         </div>
     );
 }
