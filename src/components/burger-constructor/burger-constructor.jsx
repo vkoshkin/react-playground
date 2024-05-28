@@ -57,12 +57,12 @@ function BurgerConstructor(props) {
                     <span className={styles.footer_price_number}>{price}</span>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType="button" type="primary" size="medium" onClick={() => openModal()}>
+                <Button htmlType="button" type="primary" size="medium" onClick={openModal}>
                     Оформить заказ
                 </Button>
             </div>
             {isModalOpen &&
-                <Modal onClose={() => closeModal()}>
+                <Modal onClose={closeModal}>
                     <OrderDetails />
                 </Modal>
             }

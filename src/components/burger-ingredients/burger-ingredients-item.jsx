@@ -34,7 +34,7 @@ function BurgerIngredientsItem(props) {
             {count > 0 && <Counter count={count} size="default" />}
 
             {isModalOpen &&
-                <Modal header={"Детали ингредиента"} onClose={() => closeModal()}>
+                <Modal header={"Детали ингредиента"} onClose={closeModal}>
                     <IngredientDetails ingredient={ingredient} />
                 </Modal>
             }
