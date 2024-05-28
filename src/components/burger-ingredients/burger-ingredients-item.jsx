@@ -1,32 +1,49 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import IngredientDetails from './ingredient-details';
+import Modal from '../modal/modal';
+import { useModal } from '../hooks/useModal';
 import styles from './burger-ingredients-item.module.css';
 import ingredientType from '../../utils/types';
 
 function BurgerIngredientsItem(props) {
     const { ingredient, count, onAdd } = props;
+    const { isModalOpen, openModal, closeModal } = useModal();
+
+    const onIngredientImageClick = event => {
+        event.stopPropagation();
+        openModal();
+    };
     return (
         <div className={styles.item} onClick={onAdd}>
             <div>
-                <img className="pl-4 pr-4 mb-1" src={ingredient.image} alt={ingredient.name} />
+                <img className={styles.item_image}
+                    src={ingredient.image}
+                    alt={ingredient.name}
+                    onClick={onIngredientImageClick} />
                 <div className={styles.item_price}>
-                    <span className="text text_type_digits-default mr-1">{ingredient.price}</span>
+                    <p className={styles.item_price_value}>{ingredient.price}</p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <div className={styles.item_description}>
-                    <p className="text text_type_main-default pt-1">
-                        {ingredient.name}
-                    </p>
+                    <p className={styles.item_description_text}>{ingredient.name}</p>
                 </div>
             </div>
             {count > 0 && <Counter count={count} size="default" />}
+
+            {isModalOpen &&
+                <Modal header={"Детали ингредиента"} onClose={closeModal}>
+                    <IngredientDetails ingredient={ingredient} />
+                </Modal>
+            }
         </div>
     );
 }
 
 BurgerIngredientsItem.propTypes = {
-    ingredient: PropTypes.instanceOf(ingredientType),
+    ingredient: ingredientType,
     count: PropTypes.number,
     onAdd: PropTypes.func.isRequired,
 };

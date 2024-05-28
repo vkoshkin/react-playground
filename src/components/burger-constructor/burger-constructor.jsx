@@ -1,7 +1,11 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import BurgerConstructorItem from './burger-constructor-item';
+import OrderDetails from './order-details';
+import Modal from '../modal/modal';
+import { useModal } from '../hooks/useModal';
 import styles from './burger-constructor.module.css';
 import ingredientType from '../../utils/types';
 
@@ -18,6 +22,8 @@ function BurgerConstructor(props) {
     const topIngredient = ingredients.top;
     const mainIngredients = ingredients.main;
     const bottomIngredient = ingredients.bottom;
+
+    const { isModalOpen, openModal, closeModal } = useModal();
 
     return (
         <div className={styles.constructor}>
@@ -51,19 +57,24 @@ function BurgerConstructor(props) {
                     <span className={styles.footer_price_number}>{price}</span>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType="button" type="primary" size="medium">
+                <Button htmlType="button" type="primary" size="medium" onClick={openModal}>
                     Оформить заказ
                 </Button>
             </div>
+            {isModalOpen &&
+                <Modal onClose={closeModal}>
+                    <OrderDetails />
+                </Modal>
+            }
         </div>
     );
 }
 
 BurgerConstructor.propTypes = {
     ingredients: PropTypes.exact({
-        top: PropTypes.instanceOf(ingredientType),
+        top: ingredientType,
         main: PropTypes.arrayOf(ingredientType).isRequired,
-        bottom: PropTypes.instanceOf(ingredientType),
+        bottom: ingredientType,
     }).isRequired
 };
 

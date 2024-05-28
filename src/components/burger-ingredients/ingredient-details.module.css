@@ -1,0 +1,37 @@
+.layout {
+    composes: ml-10 mr-10 from global;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    composes: text text_type_main-medium mb-8 from global;
+}
+
+.image {
+    composes: mb-4 from global;
+}
+
+.nutritional_values_list {
+    composes: mb-15 from global;
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+}
+
+.nutritional_value_item {
+    composes: ml-5 from global;
+    display: flex;
+    flex-direction: column;
+}
+
+.nutritional_value_desc {
+    composes: text text_type_main-default text_color_inactive mb-2 from global;
+    text-align: center;
+}
+
+.nutritional_value_number {
+    composes: text text_type_digits-default text_color_inactive from global;
+    text-align: center;
+}

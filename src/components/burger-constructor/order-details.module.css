@@ -1,0 +1,32 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order_id {
+    composes: text text_type_digits-large from global;
+}
+
+.order_id_desc {
+    composes: text text_type_main-medium mt-8 from global;
+}
+
+.order_icon {
+    composes: mt-15 mb-15 from global;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.order_icon > * {
+    grid-area: 1 / 1;
+}
+
+.order_info {
+    composes: text text_type_main-default mb-2 from global;
+}
+
+.order_sub {
+    composes: text text_type_main-default text_color_inactive mb-30 from global;
+}

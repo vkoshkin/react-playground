@@ -37,7 +37,7 @@ function BurgerConstructorItem(props) {
 }
 
 BurgerConstructorItem.propTypes = {
-    ingredient: PropTypes.instanceOf(ingredientType).isRequired,
+    ingredient: ingredientType,
     type: PropTypes.string,
     isLocked: PropTypes.bool.isRequired,
     extraClass: PropTypes.string,

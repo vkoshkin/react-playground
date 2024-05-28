@@ -1,0 +1,16 @@
+.error {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header {
+    composes: text text_type_main-medium from global;
+}
+
+.text {
+    composes: text text_type_main-default mt-4 mb-4 from global;
+}
