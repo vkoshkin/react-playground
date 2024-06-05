@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import React from "react";
+import PropTypes from "prop-types";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import BurgerIngredientsItem from './burger-ingredients-item'
-import styles from './burger-ingredients.module.css';
-import ingredientType from '../../utils/types';
+import BurgerIngredientsItem from "./burger-ingredients-item"
+import styles from "./burger-ingredients.module.css";
+import ingredientType from "../../utils/types";
 
 function BurgerIngredients(props) {
     const [state, useState] = React.useState({

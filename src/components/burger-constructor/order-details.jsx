@@ -1,9 +1,9 @@
-import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styles from './order-details.module.css';
-import order1 from '../../images/order-1.svg'
-import order2 from '../../images/order-2.svg'
-import order3 from '../../images/order-3.svg'
+import styles from "./order-details.module.css";
+import order1 from "../../images/order-1.svg"
+import order2 from "../../images/order-2.svg"
+import order3 from "../../images/order-3.svg"
 
 function OrderDetails(props) {
     return (

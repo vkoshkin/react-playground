@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import React from "react";
+import PropTypes from "prop-types";
+import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import IngredientDetails from './ingredient-details';
-import Modal from '../modal/modal';
-import { useModal } from '../hooks/useModal';
-import styles from './burger-ingredients-item.module.css';
-import ingredientType from '../../utils/types';
+import IngredientDetails from "./ingredient-details";
+import Modal from "../modal/modal";
+import { useModal } from "../hooks/useModal";
+import styles from "./burger-ingredients-item.module.css";
+import ingredientType from "../../utils/types";
 
 function BurgerIngredientsItem(props) {
     const { ingredient, count, onAdd } = props;

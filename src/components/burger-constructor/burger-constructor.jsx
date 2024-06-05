@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import React from "react";
+import PropTypes from "prop-types";
+import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import BurgerConstructorItem from './burger-constructor-item';
-import OrderDetails from './order-details';
-import Modal from '../modal/modal';
-import { useModal } from '../hooks/useModal';
-import styles from './burger-constructor.module.css';
-import ingredientType from '../../utils/types';
+import BurgerConstructorItem from "./burger-constructor-item";
+import OrderDetails from "./order-details";
+import Modal from "../modal/modal";
+import { useModal } from "../hooks/useModal";
+import styles from "./burger-constructor.module.css";
+import ingredientType from "../../utils/types";
 
 function BurgerConstructor(props) {
     const { ingredients } = props;

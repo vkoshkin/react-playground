@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import AppError from './app-error';
-import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import styles from './app.module.css';
+import AppError from "./app-error";
+import AppHeader from "../app-header/app-header";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
+import styles from "./app.module.css";
 
 const API_ENDPOINT = "https://norma.nomoreparties.space/api/ingredients";
 

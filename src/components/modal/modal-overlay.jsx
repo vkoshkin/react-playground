@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import styles from './modal-overlay.module.css';
+import styles from "./modal-overlay.module.css";
 
 function ModalOverlay(props) {
     const { children, onClose } = props;

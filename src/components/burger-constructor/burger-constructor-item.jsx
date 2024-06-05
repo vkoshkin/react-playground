@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from "prop-types";
+import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styles from './burger-constructor-item.module.css';
-import ingredientType from '../../utils/types';
+import styles from "./burger-constructor-item.module.css";
+import ingredientType from "../../utils/types";
 
 function BurgerConstructorItem(props) {
     const { ingredient, type, isLocked, extraClass } = props;
     let styleClasses = styles.container;
     if (extraClass !== null) {
-        styleClasses += ' ' + extraClass;
+        styleClasses += " " + extraClass;
     }
     let text = ingredient.name;
     if (type === "top") {
