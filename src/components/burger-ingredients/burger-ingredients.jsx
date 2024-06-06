@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -7,13 +7,13 @@ import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients(props) {
     const { ingredients, ingredientCount } = useSelector(state => state.app);
-
-    const [state, setState] = React.useState({
-        currentTab: "buns",
-    });
     const buns = ingredients.buns;
     const sauces = ingredients.sauces;
     const mains = ingredients.mains;
+
+    const [state, setState] = useState({
+        currentTab: "buns",
+    });
 
     return (
         <div className={styles.ingredients}>
