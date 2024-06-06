@@ -15,11 +15,11 @@ function App() {
         dispatch(fetchIngredients())
     }, []);
 
-    const { dataRequest, dataRequestError } = useSelector(state => state.app);
+    const { ingredientRequest, ingredientRequestError } = useSelector(state => state.app);
 
     return (
         <div className={styles.app}>
-            {!dataRequest && !dataRequestError &&
+            {!ingredientRequest && !ingredientRequestError &&
                 <>
                     <AppHeader />
                     <main className={styles.main}>
@@ -32,7 +32,7 @@ function App() {
                     </main>
                 </>
             }
-            {!dataRequest && dataRequestError &&
+            {!ingredientRequest && ingredientRequestError &&
                 <AppError />
             }
         </div>

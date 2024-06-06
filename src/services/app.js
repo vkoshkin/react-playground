@@ -1,14 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    data: [],
-    dataRequest: false,
-    dataRequestError: false,
     ingredients: {
+        buns: [],
+        sauces: [],
+        mains: [],
+    },
+    ingredientCount: {},
+    ingredientRequest: false,
+    ingredientRequestError: false,
+    constructorElements: {
         top: null,
         main: [],
         bottom: null,
     },
+    burgerPrice: 0,
 };
 
 const appSlice = createSlice({
@@ -16,24 +22,38 @@ const appSlice = createSlice({
     initialState,
     reducers: {
         getIngredients(state, action) {
-            state.dataRequest = true;
+            state.ingredientRequest = true;
         },
         getIngredientsError(state, action) {
-            state.dataRequest = false;
-            state.dataRequestError = true;
+            state.ingredientRequest = false;
+            state.ingredientRequestError = true;
         },
         getIngredientsSuccess(state, action) {
-            state.dataRequest = false;
+            state.ingredientRequest = false;
             const data = action.payload;
-            state.data = data;
+            state.ingredients.buns = data.filter((row) => row.type === "bun");
+            state.ingredients.sauces = data.filter((row) => row.type === "sauce");
+            state.ingredients.mains = data.filter((row) => row.type === "main");
         },
         addIngredient(state, action) {
             const ingredient = action.payload;
             if (ingredient.type === "bun") {
-                state.ingredients.top = ingredient;
-                state.ingredients.bottom = ingredient;
+                state.constructorElements.top = ingredient;
+                state.constructorElements.bottom = ingredient;
             } else {
-                state.ingredients.main.push(ingredient);
+                state.constructorElements.main.push(ingredient);
+            }
+
+            if (!state.ingredientCount[ingredient._id]) {
+                state.ingredientCount[ingredient._id] = 1;
+            } else {
+                state.ingredientCount[ingredient._id] += 1;
+            }
+
+            if (ingredient.type === "bun") {
+                state.burgerPrice += ingredient.price * 2;
+            } else {
+                state.burgerPrice += ingredient.price;
             }
         },
     }

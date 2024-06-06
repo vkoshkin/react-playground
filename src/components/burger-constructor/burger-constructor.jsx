@@ -8,18 +8,10 @@ import { useModal } from "../hooks/useModal";
 import styles from "./burger-constructor.module.css";
 
 function BurgerConstructor(props) {
-    const { ingredients } = useSelector(state => state.app);
-    let price = 0;
-    if (ingredients.top !== null && ingredients.bottom != null) {
-        price += ingredients.top.price;
-        price += ingredients.bottom.price;
-    }
-    for (const ingredient of ingredients.main) {
-        price += ingredient.price;
-    }
-    const topIngredient = ingredients.top;
-    const mainIngredients = ingredients.main;
-    const bottomIngredient = ingredients.bottom;
+    const { constructorElements, burgerPrice } = useSelector(state => state.app);
+    const topIngredient = constructorElements.top;
+    const mainIngredients = constructorElements.main;
+    const bottomIngredient = constructorElements.bottom;
 
     const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -52,7 +44,7 @@ function BurgerConstructor(props) {
             </div>
             <div className={styles.footer}>
                 <div className={styles.footer_price}>
-                    <span className={styles.footer_price_number}>{price}</span>
+                    <span className={styles.footer_price_number}>{burgerPrice}</span>
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button htmlType="button" type="primary" size="medium" onClick={openModal}>

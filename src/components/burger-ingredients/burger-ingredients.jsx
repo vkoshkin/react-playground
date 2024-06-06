@@ -6,27 +6,14 @@ import BurgerIngredientsItem from "./burger-ingredients-item"
 import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients(props) {
+    const { ingredients, ingredientCount } = useSelector(state => state.app);
+
     const [state, setState] = React.useState({
         currentTab: "buns",
     });
-
-    const { data, ingredients } = useSelector(state => state.app);
-
-    const buns = data.filter((row) => row.type === "bun");
-    const sauces = data.filter((row) => row.type === "sauce");
-    const mains = data.filter((row) => row.type === "main");
-
-    const counts = {};
-    if (ingredients.top !== null && ingredients.bottom !== null) {
-        counts[ingredients.top._id] = 1;
-    }
-    for (const ingredient of ingredients.main) {
-        if (!counts[ingredient._id]) {
-            counts[ingredient._id] = 1;
-        } else {
-            counts[ingredient._id] += 1;
-        }
-    }
+    const buns = ingredients.buns;
+    const sauces = ingredients.sauces;
+    const mains = ingredients.mains;
 
     return (
         <div className={styles.ingredients}>
@@ -52,7 +39,7 @@ function BurgerIngredients(props) {
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={counts[ingredient._id]} />
+                                count={ingredientCount[ingredient._id]} />
                         )}
                     </div>
                 </section>
@@ -64,7 +51,7 @@ function BurgerIngredients(props) {
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={counts[ingredient._id]} />
+                                count={ingredientCount[ingredient._id]} />
                         )}
                     </div>
                 </section>
@@ -76,7 +63,7 @@ function BurgerIngredients(props) {
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={counts[ingredient._id]} />
+                                count={ingredientCount[ingredient._id]} />
                         )}
                     </div>
                 </section>
