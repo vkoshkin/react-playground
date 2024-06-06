@@ -13,7 +13,6 @@ const initialState = {
         main: [],
         bottom: null,
     },
-    burgerPrice: 0,
 };
 
 const appSlice = createSlice({
@@ -41,12 +40,6 @@ const appSlice = createSlice({
                 state.constructorElements.bottom = ingredient;
             } else {
                 state.constructorElements.main.push(ingredient);
-            }
-
-            if (ingredient.type === "bun") {
-                state.burgerPrice += ingredient.price * 2;
-            } else {
-                state.burgerPrice += ingredient.price;
             }
         },
         removeIngredient(state, action) {

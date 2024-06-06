@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -10,7 +11,7 @@ import { useModal } from "../hooks/useModal";
 import styles from "./burger-constructor.module.css";
 
 function BurgerConstructor(props) {
-    const { constructorElements, burgerPrice } = useSelector(state => state.app);
+    const { constructorElements } = useSelector(state => state.app);
     const topIngredient = constructorElements.top;
     const mainIngredients = constructorElements.main;
     const bottomIngredient = constructorElements.bottom;
@@ -20,6 +21,18 @@ function BurgerConstructor(props) {
     const onRemove = (ingredient, index) => {
         dispatch(removeIngredient({ingredient, index}));
     };
+
+    const price = useMemo(() => {
+        let price = 0;
+        if (constructorElements.top !== null && constructorElements.bottom != null) {
+            price += constructorElements.top.price;
+            price += constructorElements.bottom.price;
+        }
+        for (const ingredient of constructorElements.main) {
+            price += ingredient.price;
+        }
+        return price;
+    }, [constructorElements]);
 
     return (
         <div className={styles.constructor}>
@@ -50,7 +63,7 @@ function BurgerConstructor(props) {
             </div>
             <div className={styles.footer}>
                 <div className={styles.footer_price}>
-                    <span className={styles.footer_price_number}>{burgerPrice}</span>
+                    <span className={styles.footer_price_number}>{price}</span>
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button htmlType="button" type="primary" size="medium" onClick={openModal}>
