@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { fetchIngredients } from "../../services/actions";
 
@@ -21,15 +23,17 @@ function App() {
         <div className={styles.app}>
             {!ingredientRequest && !ingredientRequestError &&
                 <>
-                    <AppHeader />
-                    <main className={styles.main}>
-                        <div className={styles.panel}>
-                            <BurgerIngredients />
-                        </div>
-                        <div className={styles.panel}>
-                            <BurgerConstructor />
-                        </div>
-                    </main>
+                    <DndProvider backend={HTML5Backend}>
+                        <AppHeader />
+                        <main className={styles.main}>
+                            <div className={styles.panel}>
+                                <BurgerIngredients />
+                            </div>
+                            <div className={styles.panel}>
+                                <BurgerConstructor />
+                            </div>
+                        </main>
+                    </DndProvider>
                 </>
             }
             {!ingredientRequest && ingredientRequestError &&
