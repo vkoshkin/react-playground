@@ -56,6 +56,16 @@ const appSlice = createSlice({
                 state.burgerPrice += ingredient.price;
             }
         },
+        removeIngredient(state, action) {
+            const {ingredient, index} = action.payload;
+            state.constructorElements.main.splice(index, 1);
+
+            if (state.ingredientCount[ingredient._id] <= 1) {
+                delete state.ingredientCount[ingredient._id];
+            } else {
+                state.ingredientCount[ingredient._id] -= 1;
+            }
+        },
     }
 });
 
@@ -64,6 +74,7 @@ export const {
     getIngredientsError, 
     getIngredientsSuccess,
     addIngredient,
+    removeIngredient,
 } = appSlice.actions;
 
 export default appSlice.reducer;

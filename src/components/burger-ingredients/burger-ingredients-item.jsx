@@ -15,12 +15,12 @@ function BurgerIngredientsItem(props) {
     const { ingredient, count } = props;
     const { isModalOpen, openModal, closeModal } = useModal();
 
-    const dispatch = useDispatch();
     const onIngredientImageClick = event => {
         event.stopPropagation();
         openModal();
     };
 
+    const dispatch = useDispatch();
     const onAdd = () => {
         dispatch(addIngredient(ingredient));
     };

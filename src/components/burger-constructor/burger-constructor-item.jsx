@@ -5,7 +5,7 @@ import styles from "./burger-constructor-item.module.css";
 import ingredientType from "../../utils/types";
 
 function BurgerConstructorItem(props) {
-    const { ingredient, type, isLocked, extraClass } = props;
+    const { ingredient, type, isLocked, extraClass, onRemove } = props;
     let styleClasses = styles.container;
     if (extraClass !== null) {
         styleClasses += " " + extraClass;
@@ -31,6 +31,7 @@ function BurgerConstructorItem(props) {
                 price={ingredient.price}
                 thumbnail={ingredient.image}
                 extraClass={styles.element}
+                handleClose={onRemove}
             />
         </div>
     );
@@ -38,9 +39,11 @@ function BurgerConstructorItem(props) {
 
 BurgerConstructorItem.propTypes = {
     ingredient: ingredientType,
+    index: PropTypes.number,
     type: PropTypes.string,
     isLocked: PropTypes.bool.isRequired,
     extraClass: PropTypes.string,
+    onRemove: PropTypes.func,
 };
 
 export default BurgerConstructorItem;

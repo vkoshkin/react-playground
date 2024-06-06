@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { removeIngredient } from "../../services/app";
+
 import BurgerConstructorItem from "./burger-constructor-item";
 import OrderDetails from "./order-details";
 import Modal from "../modal/modal";
@@ -14,6 +16,10 @@ function BurgerConstructor(props) {
     const bottomIngredient = constructorElements.bottom;
 
     const { isModalOpen, openModal, closeModal } = useModal();
+    const dispatch = useDispatch();
+    const onRemove = (ingredient, index) => {
+        dispatch(removeIngredient({ingredient, index}));
+    };
 
     return (
         <div className={styles.constructor}>
@@ -31,7 +37,7 @@ function BurgerConstructor(props) {
                             <BurgerConstructorItem ingredient={ingredient}
                                 isLocked={false}
                                 extraClass={style}
-                                key={index} />
+                                onRemove={() => onRemove(ingredient, index)} />
                         );
                     })}
                 </div>
