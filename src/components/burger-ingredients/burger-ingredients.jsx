@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -6,10 +6,25 @@ import BurgerIngredientsItem from "./burger-ingredients-item"
 import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients(props) {
-    const { ingredients, ingredientCount } = useSelector(state => state.app);
+    const { ingredients, constructorElements } = useSelector(state => state.app);
     const buns = ingredients.buns;
     const sauces = ingredients.sauces;
     const mains = ingredients.mains;
+    
+    const ingredientCount = useMemo(() => {
+        const counts = {};
+        if (constructorElements.top !== null && constructorElements.bottom !== null) {
+            counts[constructorElements.top._id] = 1;
+        }
+        for (const ingredient of constructorElements.main) {
+            if (!counts[ingredient._id]) {
+                counts[ingredient._id] = 1;
+            } else {
+                counts[ingredient._id] += 1;
+            }
+        }
+        return counts;
+    }, [constructorElements]);
 
     const [state, setState] = useState({
         currentTab: "buns",

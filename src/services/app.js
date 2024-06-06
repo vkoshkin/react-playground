@@ -6,7 +6,6 @@ const initialState = {
         sauces: [],
         mains: [],
     },
-    ingredientCount: {},
     ingredientRequest: false,
     ingredientRequestError: false,
     constructorElements: {
@@ -44,12 +43,6 @@ const appSlice = createSlice({
                 state.constructorElements.main.push(ingredient);
             }
 
-            if (!state.ingredientCount[ingredient._id]) {
-                state.ingredientCount[ingredient._id] = 1;
-            } else {
-                state.ingredientCount[ingredient._id] += 1;
-            }
-
             if (ingredient.type === "bun") {
                 state.burgerPrice += ingredient.price * 2;
             } else {
@@ -59,12 +52,6 @@ const appSlice = createSlice({
         removeIngredient(state, action) {
             const {ingredient, index} = action.payload;
             state.constructorElements.main.splice(index, 1);
-
-            if (state.ingredientCount[ingredient._id] <= 1) {
-                delete state.ingredientCount[ingredient._id];
-            } else {
-                state.ingredientCount[ingredient._id] -= 1;
-            }
         },
     }
 });
