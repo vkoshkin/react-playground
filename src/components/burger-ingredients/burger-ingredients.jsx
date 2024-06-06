@@ -1,17 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import BurgerIngredientsItem from "./burger-ingredients-item"
 import styles from "./burger-ingredients.module.css";
-import ingredientType from "../../utils/types";
 
 function BurgerIngredients(props) {
-    const [state, useState] = React.useState({
+    const [state, setState] = React.useState({
         currentTab: "buns",
     });
 
-    const { data, ingredients, onAdd } = props;
+    const { data, ingredients } = useSelector(state => state.app);
+
     const buns = data.filter((row) => row.type === "bun");
     const sauces = data.filter((row) => row.type === "sauce");
     const mains = data.filter((row) => row.type === "main");
@@ -52,8 +52,7 @@ function BurgerIngredients(props) {
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={counts[ingredient._id]}
-                                onAdd={() => onAdd(ingredient)} />
+                                count={counts[ingredient._id]} />
                         )}
                     </div>
                 </section>
@@ -65,8 +64,7 @@ function BurgerIngredients(props) {
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={counts[ingredient._id]}
-                                onAdd={() => onAdd(ingredient)} />
+                                count={counts[ingredient._id]} />
                         )}
                     </div>
                 </section>
@@ -78,8 +76,7 @@ function BurgerIngredients(props) {
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={counts[ingredient._id]}
-                                onAdd={() => onAdd(ingredient)} />
+                                count={counts[ingredient._id]} />
                         )}
                     </div>
                 </section>
@@ -87,15 +84,5 @@ function BurgerIngredients(props) {
         </div>
     );
 }
-
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.exact({
-        top: ingredientType,
-        main: PropTypes.arrayOf(ingredientType).isRequired,
-        bottom: ingredientType,
-    }).isRequired,
-    data: PropTypes.arrayOf(ingredientType).isRequired,
-    onAdd: PropTypes.func.isRequired,
-};
 
 export default BurgerIngredients;

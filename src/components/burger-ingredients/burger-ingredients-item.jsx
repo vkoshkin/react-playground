@@ -1,6 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import { addIngredient } from "../../services/app";
 
 import IngredientDetails from "./ingredient-details";
 import Modal from "../modal/modal";
@@ -9,15 +12,20 @@ import styles from "./burger-ingredients-item.module.css";
 import ingredientType from "../../utils/types";
 
 function BurgerIngredientsItem(props) {
-    const { ingredient, count, onAdd } = props;
+    const { ingredient, count } = props;
     const { isModalOpen, openModal, closeModal } = useModal();
 
+    const dispatch = useDispatch();
     const onIngredientImageClick = event => {
         event.stopPropagation();
         openModal();
     };
+
+    const onAdd = () => {
+        dispatch(addIngredient(ingredient));
+    };
     return (
-        <div className={styles.item} onClick={onAdd}>
+        <div className={styles.item} onClick={e => onAdd()}>
             <div>
                 <img className={styles.item_image}
                     src={ingredient.image}
@@ -45,7 +53,6 @@ function BurgerIngredientsItem(props) {
 BurgerIngredientsItem.propTypes = {
     ingredient: ingredientType,
     count: PropTypes.number,
-    onAdd: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredientsItem;

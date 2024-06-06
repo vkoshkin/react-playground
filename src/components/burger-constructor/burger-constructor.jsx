@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import BurgerConstructorItem from "./burger-constructor-item";
@@ -7,10 +6,9 @@ import OrderDetails from "./order-details";
 import Modal from "../modal/modal";
 import { useModal } from "../hooks/useModal";
 import styles from "./burger-constructor.module.css";
-import ingredientType from "../../utils/types";
 
 function BurgerConstructor(props) {
-    const { ingredients } = props;
+    const { ingredients } = useSelector(state => state.app);
     let price = 0;
     if (ingredients.top !== null && ingredients.bottom != null) {
         price += ingredients.top.price;
@@ -69,13 +67,5 @@ function BurgerConstructor(props) {
         </div>
     );
 }
-
-BurgerConstructor.propTypes = {
-    ingredients: PropTypes.exact({
-        top: ingredientType,
-        main: PropTypes.arrayOf(ingredientType).isRequired,
-        bottom: ingredientType,
-    }).isRequired
-};
 
 export default BurgerConstructor;
