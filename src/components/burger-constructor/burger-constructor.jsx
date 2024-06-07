@@ -2,8 +2,6 @@ import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { removeIngredient } from "../../services/constructor";
-
 import BurgerConstructorItem from "./burger-constructor-item";
 import OrderDetails from "./order-details";
 import Modal from "../modal/modal";
@@ -14,10 +12,6 @@ function BurgerConstructor(props) {
     const { bun, ingredients } = useSelector(state => state.burgerConstructor);
 
     const { isModalOpen, openModal, closeModal } = useModal();
-    const dispatch = useDispatch();
-    const onRemove = (ingredient, index) => {
-        dispatch(removeIngredient({ingredient, index}));
-    };
 
     const price = useMemo(() => {
         let price = 0;
@@ -25,7 +19,7 @@ function BurgerConstructor(props) {
             price += bun.price * 2;
         }
         for (const ingredient of ingredients) {
-            price += ingredient.price;
+            price += ingredient.data.price;
         }
         return price;
     }, [bun, ingredients]);
@@ -34,27 +28,34 @@ function BurgerConstructor(props) {
         <div className={styles.constructor}>
             <div className={styles.list}>
                 {bun !== null &&
-                    <BurgerConstructorItem ingredient={bun}
+                    <BurgerConstructorItem
+                        ingredient={bun}
                         type="top"
                         isLocked={true}
-                        extraClass={styles.list_top} />
+                        extraClass={styles.list_top}
+                    />
                 }
                 <div className={styles.list_scroll}>
                     {ingredients.map((ingredient, index) => {
                         const style = (index !== ingredients.length - 1) ? styles.list_main : null;
                         return (
-                            <BurgerConstructorItem ingredient={ingredient}
+                            <BurgerConstructorItem
+                                key={ingredient.id}
+                                id={ingredient.id}
+                                ingredient={ingredient.data}
                                 isLocked={false}
                                 extraClass={style}
-                                onRemove={() => onRemove(ingredient, index)} />
+                            />
                         );
                     })}
                 </div>
                 {bun !== null &&
-                    <BurgerConstructorItem ingredient={bun}
+                    <BurgerConstructorItem
+                        ingredient={bun}
                         type="bottom"
                         isLocked={true}
-                        extraClass={styles.list_bottom} />
+                        extraClass={styles.list_bottom}
+                    />
                 }
             </div>
             <div className={styles.footer}>
