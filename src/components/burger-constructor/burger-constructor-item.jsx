@@ -79,7 +79,9 @@ function BurgerConstructorItem(props) {
             onMove(dragIndex, hoverIndex);
         },
         drop(item, monitor) {
-            onAdd(item, id);
+            if (item.id === undefined) {
+                onAdd(item, id);
+            }
         },
     });
 
