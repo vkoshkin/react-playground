@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useDrag } from "react-dnd";
 import PropTypes from "prop-types";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -24,8 +25,19 @@ function BurgerIngredientsItem(props) {
     const onAdd = () => {
         dispatch(addIngredient(ingredient));
     };
+
+    const [{ isDragging }, dragRef] = useDrag({
+        type: "ingredient",
+        item: { id: undefined, item: ingredient },
+        collect: monitor => ({
+            isDragging: monitor.isDragging(),
+        })
+    });
+    if (isDragging) {
+        console.log("isDragging");
+    }
     return (
-        <div className={styles.item} onClick={e => onAdd()}>
+        <div className={styles.item} onClick={e => onAdd()} ref={dragRef}>
             <div>
                 <img className={styles.item_image}
                     src={ingredient.image}

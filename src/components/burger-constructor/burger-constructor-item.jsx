@@ -4,7 +4,7 @@ import { useDrag, useDrop } from "react-dnd";
 import PropTypes from "prop-types";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { removeIngredient, moveIngredient } from "../../services/constructor";
+import { addIngredient, removeIngredient, moveIngredient } from "../../services/constructor";
 
 import styles from "./burger-constructor-item.module.css";
 import ingredientType from "../../utils/types";
@@ -15,12 +15,16 @@ function BurgerConstructorItem(props) {
     if (extraClass !== null) {
         styleClasses += " " + extraClass;
     }
-    let text = ingredient.name;
-    if (type === "top") {
-        text += " (верх)"
-    } else if (type === "bottom") {
-        text += " (низ)"
+    let text = "";
+    if (ingredient) {
+        text = ingredient.name;
+        if (type === "top") {
+            text += " (верх)"
+        } else if (type === "bottom") {
+            text += " (низ)"
+        }
     }
+    const isBorderItem = type === "top" || type === "bottom";
 
     const dispatch = useDispatch();
     const onRemove = (ingredient, id) => {
@@ -33,34 +37,33 @@ function BurgerConstructorItem(props) {
             dispatch(moveIngredient({ sourceId, targetId }));
         }
     };
+    const onAdd = (ingredientItem) => {
+        const ingredient = ingredientItem.item;
+        if (ingredient.type === "bun" && isBorderItem) {
+            dispatch(addIngredient(ingredient));
+        } else if (ingredient.type !== "bun" && !isBorderItem) {
+            dispatch(addIngredient(ingredient));
+        }
+    };
 
     const ref = useRef(null);
     const [{ isDragging }, drag] = useDrag({
-        type: "constructorItem",
-        item: { id: id },
+        type: "ingredient",
+        item: { id: id, item: ingredient },
         collect: monitor => ({
             isDragging: monitor.isDragging(),
         })
     });
-    const [{ handlerId }, drop] = useDrop({
-        accept: "constructorItem",
-        collect(monitor) {
-            return {
-                handlerId: monitor.getHandlerId(),
-            }
-        },
+    const [{ isHover }, drop] = useDrop({
+        accept: "ingredient",
+        collect: monitor => ({
+            isHover: monitor.isOver()
+        }),
         hover(item, monitor) {
-            if (!ref.current) {
-                return
-            }
+            if (!ref.current) return;
             const dragIndex = item.id;
             const hoverIndex = id;
-            if (!hoverIndex) {
-                return
-            }
-            if (dragIndex === hoverIndex) {
-                return
-            }
+            if (dragIndex === hoverIndex) return;
             console.log(`hover ${hoverIndex} drag ${dragIndex}`);
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -74,9 +77,14 @@ function BurgerConstructorItem(props) {
             }
             onMove(dragIndex, hoverIndex);
         },
+        drop(item, monitor) {
+            onAdd(item);
+        },
     });
 
     const opacity = isDragging ? 0 : 1;
+    const empty = isHover ? `${styles.element_empty} ${styles.element_empty_hover}` : styles.element_empty;
+    const emptyText = isBorderItem ? "Добавьте булку" : "Добавьте ингредиент";
     drag(drop(ref));
     return (
         <div className={styleClasses} style={{ opacity }} ref={ref}>
@@ -85,15 +93,24 @@ function BurgerConstructorItem(props) {
                     <DragIcon type="primary" />
                 </div>
             }
-            <ConstructorElement
-                type={type}
-                isLocked={isLocked}
-                text={text}
-                price={ingredient.price}
-                thumbnail={ingredient.image}
-                extraClass={styles.element}
-                handleClose={onRemove}
-            />
+            {ingredient &&
+                <ConstructorElement
+                    type={type}
+                    isLocked={isLocked}
+                    text={text}
+                    price={ingredient.price}
+                    thumbnail={ingredient.image}
+                    extraClass={styles.element}
+                    handleClose={onRemove}
+                />
+            }
+            {!ingredient &&
+                <div className={empty}>
+                    <div className={styles.element_empty_container}>
+                        <span>{emptyText}</span>
+                    </div>
+                </div>
+            }
         </div>
     );
 }

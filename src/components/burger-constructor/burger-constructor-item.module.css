@@ -23,3 +23,33 @@
     composes: mr-4 from global;
     margin-left: auto;
 }
+
+.element_empty {
+    composes: mr-4 from global;
+    margin-left: auto;
+
+    padding: 16px 24px;
+    display: inline-block;
+    border-radius: var(--common-border-radius-s);
+    background: var(--background-element);
+    max-width: 536px;
+    width: 100%;
+    min-height: 80px;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+    box-sizing: border-box;
+}
+
+.element_empty_hover {
+    border: 3px dashed #801ab3;
+}
+
+.element_empty_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
