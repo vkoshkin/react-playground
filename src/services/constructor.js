@@ -11,14 +11,21 @@ const slice = createSlice({
     initialState,
     reducers: {
         addIngredient(state, action) {
-            const ingredient = action.payload;
+            const { ingredient, targetId } = action.payload;
             if (ingredient.type === "bun") {
                 state.bun = ingredient;
             } else {
-                state.ingredients.push({
+                const newIngredient = {
                     id: uuid(),
                     data: ingredient
-                });
+                };
+                if (!targetId) {
+                    state.ingredients.push(newIngredient);
+                } else {
+                    const ingredientIds = state.ingredients.map(i => i.id);
+                    const index = ingredientIds.indexOf(targetId);
+                    state.ingredients.splice(index, 0, newIngredient);
+                }
             }
         },
         removeIngredient(state, action) {

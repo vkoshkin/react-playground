@@ -37,12 +37,12 @@ function BurgerConstructorItem(props) {
             dispatch(moveIngredient({ sourceId, targetId }));
         }
     };
-    const onAdd = (ingredientItem) => {
+    const onAdd = (ingredientItem, targetId) => {
         const ingredient = ingredientItem.item;
         if (ingredient.type === "bun" && isBorderItem) {
-            dispatch(addIngredient(ingredient));
+            dispatch(addIngredient({ ingredient: ingredient }));
         } else if (ingredient.type !== "bun" && !isBorderItem) {
-            dispatch(addIngredient(ingredient));
+            dispatch(addIngredient({ ingredient: ingredient, targetId: targetId }));
         }
     };
 
@@ -65,6 +65,7 @@ function BurgerConstructorItem(props) {
             const hoverIndex = id;
             if (dragIndex === hoverIndex) return;
             console.log(`hover ${hoverIndex} drag ${dragIndex}`);
+            if (dragIndex === undefined) return;
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
@@ -78,7 +79,7 @@ function BurgerConstructorItem(props) {
             onMove(dragIndex, hoverIndex);
         },
         drop(item, monitor) {
-            onAdd(item);
+            onAdd(item, id);
         },
     });
 
