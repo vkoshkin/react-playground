@@ -64,7 +64,6 @@ function BurgerConstructorItem(props) {
             const dragIndex = item.id;
             const hoverIndex = id;
             if (dragIndex === hoverIndex) return;
-            console.log(`hover ${hoverIndex} drag ${dragIndex}`);
             if (dragIndex === undefined) return;
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -121,7 +120,6 @@ function BurgerConstructorItem(props) {
 BurgerConstructorItem.propTypes = {
     id: PropTypes.string,
     ingredient: ingredientType,
-    index: PropTypes.number,
     type: PropTypes.string,
     isLocked: PropTypes.bool.isRequired,
     extraClass: PropTypes.string,

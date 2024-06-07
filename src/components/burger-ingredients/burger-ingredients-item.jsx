@@ -17,16 +17,10 @@ function BurgerIngredientsItem(props) {
         openModal();
     };
 
-    const [{ isDragging }, dragRef] = useDrag({
+    const [{}, dragRef] = useDrag({
         type: "ingredient",
         item: { id: undefined, item: ingredient },
-        collect: monitor => ({
-            isDragging: monitor.isDragging(),
-        })
     });
-    if (isDragging) {
-        console.log("isDragging");
-    }
     return (
         <div className={styles.item} ref={dragRef}>
             <div>
