@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -24,29 +24,54 @@ function BurgerIngredients(props) {
         return counts;
     }, [bun, ingredients]);
 
-    const [state, setState] = useState({
-        currentTab: "buns",
-    });
+    const [state, setState] = useState("buns");
+
+    const tabRef = useRef(null);
+    const bunsHeaderRef = useRef(null);
+    const saucesHeaderRef = useRef(null);
+    const mainsHeaderRef = useRef(null);
+    const scrollHandler = (e) => {
+        const tabs = tabRef.current;
+        const tabsBottom = tabs.getBoundingClientRect().bottom;
+        
+        const bunsHeader = bunsHeaderRef.current.getBoundingClientRect().top;
+        const saucesHeader = saucesHeaderRef.current.getBoundingClientRect().top;
+        const mainsHeader = mainsHeaderRef.current.getBoundingClientRect().top;
+
+        if (mainsHeader <= tabsBottom) {
+            setState("mains");
+        } else if (saucesHeader <= tabsBottom) {
+            setState("sauces");
+        } else if (bunsHeader <= tabsBottom) {
+            setState("buns");
+        }
+    };
+
+    const scrollToBuns = () => bunsHeaderRef.current.scrollIntoView();
+    const scrollToSauces = () => saucesHeaderRef.current.scrollIntoView();
+    const scrollToMains = () => mainsHeaderRef.current.scrollIntoView();
 
     return (
         <div className={styles.ingredients}>
             <h1 className={styles.header}>Собери бургер</h1>
 
-            <nav className={styles.tabs}>
-                <Tab value="buns" active={state.currentTab === "buns"} >
+            <nav className={styles.tabs} ref={tabRef}>
+                <Tab value="buns" active={state === "buns"} onClick={scrollToBuns}>
                     Булки
                 </Tab>
-                <Tab value="sauces" active={state.currentTab === "sauces"} >
+                <Tab value="sauces" active={state === "sauces"} onClick={scrollToSauces}>
                     Соусы
                 </Tab>
-                <Tab value="mains" active={state.currentTab === "mains"} >
+                <Tab value="mains" active={state === "mains"} onClick={scrollToMains}>
                     Начинка
                 </Tab>
             </nav>
 
-            <div className={styles.sections}>
+            <div className={styles.sections} onScroll={scrollHandler}>
                 <section>
-                    <h2 className={styles.section_header}>Булки</h2>
+                    <h2 className={styles.section_header} ref={bunsHeaderRef}>
+                        Булки
+                    </h2>
                     <div className={styles.section_container}>
                         {buns.map(ingredient =>
                             <BurgerIngredientsItem
@@ -58,7 +83,9 @@ function BurgerIngredients(props) {
                 </section>
 
                 <section>
-                    <h2 className={styles.section_header}>Соусы</h2>
+                    <h2 className={styles.section_header} ref={saucesHeaderRef}>
+                        Соусы
+                    </h2>
                     <div className={styles.section_container}>
                         {sauces.map(ingredient =>
                             <BurgerIngredientsItem
@@ -70,7 +97,9 @@ function BurgerIngredients(props) {
                 </section>
 
                 <section>
-                    <h2 className={styles.section_header}>Начинки</h2>
+                    <h2 className={styles.section_header} ref={mainsHeaderRef}>
+                        Начинки
+                    </h2>
                     <div className={styles.section_container}>
                         {mains.map(ingredient =>
                             <BurgerIngredientsItem
