@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { removeIngredient } from "../../services/app";
+import { removeIngredient } from "../../services/constructor";
 
 import BurgerConstructorItem from "./burger-constructor-item";
 import OrderDetails from "./order-details";
@@ -11,10 +11,7 @@ import { useModal } from "../hooks/useModal";
 import styles from "./burger-constructor.module.css";
 
 function BurgerConstructor(props) {
-    const { constructorElements } = useSelector(state => state.app);
-    const topIngredient = constructorElements.top;
-    const mainIngredients = constructorElements.main;
-    const bottomIngredient = constructorElements.bottom;
+    const { bun, ingredients } = useSelector(state => state.burgerConstructor);
 
     const { isModalOpen, openModal, closeModal } = useModal();
     const dispatch = useDispatch();
@@ -24,28 +21,27 @@ function BurgerConstructor(props) {
 
     const price = useMemo(() => {
         let price = 0;
-        if (constructorElements.top !== null && constructorElements.bottom != null) {
-            price += constructorElements.top.price;
-            price += constructorElements.bottom.price;
+        if (bun !== null) {
+            price += bun.price * 2;
         }
-        for (const ingredient of constructorElements.main) {
+        for (const ingredient of ingredients) {
             price += ingredient.price;
         }
         return price;
-    }, [constructorElements]);
+    }, [bun, ingredients]);
 
     return (
         <div className={styles.constructor}>
             <div className={styles.list}>
-                {topIngredient !== null &&
-                    <BurgerConstructorItem ingredient={topIngredient}
+                {bun !== null &&
+                    <BurgerConstructorItem ingredient={bun}
                         type="top"
                         isLocked={true}
                         extraClass={styles.list_top} />
                 }
                 <div className={styles.list_scroll}>
-                    {mainIngredients.map((ingredient, index) => {
-                        const style = (index !== mainIngredients.length - 1) ? styles.list_main : null;
+                    {ingredients.map((ingredient, index) => {
+                        const style = (index !== ingredients.length - 1) ? styles.list_main : null;
                         return (
                             <BurgerConstructorItem ingredient={ingredient}
                                 isLocked={false}
@@ -54,8 +50,8 @@ function BurgerConstructor(props) {
                         );
                     })}
                 </div>
-                {bottomIngredient !== null &&
-                    <BurgerConstructorItem ingredient={bottomIngredient}
+                {bun !== null &&
+                    <BurgerConstructorItem ingredient={bun}
                         type="bottom"
                         isLocked={true}
                         extraClass={styles.list_bottom} />

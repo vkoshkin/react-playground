@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { fetchIngredients } from "../../services/actions";
+import { fetchIngredients } from "../../services/ingredients";
 
 import AppError from "./app-error";
 import AppHeader from "../app-header/app-header";
@@ -17,11 +17,10 @@ function App() {
         dispatch(fetchIngredients())
     }, []);
 
-    const { ingredientRequest, ingredientRequestError } = useSelector(state => state.app);
-
+    const { request, requestError } = useSelector(state => state.burgerIngredients);
     return (
         <div className={styles.app}>
-            {!ingredientRequest && !ingredientRequestError &&
+            {!request && !requestError &&
                 <>
                     <DndProvider backend={HTML5Backend}>
                         <AppHeader />
@@ -36,7 +35,7 @@ function App() {
                     </DndProvider>
                 </>
             }
-            {!ingredientRequest && ingredientRequestError &&
+            {!request && requestError &&
                 <AppError />
             }
         </div>

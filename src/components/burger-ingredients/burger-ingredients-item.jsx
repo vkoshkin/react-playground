@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { addIngredient } from "../../services/app";
+import { addIngredient } from "../../services/constructor";
 
 import IngredientDetails from "./ingredient-details";
 import Modal from "../modal/modal";

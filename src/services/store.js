@@ -1,10 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit";
 
-import appReducer from "./app"
+import ingredientReducer from "./ingredients";
+import constructorReducer from "./constructor";
 
 const store = configureStore({
     reducer: {
-        app: appReducer
+        burgerIngredients: ingredientReducer,
+        burgerConstructor: constructorReducer,
     }
 });
 

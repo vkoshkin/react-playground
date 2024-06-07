@@ -6,17 +6,15 @@ import BurgerIngredientsItem from "./burger-ingredients-item"
 import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients(props) {
-    const { ingredients, constructorElements } = useSelector(state => state.app);
-    const buns = ingredients.buns;
-    const sauces = ingredients.sauces;
-    const mains = ingredients.mains;
-    
+    const { buns, sauces, mains } = useSelector(state => state.burgerIngredients);
+    const { bun, ingredients } = useSelector(state => state.burgerConstructor);
+
     const ingredientCount = useMemo(() => {
         const counts = {};
-        if (constructorElements.top !== null && constructorElements.bottom !== null) {
-            counts[constructorElements.top._id] = 1;
+        if (bun !== null) {
+            counts[bun._id] = 1;
         }
-        for (const ingredient of constructorElements.main) {
+        for (const ingredient of ingredients) {
             if (!counts[ingredient._id]) {
                 counts[ingredient._id] = 1;
             } else {
@@ -24,7 +22,7 @@ function BurgerIngredients(props) {
             }
         }
         return counts;
-    }, [constructorElements]);
+    }, [bun, ingredients]);
 
     const [state, setState] = useState({
         currentTab: "buns",
