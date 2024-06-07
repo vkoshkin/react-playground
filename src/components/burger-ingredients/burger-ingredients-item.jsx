@@ -2,7 +2,6 @@ import { useDrag } from "react-dnd";
 import PropTypes from "prop-types";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-
 import IngredientDetails from "./ingredient-details";
 import Modal from "../modal/modal";
 import { useModal } from "../hooks/useModal";
