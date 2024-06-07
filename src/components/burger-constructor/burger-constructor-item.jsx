@@ -27,9 +27,9 @@ function BurgerConstructorItem(props) {
     const isBorderItem = type === "top" || type === "bottom";
 
     const dispatch = useDispatch();
-    const onRemove = (ingredient, id) => {
+    const onRemove = () => {
         if (!type) {
-            dispatch(removeIngredient({ ingredient, id }));
+            dispatch(removeIngredient({ id }));
         }
     };
     const onMove = (sourceId, targetId) => {
