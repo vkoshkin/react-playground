@@ -1,4 +1,6 @@
-const INGREDIENTS_API = "https://norma.nomoreparties.space/api/ingredients";
+const BASE_URL = "https://norma.nomoreparties.space/api";
+
+const INGREDIENTS_API = `${BASE_URL}/ingredients`;
 
 export function getIngredientsRequest() {
     return fetch(INGREDIENTS_API)
@@ -13,7 +15,7 @@ export function getIngredientsRequest() {
         });
 }
 
-const ORDER_API = "https://norma.nomoreparties.space/api/orders";
+const ORDER_API = `${BASE_URL}/orders`;
 
 export function postOrderRequest(data) {
     return fetch(ORDER_API, {
