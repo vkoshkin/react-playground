@@ -24,6 +24,10 @@ function BurgerConstructor(props) {
         return price;
     }, [bun, ingredients]);
 
+    const orderDisabled = useMemo(() => {
+        return bun === null;
+    }, [bun]);
+
     return (
         <div className={styles.constructor}>
             <div className={styles.list}>
@@ -64,7 +68,7 @@ function BurgerConstructor(props) {
                     <span className={styles.footer_price_number}>{price}</span>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType="button" type="primary" size="medium" onClick={openModal}>
+                <Button htmlType="button" type="primary" size="medium" onClick={openModal} disabled={orderDisabled}>
                     Оформить заказ
                 </Button>
             </div>
