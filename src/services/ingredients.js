@@ -10,6 +10,9 @@ export function fetchIngredients() {
             } else {
                 dispatch(getIngredientsError());
             }
+        }).catch(e => {
+            console.log(`Exception occurred while fetching ingredients ${e}`);
+            dispatch(getIngredientsError());
         });
     };
 }

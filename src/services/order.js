@@ -10,13 +10,15 @@ export function postOrder(bun, ingredients) {
             data.push(ingredient._id);
         }
         data.push(bun._id);
-        console.log(data);
         postOrderRequest(data).then(res => {
             if (res && res.success) {
                 dispatch(orderRequestSuccess(res));
             } else {
                 dispatch(orderRequestError());
             }
+        }).catch(e => {
+            console.log(`Exception occurred while sending order ${e}`);
+            dispatch(getIngredientsError());
         });
     };
 }
