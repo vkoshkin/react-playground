@@ -10,23 +10,32 @@ const slice = createSlice({
     name: "burgerConstructor",
     initialState,
     reducers: {
-        addIngredient(state, action) {
-            const { ingredient, targetId } = action.payload;
-            if (ingredient.type === "bun") {
-                state.bun = ingredient;
-            } else {
-                const newIngredient = {
-                    id: uuid(),
-                    data: ingredient
-                };
-                if (!targetId) {
-                    state.ingredients.push(newIngredient);
+        addIngredient: {
+            reducer: (state, action) => {
+                const { targetId, ingredientData } = action.payload;
+                if (ingredientData.data.type === "bun") {
+                    state.bun = ingredientData.data;
                 } else {
-                    const ingredientIds = state.ingredients.map(i => i.id);
-                    const index = ingredientIds.indexOf(targetId);
-                    state.ingredients.splice(index, 0, newIngredient);
+                    if (!targetId) {
+                        state.ingredients.push(ingredientData);
+                    } else {
+                        const ingredientIds = state.ingredients.map(i => i.id);
+                        const index = ingredientIds.indexOf(targetId);
+                        state.ingredients.splice(index, 0, ingredientData);
+                    }
                 }
-            }
+            },
+            prepare: (ingredientTarget) => {
+                return {
+                    payload: {
+                        targetId: ingredientTarget.targetId,
+                        ingredientData: {
+                            id: uuid(),
+                            data: ingredientTarget.ingredient,
+                        }
+                    }
+                };
+            },
         },
         removeIngredient(state, action) {
             const { ingredient, id } = action.payload;
