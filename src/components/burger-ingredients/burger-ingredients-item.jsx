@@ -7,7 +7,7 @@ import { showIngredient } from "../../services/ingredientDetails";
 
 import IngredientDetails from "./ingredient-details";
 import Modal from "../modal/modal";
-import { useModal } from "../hooks/useModal";
+import { useModal } from "../../hooks/useModal";
 import styles from "./burger-ingredients-item.module.css";
 import ingredientType from "../../utils/types";
 
