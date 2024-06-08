@@ -18,7 +18,7 @@ export function postOrder(bun, ingredients) {
             }
         }).catch(e => {
             console.log(`Exception occurred while sending order ${e}`);
-            dispatch(getIngredientsError());
+            dispatch(orderRequestError());
         });
     };
 }
