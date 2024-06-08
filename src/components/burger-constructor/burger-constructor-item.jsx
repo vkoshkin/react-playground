@@ -52,7 +52,10 @@ function BurgerConstructorItem(props) {
         item: { id: id, item: ingredient },
         collect: monitor => ({
             isDragging: monitor.isDragging(),
-        })
+        }),
+        canDrag: monitor => {
+            return ingredient !== null;
+        }
     });
     const [{ isHover }, drop] = useDrop({
         accept: "ingredient",
