@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { postOrderRequest } from "./api";
 
+import { clearConstructor } from "./constructor";
+
 export function postOrder(bun, ingredients) {
     return function (dispatch) {
         dispatch(orderRequest());
@@ -13,6 +15,7 @@ export function postOrder(bun, ingredients) {
         postOrderRequest(data).then(res => {
             if (res && res.success) {
                 dispatch(orderRequestSuccess(res));
+                dispatch(clearConstructor());
             } else {
                 dispatch(orderRequestError());
             }
@@ -49,9 +52,9 @@ const slice = createSlice({
     }
 });
 
-export const { 
-    orderRequest, 
-    orderRequestSuccess, 
+export const {
+    orderRequest,
+    orderRequestSuccess,
     orderRequestError,
 } = slice.actions;
 
