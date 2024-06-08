@@ -9,9 +9,6 @@ export function getIngredientsRequest() {
                 return response.json();
             }
             return Promise.reject(`Ошибка ${response.status}`);
-        })
-        .catch(e => {
-            return { success: false };
         });
 }
 
@@ -31,8 +28,5 @@ export function postOrderRequest(data) {
                 return response.json();
             }
             return Promise.reject(`Ошибка ${response.status}`);
-        })
-        .catch(e => {
-            return { success: false };
         });
 }
