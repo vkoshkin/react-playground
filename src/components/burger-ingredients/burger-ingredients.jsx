@@ -15,10 +15,10 @@ function BurgerIngredients(props) {
             counts[bun._id] = 1;
         }
         for (const ingredient of ingredients) {
-            if (!counts[ingredient._id]) {
-                counts[ingredient._id] = 1;
+            if (!counts[ingredient.data._id]) {
+                counts[ingredient.data._id] = 1;
             } else {
-                counts[ingredient._id] += 1;
+                counts[ingredient.data._id] += 1;
             }
         }
         return counts;
