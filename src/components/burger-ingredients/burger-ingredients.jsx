@@ -1,85 +1,111 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useState, useMemo, useRef } from "react";
+import { useSelector } from "react-redux";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import BurgerIngredientsItem from './burger-ingredients-item'
-import styles from './burger-ingredients.module.css';
-import ingredientType from '../../utils/types';
+import BurgerIngredientsItem from "./burger-ingredients-item"
+import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients(props) {
-    const [state, useState] = React.useState({
-        currentTab: "buns",
-    });
+    const { buns, sauces, mains } = useSelector(state => state.burgerIngredients);
+    const { bun, ingredients } = useSelector(state => state.burgerConstructor);
 
-    const { data, ingredients, onAdd } = props;
-    const buns = data.filter((row) => row.type === "bun");
-    const sauces = data.filter((row) => row.type === "sauce");
-    const mains = data.filter((row) => row.type === "main");
-
-    const counts = {};
-    if (ingredients.top !== null && ingredients.bottom !== null) {
-        counts[ingredients.top._id] = 1;
-    }
-    for (const ingredient of ingredients.main) {
-        if (!counts[ingredient._id]) {
-            counts[ingredient._id] = 1;
-        } else {
-            counts[ingredient._id] += 1;
+    const ingredientCount = useMemo(() => {
+        const counts = {};
+        if (bun !== null) {
+            counts[bun._id] = 1;
         }
-    }
+        for (const ingredient of ingredients) {
+            if (!counts[ingredient.data._id]) {
+                counts[ingredient.data._id] = 1;
+            } else {
+                counts[ingredient.data._id] += 1;
+            }
+        }
+        return counts;
+    }, [bun, ingredients]);
+
+    const [state, setState] = useState("buns");
+
+    const tabRef = useRef(null);
+    const bunsHeaderRef = useRef(null);
+    const saucesHeaderRef = useRef(null);
+    const mainsHeaderRef = useRef(null);
+    const scrollHandler = (e) => {
+        const tabs = tabRef.current;
+        const tabsBottom = tabs.getBoundingClientRect().bottom;
+        
+        const bunsHeader = bunsHeaderRef.current.getBoundingClientRect().top;
+        const saucesHeader = saucesHeaderRef.current.getBoundingClientRect().top;
+        const mainsHeader = mainsHeaderRef.current.getBoundingClientRect().top;
+
+        if (mainsHeader <= tabsBottom) {
+            setState("mains");
+        } else if (saucesHeader <= tabsBottom) {
+            setState("sauces");
+        } else if (bunsHeader <= tabsBottom) {
+            setState("buns");
+        }
+    };
+
+    const scrollToBuns = () => bunsHeaderRef.current.scrollIntoView();
+    const scrollToSauces = () => saucesHeaderRef.current.scrollIntoView();
+    const scrollToMains = () => mainsHeaderRef.current.scrollIntoView();
 
     return (
         <div className={styles.ingredients}>
             <h1 className={styles.header}>Собери бургер</h1>
 
-            <nav className={styles.tabs}>
-                <Tab value="buns" active={state.currentTab === "buns"} >
+            <nav className={styles.tabs} ref={tabRef}>
+                <Tab value="buns" active={state === "buns"} onClick={scrollToBuns}>
                     Булки
                 </Tab>
-                <Tab value="sauces" active={state.currentTab === "sauces"} >
+                <Tab value="sauces" active={state === "sauces"} onClick={scrollToSauces}>
                     Соусы
                 </Tab>
-                <Tab value="mains" active={state.currentTab === "mains"} >
+                <Tab value="mains" active={state === "mains"} onClick={scrollToMains}>
                     Начинка
                 </Tab>
             </nav>
 
-            <div className={styles.sections}>
+            <div className={styles.sections} onScroll={scrollHandler}>
                 <section>
-                    <h2 className={styles.section_header}>Булки</h2>
+                    <h2 className={styles.section_header} ref={bunsHeaderRef}>
+                        Булки
+                    </h2>
                     <div className={styles.section_container}>
                         {buns.map(ingredient =>
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={counts[ingredient._id]}
-                                onAdd={() => onAdd(ingredient)} />
+                                count={ingredientCount[ingredient._id]} />
                         )}
                     </div>
                 </section>
 
                 <section>
-                    <h2 className={styles.section_header}>Соусы</h2>
+                    <h2 className={styles.section_header} ref={saucesHeaderRef}>
+                        Соусы
+                    </h2>
                     <div className={styles.section_container}>
                         {sauces.map(ingredient =>
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={counts[ingredient._id]}
-                                onAdd={() => onAdd(ingredient)} />
+                                count={ingredientCount[ingredient._id]} />
                         )}
                     </div>
                 </section>
 
                 <section>
-                    <h2 className={styles.section_header}>Начинки</h2>
+                    <h2 className={styles.section_header} ref={mainsHeaderRef}>
+                        Начинки
+                    </h2>
                     <div className={styles.section_container}>
                         {mains.map(ingredient =>
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={counts[ingredient._id]}
-                                onAdd={() => onAdd(ingredient)} />
+                                count={ingredientCount[ingredient._id]} />
                         )}
                     </div>
                 </section>
@@ -87,15 +113,5 @@ function BurgerIngredients(props) {
         </div>
     );
 }
-
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.exact({
-        top: ingredientType,
-        main: PropTypes.arrayOf(ingredientType).isRequired,
-        bottom: ingredientType,
-    }).isRequired,
-    data: PropTypes.arrayOf(ingredientType).isRequired,
-    onAdd: PropTypes.func.isRequired,
-};
 
 export default BurgerIngredients;

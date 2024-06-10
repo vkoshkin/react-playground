@@ -1,9 +1,9 @@
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import ModalOverlay from './modal-overlay';
-import styles from './modal.module.css';
+import ModalOverlay from "./modal-overlay";
+import styles from "./modal.module.css";
 
 const modalRoot = document.getElementById("modals");
 

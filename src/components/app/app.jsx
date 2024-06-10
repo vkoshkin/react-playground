@@ -1,72 +1,41 @@
-import React from 'react';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-import AppError from './app-error';
-import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import styles from './app.module.css';
+import { fetchIngredients } from "../../services/ingredients";
 
-const API_ENDPOINT = "https://norma.nomoreparties.space/api/ingredients";
+import AppError from "./app-error";
+import AppHeader from "../app-header/app-header";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
+import styles from "./app.module.css";
 
 function App() {
-    const [state, setState] = React.useState({
-        data: [],
-        ingredients: {
-            top: null,
-            main: [],
-            bottom: null,
-        },
-        isLoading: false,
-        hasError: false,
-    });
-
-    React.useEffect(() => {
-        const fetchData = async () => {
-            setState({ ...state, isLoading: true, hasError: false });
-            await fetch(API_ENDPOINT)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    return Promise.reject(`Ошибка ${response.status}`);
-                })
-                .then(responseJson => setState({ ...state, data: responseJson.data, isLoading: false }))
-                .catch(e => {
-                    setState({ ...state, hasError: true, isLoading: false });
-                });
-        }
-        fetchData();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchIngredients())
     }, []);
 
-    const onAddIngredient = (ingredient) => {
-        let updatedIngredients = { ...state.ingredients };
-        if (ingredient.type === "bun") {
-            updatedIngredients.top = ingredient;
-            updatedIngredients.bottom = ingredient;
-        } else {
-            updatedIngredients.main.push(ingredient);
-        }
-        setState({ ...state, ingredients: updatedIngredients });
-    };
-
+    const { request, requestError } = useSelector(state => state.burgerIngredients);
     return (
         <div className={styles.app}>
-            {!state.isLoading && !state.hasError &&
-                <AppHeader />
+            {!request && !requestError &&
+                <>
+                    <DndProvider backend={HTML5Backend}>
+                        <AppHeader />
+                        <main className={styles.main}>
+                            <div className={styles.panel}>
+                                <BurgerIngredients />
+                            </div>
+                            <div className={styles.panel}>
+                                <BurgerConstructor />
+                            </div>
+                        </main>
+                    </DndProvider>
+                </>
             }
-            {!state.isLoading && !state.hasError &&
-                <main className={styles.main}>
-                    <div className={styles.panel}>
-                        <BurgerIngredients data={state.data}
-                            ingredients={state.ingredients}
-                            onAdd={(ingredient) => onAddIngredient(ingredient)} />
-                    </div>
-                    <div className={styles.panel}>
-                        <BurgerConstructor ingredients={state.ingredients} />
-                    </div>
-                </main>
-            }
-            {!state.isLoading && state.hasError &&
+            {!request && requestError &&
                 <AppError />
             }
         </div>

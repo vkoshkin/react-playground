@@ -1,5 +1,5 @@
-import styles from './app-error.module.css';
-import error from '../../images/error.gif';
+import styles from "./app-error.module.css";
+import error from "../../images/error.gif";
 
 function AppError(props) {
     return (

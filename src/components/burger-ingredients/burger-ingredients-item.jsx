@@ -1,28 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch } from "react-redux";
+import { useDrag } from "react-dnd";
+import PropTypes from "prop-types";
+import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import IngredientDetails from './ingredient-details';
-import Modal from '../modal/modal';
-import { useModal } from '../hooks/useModal';
-import styles from './burger-ingredients-item.module.css';
-import ingredientType from '../../utils/types';
+import { showIngredient } from "../../services/ingredientDetails";
+
+import IngredientDetails from "./ingredient-details";
+import Modal from "../modal/modal";
+import { useModal } from "../../hooks/useModal";
+import styles from "./burger-ingredients-item.module.css";
+import ingredientType from "../../utils/types";
 
 function BurgerIngredientsItem(props) {
-    const { ingredient, count, onAdd } = props;
+    const { ingredient, count } = props;
     const { isModalOpen, openModal, closeModal } = useModal();
 
-    const onIngredientImageClick = event => {
+    const dispatch = useDispatch();
+
+    const onIngredientClick = event => {
         event.stopPropagation();
+        dispatch(showIngredient(ingredient))
         openModal();
     };
+
+    const [{}, dragRef] = useDrag({
+        type: "ingredient",
+        item: { id: undefined, item: ingredient },
+    });
     return (
-        <div className={styles.item} onClick={onAdd}>
+        <div className={styles.item} ref={dragRef} onClick={onIngredientClick}>
             <div>
                 <img className={styles.item_image}
                     src={ingredient.image}
-                    alt={ingredient.name}
-                    onClick={onIngredientImageClick} />
+                    alt={ingredient.name}/>
                 <div className={styles.item_price}>
                     <p className={styles.item_price_value}>{ingredient.price}</p>
                     <CurrencyIcon type="primary" />
@@ -35,7 +45,7 @@ function BurgerIngredientsItem(props) {
 
             {isModalOpen &&
                 <Modal header={"Детали ингредиента"} onClose={closeModal}>
-                    <IngredientDetails ingredient={ingredient} />
+                    <IngredientDetails />
                 </Modal>
             }
         </div>
@@ -45,7 +55,6 @@ function BurgerIngredientsItem(props) {
 BurgerIngredientsItem.propTypes = {
     ingredient: ingredientType,
     count: PropTypes.number,
-    onAdd: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredientsItem;
