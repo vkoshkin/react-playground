@@ -14,31 +14,26 @@
     align-items: center;
 }
 
-.login_header {
+.header {
     composes: text text_type_main-medium from global;
     text-align: center;
 }
 
-.login_email {
+.email {
     composes: mt-6 from global;
 }
 
-.login_password {
+.password {
     composes: mt-6 from global;
 }
 
-.login_button {
+.button {
     composes: mt-6 mb-20 from global;
     display: flex;
     justify-content: center;
 }
 
-.login_register {
-    composes: mb-4 text text_type_main-default text_color_inactive from global;
-    text-align: center;
-}
-
-.login_reset {
+.sub {
     composes: mb-4 text text_type_main-default text_color_inactive from global;
     text-align: center;
 }

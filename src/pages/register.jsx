@@ -9,16 +9,16 @@ function Register(props) {
             <AppHeader />
             <main className={styles.main}>
                 <section>
-                    <h1 className={styles.register_header}>Регистрация</h1>
-                    <Input placeholder="Имя" extraClass={styles.register_name} />
-                    <EmailInput placeholder="E-mail" extraClass={styles.register_email}/>
-                    <PasswordInput placeholder="Пароль" extraClass={styles.register_password}/>
-                    <div className={styles.register_button}>
+                    <h1 className={styles.header}>Регистрация</h1>
+                    <Input placeholder="Имя" extraClass={styles.name} />
+                    <EmailInput placeholder="E-mail" extraClass={styles.email}/>
+                    <PasswordInput placeholder="Пароль" extraClass={styles.password}/>
+                    <div className={styles.button}>
                         <Button htmlType="button" type="primary" size="medium">
                             Зарегистрироваться
                         </Button>
                     </div>
-                    <p className={styles.register_login}>Уже зарегистрированы? Войти</p>
+                    <p className={styles.sub}>Уже зарегистрированы? Войти</p>
                 </section>
             </main>
         </div>

@@ -9,16 +9,16 @@ function Login(props) {
             <AppHeader />
             <main className={styles.main}>
                 <section>
-                    <h1 className={styles.login_header}>Вход</h1>
-                    <EmailInput placeholder="E-mail" extraClass={styles.login_email}/>
-                    <PasswordInput placeholder="Пароль" extraClass={styles.login_password}/>
-                    <div className={styles.login_button}>
+                    <h1 className={styles.header}>Вход</h1>
+                    <EmailInput placeholder="E-mail" extraClass={styles.email}/>
+                    <PasswordInput placeholder="Пароль" extraClass={styles.password}/>
+                    <div className={styles.button}>
                         <Button htmlType="button" type="primary" size="medium">
                             Войти
                         </Button>
                     </div>
-                    <p className={styles.login_register}>Вы новый пользователь? Зарегистрироваться</p>
-                    <p className={styles.login_reset}>Забыли пароль? Восстановить пароль</p>
+                    <p className={styles.sub}>Вы новый пользователь? Зарегистрироваться</p>
+                    <p className={styles.sub}>Забыли пароль? Восстановить пароль</p>
                 </section>
             </main>
         </div>
