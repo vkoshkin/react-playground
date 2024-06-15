@@ -6,6 +6,7 @@ import AppError from "./app-error";
 import Home from "../../pages/home";
 import Login from "../../pages/login";
 import Register from "../../pages/register";
+import ForgotPassword from "../../pages/forgot-password";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="*" element={<AppError />} />
             </Routes>
         </DndProvider>
