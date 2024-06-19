@@ -14,6 +14,8 @@ import Register from "../../pages/register";
 import ForgotPassword from "../../pages/forgot-password";
 import ResetPassword from "../../pages/reset-password";
 import Profile from "../../pages/profile";
+import IngredientDetails from "../../services/ingredientDetails";
+import IngredientModal from "../burger-ingredients/ingredient-modal";
 
 function App() {
     const dispatch = useDispatch();
@@ -22,12 +24,13 @@ function App() {
     }, []);
 
     const location = useLocation();
+    console.log(JSON.stringify(location));
     const state = location.state;
     return (
-        <div className={styles.app}>
-            <AppHeader />
-            <main className={styles.main}>
-                <DndProvider backend={HTML5Backend}>
+        <DndProvider backend={HTML5Backend}>
+            <div className={styles.app}>
+                <AppHeader />
+                <main className={styles.main}>
                     <Routes location={state?.backgroundLocation || location}>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
@@ -37,9 +40,14 @@ function App() {
                         <Route path="/profile" element={<Profile />} />
                         <Route path="*" element={<AppError />} />
                     </Routes>
-                </DndProvider>
-            </main>
-        </div>
+                    {state?.backgroundLocation && (
+                        <Routes>
+                            <Route path="/ingredients/:id" element={<IngredientModal ingredient={state.ingredient} />} />
+                        </Routes>
+                    )}
+                </main>
+            </div>
+        </DndProvider>
     );
 }
 

@@ -2,25 +2,19 @@ import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
 import PropTypes from "prop-types";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link, useLocation } from "react-router-dom";
 
 import { showIngredient } from "../../services/ingredientDetails";
-
-import IngredientDetails from "./ingredient-details";
-import Modal from "../modal/modal";
-import { useModal } from "../../hooks/useModal";
 import styles from "./burger-ingredients-item.module.css";
 import ingredientType from "../../utils/types";
 
 function BurgerIngredientsItem(props) {
     const { ingredient, count } = props;
-    const { isModalOpen, openModal, closeModal } = useModal();
 
+    const location = useLocation();
     const dispatch = useDispatch();
-
     const onIngredientClick = event => {
-        event.stopPropagation();
         dispatch(showIngredient(ingredient))
-        openModal();
     };
 
     const [{}, dragRef] = useDrag({
@@ -28,11 +22,17 @@ function BurgerIngredientsItem(props) {
         item: { id: undefined, item: ingredient },
     });
     return (
-        <div className={styles.item} ref={dragRef} onClick={onIngredientClick}>
+        <div className={styles.item} ref={dragRef}>
             <div>
-                <img className={styles.item_image}
-                    src={ingredient.image}
-                    alt={ingredient.name}/>
+                <Link
+                    to={`/ingredients/${ingredient._id}`}
+                    state={{ backgroundLocation: location }}
+                    onClick={onIngredientClick}
+                >
+                    <img className={styles.item_image}
+                        src={ingredient.image}
+                        alt={ingredient.name}/>
+                </Link>
                 <div className={styles.item_price}>
                     <p className={styles.item_price_value}>{ingredient.price}</p>
                     <CurrencyIcon type="primary" />
@@ -42,12 +42,6 @@ function BurgerIngredientsItem(props) {
                 </div>
             </div>
             {count > 0 && <Counter count={count} size="default" />}
-
-            {isModalOpen &&
-                <Modal header={"Детали ингредиента"} onClose={closeModal}>
-                    <IngredientDetails />
-                </Modal>
-            }
         </div>
     );
 }
