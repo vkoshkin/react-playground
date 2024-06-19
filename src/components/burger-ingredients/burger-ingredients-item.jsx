@@ -1,22 +1,14 @@
-import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
 import PropTypes from "prop-types";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
 
-import { showIngredient } from "../../services/ingredientDetails";
 import styles from "./burger-ingredients-item.module.css";
 import ingredientType from "../../utils/types";
 
 function BurgerIngredientsItem(props) {
     const { ingredient, count } = props;
-
     const location = useLocation();
-    const dispatch = useDispatch();
-    const onIngredientClick = event => {
-        dispatch(showIngredient(ingredient))
-    };
-
     const [{}, dragRef] = useDrag({
         type: "ingredient",
         item: { id: undefined, item: ingredient },
@@ -27,7 +19,6 @@ function BurgerIngredientsItem(props) {
                 <Link
                     to={`/ingredients/${ingredient._id}`}
                     state={{ backgroundLocation: location }}
-                    onClick={onIngredientClick}
                 >
                     <img className={styles.item_image}
                         src={ingredient.image}
