@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -14,7 +14,7 @@ import Register from "../../pages/register";
 import ForgotPassword from "../../pages/forgot-password";
 import ResetPassword from "../../pages/reset-password";
 import Profile from "../../pages/profile";
-import IngredientDetails from "../../services/ingredientDetails";
+import IngredientDetails from "../burger-ingredients/ingredient-details";
 import IngredientModal from "../burger-ingredients/ingredient-modal";
 
 function App() {
@@ -23,29 +23,38 @@ function App() {
         dispatch(fetchIngredients())
     }, []);
 
+    const { request, requestError } = useSelector(state => state.burgerIngredients);
+
     const location = useLocation();
-    console.log(JSON.stringify(location));
     const state = location.state;
     return (
         <DndProvider backend={HTML5Backend}>
             <div className={styles.app}>
-                <AppHeader />
-                <main className={styles.main}>
-                    <Routes location={state?.backgroundLocation || location}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/forgot-password" element={<ForgotPassword />} />
-                        <Route path="/reset-password" element={<ResetPassword />} />
-                        <Route path="/profile" element={<Profile />} />
-                        <Route path="*" element={<AppError />} />
-                    </Routes>
-                    {state?.backgroundLocation && (
-                        <Routes>
-                            <Route path="/ingredients/:id" element={<IngredientModal ingredient={state.ingredient} />} />
-                        </Routes>
-                    )}
-                </main>
+                {!request && !requestError &&
+                    <>
+                        <AppHeader />
+                        <main className={styles.main}>
+                            <Routes location={state?.backgroundLocation || location}>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/register" element={<Register />} />
+                                <Route path="/forgot-password" element={<ForgotPassword />} />
+                                <Route path="/reset-password" element={<ResetPassword />} />
+                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/ingredients/:id" element={<IngredientDetails />} />
+                                <Route path="*" element={<AppError />} />
+                            </Routes>
+                            {state?.backgroundLocation && (
+                                <Routes>
+                                    <Route path="/ingredients/:id" element={<IngredientModal />} />
+                                </Routes>
+                            )}
+                        </main>
+                    </>
+                }
+                {!request && requestError &&
+                    <AppError />
+                }
             </div>
         </DndProvider>
     );
