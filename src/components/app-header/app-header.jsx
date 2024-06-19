@@ -22,12 +22,16 @@ function AppHeader(props) {
                     </div>
 
                     <div className="ml-2">
-                        <a className={styles.anchor} href="/">
-                            <ListIcon type="secondary" />
-                            <span className="text text_type_main-default text_color_inactive pl-2">
-                                Лента заказов
-                            </span>
-                        </a>
+                        <NavLink className={styles.anchor} to="/order-feed">
+                            {({ isActive }) => (
+                                <>
+                                    <ListIcon type={isActive ? "primary" : "secondary"} />
+                                    <span className={isActive ? styles.anchor_text_active : styles.anchor_text}>
+                                        Лента заказов
+                                    </span>
+                                </>
+                            )}
+                        </NavLink>
                     </div>
                 </div>
 
