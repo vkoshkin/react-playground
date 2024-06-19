@@ -1,4 +1,5 @@
-import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link } from "react-router-dom";
 
 import styles from "./reset-password.module.css";
 
@@ -13,7 +14,7 @@ function ResetPassword(props) {
                     Сохранить
                 </Button>
             </div>
-            <p className={styles.sub}>Вспомнили пароль? Войти</p>
+            <p className={styles.sub}>Вспомнили пароль? <Link to="/login">Войти</Link></p>
         </section>
     );
 }

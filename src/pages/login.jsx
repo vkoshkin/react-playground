@@ -1,4 +1,5 @@
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link } from "react-router-dom";
 
 import styles from "./login.module.css";
 
@@ -13,8 +14,12 @@ function Login(props) {
                     Войти
                 </Button>
             </div>
-            <p className={styles.sub}>Вы новый пользователь? Зарегистрироваться</p>
-            <p className={styles.sub}>Забыли пароль? Восстановить пароль</p>
+            <p className={styles.sub}>
+                Вы новый пользователь? <Link to="/register">Зарегистрироваться</Link>
+            </p>
+            <p className={styles.sub}>
+                Забыли пароль? <Link to="/forgot-password">Восстановить пароль</Link>
+            </p>
         </section>
     );
 }

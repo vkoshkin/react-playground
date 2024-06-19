@@ -1,4 +1,5 @@
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link } from "react-router-dom";
 
 import styles from "./register.module.css";
 
@@ -14,7 +15,7 @@ function Register(props) {
                     Зарегистрироваться
                 </Button>
             </div>
-            <p className={styles.sub}>Уже зарегистрированы? Войти</p>
+            <p className={styles.sub}>Уже зарегистрированы? <Link to="/login">Войти</Link></p>
         </section>
     );
 }
