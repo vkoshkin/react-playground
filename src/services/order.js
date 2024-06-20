@@ -58,4 +58,4 @@ export const {
     orderRequestError,
 } = slice.actions;
 
-export default slice.reducer;
+export default slice;
