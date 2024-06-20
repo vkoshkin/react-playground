@@ -1,9 +1,13 @@
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import styles from "./register.module.css";
 
 function Register(props) {
+    const navigate = useNavigate();
+    const onClick = () => {
+        navigate("/login");
+    };
     return (
         <section>
             <h1 className={styles.header}>Регистрация</h1>
@@ -11,7 +15,7 @@ function Register(props) {
             <EmailInput placeholder="E-mail" extraClass={styles.email} />
             <PasswordInput placeholder="Пароль" extraClass={styles.password} />
             <div className={styles.button}>
-                <Button htmlType="button" type="primary" size="medium">
+                <Button htmlType="button" type="primary" size="medium" onClick={onClick}>
                     Зарегистрироваться
                 </Button>
             </div>
