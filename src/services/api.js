@@ -28,3 +28,16 @@ export function postAuthRegister(name, email, password) {
         }),
     });
 }
+
+export function postAuthLogin(email, password) {
+    return request("auth/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            email: email,
+            password: password,
+        }),
+    });
+}

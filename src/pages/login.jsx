@@ -1,16 +1,50 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
 
+import { loginUser } from "../services/user";
 import styles from "./login.module.css";
 
 function Login(props) {
+    const { user, loginRequest, loginError } = useSelector(store => store.user);
+
+    const navigate = useNavigate();
+    if (user != null) {
+        navigate("/");
+    }
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const dispatch = useDispatch();
+    const onClick = () => {
+        dispatch(loginUser(email, password));
+    };
     return (
         <section>
             <h1 className={styles.header}>Вход</h1>
-            <EmailInput placeholder="E-mail" extraClass={styles.email} />
-            <PasswordInput placeholder="Пароль" extraClass={styles.password} />
+            <EmailInput
+                placeholder="E-mail"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                extraClass={styles.email}
+            />
+            <PasswordInput
+                placeholder="Пароль"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                extraClass={styles.password}
+            />
             <div className={styles.button}>
-                <Button htmlType="button" type="primary" size="medium">
+                {loginError && <p>Не удалось залогиниться</p>}
+                <Button
+                    htmlType="button"
+                    type="primary"
+                    size="medium"
+                    onClick={onClick}
+                    disabled={loginRequest}
+                >
                     Войти
                 </Button>
             </div>
