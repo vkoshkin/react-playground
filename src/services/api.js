@@ -14,3 +14,17 @@ export function postOrderRequest(data) {
         body: JSON.stringify({ ingredients: data }),
     });
 }
+
+export function postAuthRegister(name, email, password) {
+    return request("auth/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            name: name,
+            email: email,
+            password: password,
+        }),
+    });
+}
