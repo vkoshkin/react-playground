@@ -6,7 +6,7 @@ const ProtectedRoute = ({ authenticatedOnly, component }) => {
     const location = useLocation();
 
     if (!userChecked) {
-        return <p>Загрузка...</p>;
+        return <p className="text text_type_main-default">Загрузка...</p>;
     }
     if (!authenticatedOnly && user) {
         const { from } = location.state || { from: { pathname: "/" } };
