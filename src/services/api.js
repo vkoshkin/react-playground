@@ -41,3 +41,24 @@ export function postAuthLogin(email, password) {
         }),
     });
 }
+
+export function getAuthUser() {
+    return request("auth/user", {
+        method: "GET",
+        headers: {
+            "Authorization": localStorage.getItem("accessToken"),
+        },
+    });
+}
+
+export function patchAuthUser() {
+    return request("auth/user", {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            "token": localStorage.getItem("refreshToken"),
+        }),
+    });
+}

@@ -5,6 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { fetchIngredients } from "../../services/ingredients";
+import { fetchUser } from "../../services/user";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import AppError from "./app-error";
@@ -20,7 +21,8 @@ import IngredientModal from "../burger-ingredients/ingredient-modal";
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchIngredients())
+        dispatch(fetchIngredients()); 
+        dispatch(fetchUser());
     }, []);
 
     const { request, requestError } = useSelector(state => state.burgerIngredients);

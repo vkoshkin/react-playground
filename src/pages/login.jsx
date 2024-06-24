@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { loginUser } from "../services/user";
@@ -9,11 +9,6 @@ import styles from "./login.module.css";
 function Login(props) {
     const { user, loginRequest, loginError } = useSelector(store => store.user);
 
-    const navigate = useNavigate();
-    if (user != null) {
-        navigate("/");
-    }
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -21,6 +16,10 @@ function Login(props) {
     const onClick = () => {
         dispatch(loginUser(email, password));
     };
+
+    if (user != null) {
+        return <Navigate to={"/"}/>
+    }
     return (
         <section>
             <h1 className={styles.header}>Вход</h1>
