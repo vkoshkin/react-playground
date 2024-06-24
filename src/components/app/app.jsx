@@ -17,12 +17,13 @@ import ResetPassword from "../../pages/reset-password";
 import Profile from "../../pages/profile";
 import IngredientDetails from "../burger-ingredients/ingredient-details";
 import IngredientModal from "../burger-ingredients/ingredient-modal";
+import { AuthenticatedRoute, AnonymousRoute } from "../protected-route";
 
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchIngredients()); 
         dispatch(fetchUser());
+        dispatch(fetchIngredients());
     }, []);
 
     const { request, requestError } = useSelector(state => state.burgerIngredients);
@@ -38,11 +39,26 @@ function App() {
                         <main className={styles.main}>
                             <Routes location={state?.backgroundLocation || location}>
                                 <Route path="/" element={<Home />} />
-                                <Route path="/login" element={<Login />} />
-                                <Route path="/register" element={<Register />} />
-                                <Route path="/forgot-password" element={<ForgotPassword />} />
-                                <Route path="/reset-password" element={<ResetPassword />} />
-                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/login" element={
+                                    <AnonymousRoute component={<Login />}>
+                                    </AnonymousRoute>
+                                } />
+                                <Route path="/register" element={
+                                    <AnonymousRoute component={<Register />}>
+                                    </AnonymousRoute>
+                                } />
+                                <Route path="/forgot-password" element={
+                                    <AnonymousRoute component={<ForgotPassword />}>
+                                    </AnonymousRoute>
+                                } />
+                                <Route path="/reset-password" element={
+                                    <AnonymousRoute component={<ResetPassword />}>
+                                    </AnonymousRoute>
+                                } />
+                                <Route path="/profile" element={
+                                    <AuthenticatedRoute component={<Profile />}>
+                                    </AuthenticatedRoute>
+                                } />
                                 <Route path="/ingredients/:id" element={<IngredientDetails />} />
                                 <Route path="*" element={<AppError />} />
                             </Routes>

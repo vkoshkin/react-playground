@@ -78,7 +78,7 @@ export function loginUser(email, password) {
 
 const initialState = {
     user: null,
-    userFetched: false,
+    userChecked: false,
     registerRequest: false,
     registerError: false,
     loginRequest: false,
@@ -92,7 +92,7 @@ const slice = createSlice({
         setUser(state, action) {
             state.user = action.payload;
             console.log(`user set to ${JSON.stringify(state.user)}`);
-            state.userFetched = true;
+            state.userChecked = true;
             state.registerRequest = false;
             state.registerError = false;
             state.loginRequest = false;
