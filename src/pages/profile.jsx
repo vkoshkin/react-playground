@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux";
 import { Input, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./profile.module.css";
 
 function Profile(props) {
+    const { user } = useSelector(store => store.user);
     return (
         <div className={styles.sections}>
             <nav className={styles.nav}>
@@ -12,9 +14,21 @@ function Profile(props) {
                 <p className={styles.nav_text}>В этом разделе вы можете изменить свои персональные данные</p>
             </nav>
             <section className={styles.profile}>
-                <Input placeholder="Имя" extraClass={styles.name} />
-                <EmailInput placeholder="Логин" extraClass={styles.email} />
-                <PasswordInput placeholder="Пароль" extraClass={styles.password} />
+                <Input
+                    placeholder="Имя"
+                    value={user.name}
+                    extraClass={styles.name}
+                />
+                <EmailInput
+                    placeholder="Логин"
+                    value={user.email}
+                    extraClass={styles.email}
+                />
+                <PasswordInput
+                    placeholder="Пароль"
+                    value="**********"
+                    extraClass={styles.password}
+                />
             </section>
         </div>
     );
