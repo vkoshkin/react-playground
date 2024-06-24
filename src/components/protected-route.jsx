@@ -13,7 +13,7 @@ const ProtectedRoute = ({ authenticatedOnly, component }) => {
 
     if (!authenticatedOnly && user) {
         const { from } = location.state || { from: { pathname: "/" } };
-        return <Navigate to={"/"} />;
+        return <Navigate to={from} />;
     }
     if (authenticatedOnly && !user) {
         return <Navigate to={"/login"} state={{ from: location }} />;
