@@ -8,9 +8,6 @@ const ProtectedRoute = ({ authenticatedOnly, component }) => {
     if (!userChecked) {
         return <p>Загрузка...</p>;
     }
-
-    console.log(`${JSON.stringify(user)}; ${JSON.stringify(authenticatedOnly)}`);
-
     if (!authenticatedOnly && user) {
         const { from } = location.state || { from: { pathname: "/" } };
         return <Navigate to={from} />;
