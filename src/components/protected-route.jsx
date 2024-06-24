@@ -21,5 +21,5 @@ const ProtectedRoute = ({ authenticatedOnly, component }) => {
     return component;
 };
 
-export const AuthenticatedRoute = ({ component }) => <ProtectedRoute authenticatedOnly={true} component={component} />
-export const AnonymousRoute = ({ component }) => <ProtectedRoute authenticatedOnly={false} component={component} />
+export const AuthenticatedOnly = ({ component }) => <ProtectedRoute authenticatedOnly={true} component={component} />
+export const AnonymousOnly = ({ component }) => <ProtectedRoute authenticatedOnly={false} component={component} />

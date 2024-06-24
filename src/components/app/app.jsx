@@ -17,7 +17,7 @@ import ResetPassword from "../../pages/reset-password";
 import Profile from "../../pages/profile";
 import IngredientDetails from "../burger-ingredients/ingredient-details";
 import IngredientModal from "../burger-ingredients/ingredient-modal";
-import { AuthenticatedRoute, AnonymousRoute } from "../protected-route";
+import { AuthenticatedOnly, AnonymousOnly } from "../protected-route";
 
 function App() {
     const dispatch = useDispatch();
@@ -40,24 +40,19 @@ function App() {
                             <Routes location={state?.backgroundLocation || location}>
                                 <Route path="/" element={<Home />} />
                                 <Route path="/login" element={
-                                    <AnonymousRoute component={<Login />}>
-                                    </AnonymousRoute>
+                                    <AnonymousOnly component={<Login />} />
                                 } />
                                 <Route path="/register" element={
-                                    <AnonymousRoute component={<Register />}>
-                                    </AnonymousRoute>
+                                    <AnonymousOnly component={<Register />} />
                                 } />
                                 <Route path="/forgot-password" element={
-                                    <AnonymousRoute component={<ForgotPassword />}>
-                                    </AnonymousRoute>
+                                    <AnonymousOnly component={<ForgotPassword />} />
                                 } />
                                 <Route path="/reset-password" element={
-                                    <AnonymousRoute component={<ResetPassword />}>
-                                    </AnonymousRoute>
+                                    <AnonymousOnly component={<ResetPassword />} />
                                 } />
                                 <Route path="/profile" element={
-                                    <AuthenticatedRoute component={<Profile />}>
-                                    </AuthenticatedRoute>
+                                    <AuthenticatedOnly component={<Profile />} />
                                 } />
                                 <Route path="/ingredients/:id" element={<IngredientDetails />} />
                                 <Route path="*" element={<AppError />} />
