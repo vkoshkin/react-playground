@@ -39,7 +39,7 @@ function AppHeader(props) {
 
                 <div className={styles.personal}>
                     <div>
-                        <NavLink className={styles.anchor} to="/login">
+                        <NavLink className={styles.anchor} to="/profile">
                             {({ isActive }) => (
                                 <>
                                     <ProfileIcon type={isActive ? "primary" : "secondary"} />
