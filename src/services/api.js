@@ -21,7 +21,7 @@ export function postAuthRegister(name, email, password) {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
             name: name,
             email: email,
             password: password,
@@ -35,7 +35,7 @@ export function postAuthLogin(email, password) {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
             email: email,
             password: password,
         }),
@@ -57,8 +57,33 @@ export function patchAuthUser() {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
             "token": localStorage.getItem("refreshToken"),
+        }),
+    });
+}
+
+export function postPasswordReset(email) {
+    return request("password-reset", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "email": email,
+        }),
+    });
+}
+
+export function postPasswordUpdate(password, code) {
+    return request("password-reset/reset", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "password": password,
+            "token": code,
         }),
     });
 }
