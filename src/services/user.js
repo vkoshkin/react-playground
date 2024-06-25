@@ -67,7 +67,6 @@ export function loginUser(email, password) {
     return function (dispatch) {
         dispatch(loginRequest());
         postAuthLogin(email, password).then(response => {
-            console.log(response);
             if (response && response.success) {
                 localStorage.setItem("accessToken", response.accessToken);
                 localStorage.setItem("refreshToken", response.refreshToken);
@@ -86,7 +85,6 @@ export function logoutUser() {
     return function (dispatch) {
         dispatch(logoutRequest());
         postAuthLogout().then(response => {
-            console.log(response);
             if (response && response.success) {
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
@@ -105,7 +103,6 @@ export function saveUser(name, email) {
     return function (dispatch) {
         dispatch(saveRequest());
         patchAuthUser(name, email).then(response => {
-            console.log(response);
             if (response && response.success) {
                 dispatch(setUser(response.user));
             } else {
