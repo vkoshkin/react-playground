@@ -6,7 +6,6 @@ import styles from "./ingredient-details.module.css";
 function findIngredientById(ingredients, id) {
     for (let i of ingredients) {
         if (i._id === id) {
-            console.log(i);
             return i;
         }
     }
