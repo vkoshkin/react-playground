@@ -9,30 +9,3 @@
 .password {
     composes: mb-6 from global;
 }
-
-.sections {
-    width: 1200px;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-}
-
-.nav {
-    composes: mt-25 from global;
-    display: flex;
-    flex-direction: column;
-    width: 320px;
-}
-
-.nav_link {
-    composes: text text_type_main-medium from global;
-    height: 64px;
-}
-
-.nav_text {
-    composes: mt-20 text text_type_main-default text_color_inactive from global;
-}
-
-.profile {
-    composes: mt-25 ml-15 from global;
-}

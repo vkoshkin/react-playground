@@ -1,0 +1,35 @@
+.sections {
+    width: 1200px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav {
+    composes: mt-25 from global;
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+}
+
+.nav_link {
+    text-decoration: none;
+    height: 64px;
+}
+
+.nav_text_inactive {
+    composes: text text_type_main-medium text_color_inactive from global;
+}
+
+.nav_exit {
+    composes: text text_type_main-medium text_color_inactive from global;
+    cursor: pointer;
+}
+
+.nav_sub {
+    composes: mt-20 text text_type_main-default text_color_inactive from global;
+}
+
+.section {
+    composes: mt-25 ml-15 from global;
+}

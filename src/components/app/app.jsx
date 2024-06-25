@@ -13,6 +13,8 @@ import Register from "../../pages/register";
 import ForgotPassword from "../../pages/forgot-password";
 import ResetPassword from "../../pages/reset-password";
 import Profile from "../../pages/profile";
+import ProfileMenu from "../../pages/profile-menu";
+import ProfileOrders from "../../pages/profile-orders";
 import IngredientDetails from "../burger-ingredients/ingredient-details";
 import IngredientModal from "../burger-ingredients/ingredient-modal";
 import { AuthenticatedOnly, AnonymousOnly } from "../protected-route";
@@ -51,6 +53,10 @@ function App() {
                             <Route path="/profile" element={
                                 <AuthenticatedOnly component={<Profile />} />
                             } />
+                            <Route path="profile" element={<ProfileMenu />}>
+                                <Route index element={<AuthenticatedOnly component={<Profile />} />} />
+                                <Route path="orders" element={<AuthenticatedOnly component={<ProfileOrders />} />} />
+                            </Route>
                             <Route path="/ingredients/:id" element={<IngredientDetails />} />
                             <Route path="*" element={<AppError />} />
                         </Routes>
