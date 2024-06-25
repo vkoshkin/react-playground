@@ -22,7 +22,7 @@ function App() {
     useEffect(() => {
         dispatch(fetchUser());
         dispatch(fetchIngredients());
-    }, []);
+    }, [dispatch]);
 
     const { request, requestError } = useSelector(state => state.burgerIngredients);
 

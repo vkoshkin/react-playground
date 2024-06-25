@@ -3,7 +3,7 @@ import { Input, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-
 
 import styles from "./profile.module.css";
 
-function Profile(props) {
+function Profile() {
     const { user } = useSelector(store => store.user);
     return (
         <div className={styles.sections}>

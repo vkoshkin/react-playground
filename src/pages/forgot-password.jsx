@@ -6,7 +6,7 @@ import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-comp
 import { resetPassword } from "../services/user";
 import styles from "./register.module.css";
 
-function ForgotPassword(props) {
+function ForgotPassword() {
     const [email, setEmail] = useState("");
     const { passwordResetRequest, passwordResetError, passwordResetSuccess } = useSelector(store => store.user);
     const dispatch = useDispatch();

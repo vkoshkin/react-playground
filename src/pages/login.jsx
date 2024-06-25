@@ -6,12 +6,10 @@ import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer
 import { loginUser } from "../services/user";
 import styles from "./login.module.css";
 
-function Login(props) {
+function Login() {
     const { loginRequest, loginError } = useSelector(store => store.user);
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const dispatch = useDispatch();
     const onClick = () => {
         dispatch(loginUser(email, password));

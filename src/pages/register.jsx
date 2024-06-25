@@ -6,7 +6,7 @@ import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-de
 import { registerUser } from "../services/user";
 import styles from "./register.module.css";
 
-function Register(props) {
+function Register() {
     const { user, registerRequest, registerError } = useSelector(store => store.user);
 
     const navigate = useNavigate();

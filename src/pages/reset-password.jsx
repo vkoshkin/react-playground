@@ -6,7 +6,7 @@ import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burg
 import { updatePassword } from "../services/user";
 import styles from "./reset-password.module.css";
 
-function ResetPassword(props) {
+function ResetPassword() {
     const [password, setPassword] = useState("");
     const [code, setCode] = useState();
 
