@@ -20,7 +20,6 @@ function Profile() {
     const onCancel = () => {
         setName(user.name);
         setEmail(user.email);
-        setChanged(false);
     };
     return (
         <div>
