@@ -54,6 +54,18 @@ export function postAuthLogout() {
     });
 }
 
+export function postAuthToken() {
+    return request("auth/token", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "token": localStorage.getItem("refreshToken"),
+        }),
+    });
+}
+
 export function getAuthUser() {
     return request("auth/user", {
         method: "GET",
@@ -63,14 +75,16 @@ export function getAuthUser() {
     });
 }
 
-export function patchAuthUser() {
+export function patchAuthUser(name, email) {
     return request("auth/user", {
         method: "PATCH",
         headers: {
+            "Authorization": localStorage.getItem("accessToken"),
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            "token": localStorage.getItem("refreshToken"),
+            name: name,
+            email: email,
         }),
     });
 }

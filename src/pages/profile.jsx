@@ -1,18 +1,21 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { saveUser } from "../services/user";
 import styles from "./profile.module.css";
 
 function Profile() {
-    const { user } = useSelector(store => store.user);
+    const { user, saveRequest, saveRequestError } = useSelector(store => store.user);
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
     const [changed, setChanged] = useState(false);
-    const dataChanged = (currName, currEmail) => {
-        setChanged(currName !== user.name || currEmail !== user.email);
-    };
+    useEffect(() => {
+        setChanged(name !== user.name || email !== user.email);
+    }, [user, name, email])
+    const dispatch = useDispatch();
     const onSave = () => {
+        dispatch(saveUser(name, email));
     };
     const onCancel = () => {
         setName(user.name);
@@ -24,14 +27,14 @@ function Profile() {
             <Input
                 placeholder="Имя"
                 value={name}
-                onChange={e => { setName(e.target.value); dataChanged(e.target.value, email); }}
+                onChange={e => { setName(e.target.value) }}
                 icon={"EditIcon"}
                 extraClass={styles.name}
             />
             <EmailInput
                 placeholder="Логин"
                 value={email}
-                onChange={e => { setEmail(e.target.value); dataChanged(name, e.target.value); }}
+                onChange={e => { setEmail(e.target.value) }}
                 icon={"EditIcon"}
                 isIcon={true}
                 extraClass={styles.email}
@@ -44,6 +47,11 @@ function Profile() {
                 icon={""}
                 extraClass={styles.password}
             />
+            {saveRequestError &&
+                <div>
+                    <p className="text text_type_main-default">Ошибка сохранения пользователя</p>
+                </div>
+            }
             {changed &&
                 <div className={styles.buttons}>
                     <Button
@@ -51,6 +59,7 @@ function Profile() {
                         type="primary"
                         size="medium"
                         onClick={onSave}
+                        disabled={saveRequest}
                     >
                         Сохранить
                     </Button>
@@ -59,6 +68,7 @@ function Profile() {
                         type="secondary"
                         size="medium"
                         onClick={onCancel}
+                        disabled={saveRequest}
                         extraClass={styles.cancel}
                     >
                         Отмена

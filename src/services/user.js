@@ -3,6 +3,7 @@ import {
     postAuthRegister, 
     postAuthLogin, 
     getAuthUser, 
+    postAuthToken,
     patchAuthUser, 
     postAuthLogout,
 } from "./api";
@@ -26,10 +27,9 @@ export function fetchUser() {
             return;
         }
 
-        const patchResponse = await patchAuthUser().catch(e => {
+        const patchResponse = await postAuthToken().catch(e => {
             console.log(`Error refreshing user token ${e}`);
         });
-
         if (patchResponse && patchResponse.success) {
             // успешное обновление токена пользователя через refreshToken
             localStorage.setItem("accessToken", patchResponse.accessToken);
@@ -101,6 +101,23 @@ export function logoutUser() {
     };
 }
 
+export function saveUser(name, email) {
+    return function (dispatch) {
+        dispatch(saveRequest());
+        patchAuthUser(name, email).then(response => {
+            console.log(response);
+            if (response && response.success) {
+                dispatch(setUser(response.user));
+            } else {
+                dispatch(saveRequestError());
+            }
+        }).catch(e => {
+            console.log(`Exception occurred while user save ${e}`);
+            dispatch(logoutRequestError());
+        });
+    };
+}
+
 const initialState = {
     user: null,
     userChecked: false,
@@ -110,6 +127,8 @@ const initialState = {
     loginError: false,
     logoutRequest: false,
     logoutError: false,
+    saveRequest: false,
+    saveRequestError: false,
 };
 
 const slice = createSlice({
@@ -126,6 +145,8 @@ const slice = createSlice({
             state.loginError = false;
             state.logoutRequest = false;
             state.logoutError = false;
+            state.saveRequest = false;
+            state.saveRequestError = false;
         },
         registerRequest(state, action) {
             state.registerRequest = true;
@@ -151,6 +172,14 @@ const slice = createSlice({
             state.logoutRequest = false;
             state.logoutError = true;
         },
+        saveRequest(state, action) {
+            state.saveRequest = true;
+            state.saveRequestError = false;
+        },
+        saveRequestError(state, action) {
+            state.saveRequest = false;
+            state.saveRequestError = true;
+        }
     }
 });
 
@@ -162,6 +191,8 @@ export const {
     loginRequestError,
     logoutRequest,
     logoutRequestError,
+    saveRequest,
+    saveRequestError,
 } = slice.actions;
 
 export default slice;
