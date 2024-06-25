@@ -28,7 +28,7 @@ function Profile() {
                 value={name}
                 onChange={e => { setName(e.target.value) }}
                 icon={"EditIcon"}
-                extraClass={styles.name}
+                extraClass={styles.field}
             />
             <EmailInput
                 placeholder="Логин"
@@ -36,7 +36,7 @@ function Profile() {
                 onChange={e => { setEmail(e.target.value) }}
                 icon={"EditIcon"}
                 isIcon={true}
-                extraClass={styles.email}
+                extraClass={styles.field}
             />
             <PasswordInput
                 placeholder="Пароль"
@@ -44,7 +44,7 @@ function Profile() {
                 onChange={() => { }}
                 disabled
                 icon={""}
-                extraClass={styles.password}
+                extraClass={styles.field}
             />
             {saveRequestError &&
                 <div>

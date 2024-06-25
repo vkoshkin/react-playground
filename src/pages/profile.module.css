@@ -1,12 +1,4 @@
-.name {
-    composes: mb-6 from global;
-}
-
-.email {
-    composes: mb-6 from global;
-}
-
-.password {
+.field {
     composes: mb-6 from global;
 }
 

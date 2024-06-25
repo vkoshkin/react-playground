@@ -25,13 +25,13 @@ function ResetPassword() {
                 placeholder="Введите новый пароль"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                extraClass={styles.password}
+                extraClass={styles.field}
             />
             <Input
                 placeholder="Введите код из письма"
                 value={code}
                 onChange={e => setCode(e.target.value)}
-                extraClass={styles.name}
+                extraClass={styles.field}
             />
             <div className={styles.button}>
                 {passwordUpdateError && <p>Не удалось обновить пароль</p>}

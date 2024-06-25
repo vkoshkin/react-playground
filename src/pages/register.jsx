@@ -29,19 +29,19 @@ function Register() {
                 placeholder="Имя"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                extraClass={styles.name}
+                extraClass={styles.field}
             />
             <EmailInput
                 placeholder="E-mail"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                extraClass={styles.email}
+                extraClass={styles.field}
             />
             <PasswordInput
                 placeholder="Пароль"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                extraClass={styles.password}
+                extraClass={styles.field}
             />
             <div className={styles.button}>
                 {registerError && <p>Не удалось зарегистрироваться</p>}

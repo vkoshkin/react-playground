@@ -23,7 +23,7 @@ function ForgotPassword() {
                 placeholder="Укажите e-mail"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                extraClass={styles.email}
+                extraClass={styles.field}
             />
             <div className={styles.button}>
                 {passwordResetError && <p>Не удалось восстановить пароль</p>}

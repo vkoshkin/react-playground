@@ -3,11 +3,7 @@
     text-align: center;
 }
 
-.email {
-    composes: mt-6 from global;
-}
-
-.password {
+.field {
     composes: mt-6 from global;
 }
 
