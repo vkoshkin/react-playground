@@ -6,6 +6,7 @@ import {
     patchAuthUser, 
     postPasswordReset, 
     postPasswordUpdate,
+    postAuthLogout,
 } from "./api";
 
 export function fetchUser() {
@@ -83,6 +84,25 @@ export function loginUser(email, password) {
     };
 }
 
+export function logoutUser() {
+    return function (dispatch) {
+        dispatch(logoutRequest());
+        postAuthLogout().then(response => {
+            console.log(response);
+            if (response && response.success) {
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+                dispatch(setUser(null));
+            } else {
+                dispatch(logoutRequestError());
+            }
+        }).catch(e => {
+            console.log(`Exception occurred while user logout ${e}`);
+            dispatch(logoutRequestError());
+        });
+    };
+}
+
 export function resetPassword(email) {
     return function (dispatch) {
         dispatch(passwordResetRequest());
@@ -122,6 +142,8 @@ const initialState = {
     registerError: false,
     loginRequest: false,
     loginError: false,
+    logoutRequest: false,
+    logoutError: false,
     passwordResetRequest: false,
     passwordResetError: false,
     passwordResetSuccess: false,
@@ -142,6 +164,8 @@ const slice = createSlice({
             state.registerError = false;
             state.loginRequest = false;
             state.loginError = false;
+            state.logoutRequest = false;
+            state.logoutError = false;
         },
         registerRequest(state, action) {
             state.registerRequest = true;
@@ -158,6 +182,14 @@ const slice = createSlice({
         loginRequestError(state, action) {
             state.loginRequest = false;
             state.loginError = true;
+        },
+        logoutRequest(state, action) {
+            state.logoutRequest = true;
+            state.logoutError = false;
+        },
+        logoutRequestError(state, action) {
+            state.logoutRequest = false;
+            state.logoutError = true;
         },
         passwordResetRequest(state, action) {
             state.passwordResetRequest = true;
@@ -198,6 +230,8 @@ export const {
     registerRequestError,
     loginRequest,
     loginRequestError,
+    logoutRequest,
+    logoutRequestError,
     passwordResetRequest,
     passwordResetError,
     passwordResetSuccess,

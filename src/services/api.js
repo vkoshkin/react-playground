@@ -42,6 +42,18 @@ export function postAuthLogin(email, password) {
     });
 }
 
+export function postAuthLogout() {
+    return request("auth/logout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            token: localStorage.getItem("refreshToken"),
+        }),
+    });
+}
+
 export function getAuthUser() {
     return request("auth/user", {
         method: "GET",
