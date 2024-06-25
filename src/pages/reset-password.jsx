@@ -3,14 +3,14 @@ import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { updatePassword } from "../services/user";
+import { updatePassword } from "../services/password";
 import styles from "./reset-password.module.css";
 
 function ResetPassword() {
     const [password, setPassword] = useState("");
     const [code, setCode] = useState();
 
-    const { passwordUpdateRequest, passwordUpdateError, passwordUpdateSuccess } = useSelector(store => store.user);
+    const { passwordUpdateRequest, passwordUpdateError, passwordUpdateSuccess } = useSelector(store => store.password);
     const dispatch = useDispatch();
     const onClick = () => {
         dispatch(updatePassword(password, code));

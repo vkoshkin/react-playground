@@ -3,12 +3,12 @@ import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { resetPassword } from "../services/user";
+import { resetPassword } from "../services/password";
 import styles from "./register.module.css";
 
 function ForgotPassword() {
     const [email, setEmail] = useState("");
-    const { passwordResetRequest, passwordResetError, passwordResetSuccess } = useSelector(store => store.user);
+    const { passwordResetRequest, passwordResetError, passwordResetSuccess } = useSelector(store => store.password);
     const dispatch = useDispatch();
     const onClick = () => {
         dispatch(resetPassword(email));

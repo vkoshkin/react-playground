@@ -5,6 +5,7 @@ import ingredientDetailsReducer from "./ingredientDetails";
 import constructorReducer from "./constructor";
 import orderReducer from "./order";
 import userReducer from "./user";
+import passwordReducer from "./password";
 
 const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
         [constructorReducer.reducerPath]: constructorReducer.reducer,
         [orderReducer.reducerPath]: orderReducer.reducer,
         [userReducer.reducerPath]: userReducer.reducer,
+        [passwordReducer.reducerPath]: passwordReducer.reducer,
     }
 });
 
