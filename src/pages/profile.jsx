@@ -31,7 +31,7 @@ function Profile() {
             />
             <PasswordInput
                 placeholder="Пароль"
-                value="**********"
+                value="ты не имеешь права, о ты не имеешь права"
                 onChange={() => { }}
                 disabled
                 icon={""}
