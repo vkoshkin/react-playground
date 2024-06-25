@@ -9,3 +9,12 @@
 .password {
     composes: mb-6 from global;
 }
+
+.buttons {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.cancel {
+    composes: mr-5 from global;
+}
