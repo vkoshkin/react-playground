@@ -12,6 +12,13 @@ function Profile() {
     const dataChanged = (currName, currEmail) => {
         setChanged(currName !== user.name || currEmail !== user.email);
     };
+    const onSave = () => {
+    };
+    const onCancel = () => {
+        setName(user.name);
+        setEmail(user.email);
+        setChanged(false);
+    };
     return (
         <div>
             <Input
@@ -39,10 +46,21 @@ function Profile() {
             />
             {changed &&
                 <div className={styles.buttons}>
-                    <Button htmlType="button" type="primary" size="medium">
+                    <Button
+                        htmlType="button"
+                        type="primary"
+                        size="medium"
+                        onClick={onSave}
+                    >
                         Сохранить
                     </Button>
-                    <Button htmlType="button" type="secondary" size="medium" extraClass={styles.cancel}>
+                    <Button
+                        htmlType="button"
+                        type="secondary"
+                        size="medium"
+                        onClick={onCancel}
+                        extraClass={styles.cancel}
+                    >
                         Отмена
                     </Button>
                 </div>
