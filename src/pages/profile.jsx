@@ -47,8 +47,8 @@ function Profile() {
                 extraClass={styles.field}
             />
             {saveRequestError &&
-                <div>
-                    <p className="text text_type_main-default">Ошибка сохранения пользователя</p>
+                <div className={styles.error_pane}>
+                    <p className={styles.error}>Ошибка сохранения пользователя</p>
                 </div>
             }
             {changed &&

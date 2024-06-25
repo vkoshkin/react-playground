@@ -25,8 +25,12 @@ function ForgotPassword() {
                 onChange={e => setEmail(e.target.value)}
                 extraClass={styles.field}
             />
+            {passwordResetError &&
+                <div className={styles.error_pane}>
+                    <p className={styles.error}>Не удалось восстановить пароль</p>
+                </div>
+            }
             <div className={styles.button}>
-                {passwordResetError && <p>Не удалось восстановить пароль</p>}
                 <Button
                     htmlType="button"
                     type="primary"

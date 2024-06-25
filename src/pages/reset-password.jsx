@@ -33,8 +33,12 @@ function ResetPassword() {
                 onChange={e => setCode(e.target.value)}
                 extraClass={styles.field}
             />
+            {passwordUpdateError &&
+                <div className={styles.error_pane}>
+                    <p className={styles.error}>Не удалось обновить пароль</p>
+                </div>
+            }
             <div className={styles.button}>
-                {passwordUpdateError && <p>Не удалось обновить пароль</p>}
                 <Button
                     htmlType="button"
                     type="primary"

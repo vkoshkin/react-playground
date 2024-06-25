@@ -43,8 +43,12 @@ function Register() {
                 onChange={e => setPassword(e.target.value)}
                 extraClass={styles.field}
             />
+            {registerError &&
+                <div className={styles.error_pane}>
+                    <p className={styles.error}>Не удалось зарегистрироваться</p>
+                </div>
+            }
             <div className={styles.button}>
-                {registerError && <p>Не удалось зарегистрироваться</p>}
                 <Button
                     htmlType="button"
                     type="primary"

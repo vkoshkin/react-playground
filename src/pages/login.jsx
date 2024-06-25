@@ -29,8 +29,12 @@ function Login() {
                 onChange={e => setPassword(e.target.value)}
                 extraClass={styles.field}
             />
+            {loginError &&
+                <div className={styles.error_pane}>
+                    <p className={styles.error}>Не удалось войти в систему</p>
+                </div>
+            }
             <div className={styles.button}>
-                {loginError && <p>Не удалось залогиниться</p>}
                 <Button
                     htmlType="button"
                     type="primary"

@@ -7,6 +7,16 @@
     flex-direction: row-reverse;
 }
 
+.error_pane {
+    display: flex;
+    justify-content: center;
+}
+
+.error {
+    composes: text text_type_main-default mt-6 from global;
+    color: red;
+}
+
 .cancel {
     composes: mr-5 from global;
 }
