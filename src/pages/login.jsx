@@ -11,40 +11,42 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
-    const onClick = () => {
+    const onSubmit = e => {
+        e.preventDefault();
         dispatch(loginUser(email, password));
     };
     return (
         <section>
             <h1 className={styles.header}>Вход</h1>
-            <EmailInput
-                placeholder="E-mail"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                extraClass={styles.field}
-            />
-            <PasswordInput
-                placeholder="Пароль"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                extraClass={styles.field}
-            />
-            {loginError &&
-                <div className={styles.error_pane}>
-                    <p className={styles.error}>Не удалось войти в систему</p>
+            <form onSubmit={onSubmit}>
+                <EmailInput
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    extraClass={styles.field}
+                />
+                <PasswordInput
+                    placeholder="Пароль"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    extraClass={styles.field}
+                />
+                {loginError &&
+                    <div className={styles.error_pane}>
+                        <p className={styles.error}>Не удалось войти в систему</p>
+                    </div>
+                }
+                <div className={styles.button}>
+                    <Button
+                        htmlType="submit"
+                        type="primary"
+                        size="medium"
+                        disabled={loginRequest}
+                    >
+                        Войти
+                    </Button>
                 </div>
-            }
-            <div className={styles.button}>
-                <Button
-                    htmlType="button"
-                    type="primary"
-                    size="medium"
-                    onClick={onClick}
-                    disabled={loginRequest}
-                >
-                    Войти
-                </Button>
-            </div>
+            </form>
             <p className={styles.sub}>
                 Вы новый пользователь? <Link to="/register">Зарегистрироваться</Link>
             </p>

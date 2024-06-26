@@ -10,7 +10,8 @@ function ForgotPassword() {
     const [email, setEmail] = useState("");
     const { passwordResetRequest, passwordResetError, passwordResetSuccess } = useSelector(store => store.password);
     const dispatch = useDispatch();
-    const onClick = () => {
+    const onSubmit = e => {
+        e.preventDefault();
         dispatch(resetPassword(email));
     };
     if (passwordResetSuccess) {
@@ -19,28 +20,29 @@ function ForgotPassword() {
     return (
         <section>
             <h1 className={styles.header}>Восстановление пароля</h1>
-            <EmailInput
-                placeholder="Укажите e-mail"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                extraClass={styles.field}
-            />
-            {passwordResetError &&
-                <div className={styles.error_pane}>
-                    <p className={styles.error}>Не удалось восстановить пароль</p>
+            <form onSubmit={onSubmit}>
+                <EmailInput
+                    placeholder="Укажите e-mail"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    extraClass={styles.field}
+                />
+                {passwordResetError &&
+                    <div className={styles.error_pane}>
+                        <p className={styles.error}>Не удалось восстановить пароль</p>
+                    </div>
+                }
+                <div className={styles.button}>
+                    <Button
+                        htmlType="submit"
+                        type="primary"
+                        size="medium"
+                        disabled={passwordResetRequest}
+                    >
+                        Восстановить
+                    </Button>
                 </div>
-            }
-            <div className={styles.button}>
-                <Button
-                    htmlType="button"
-                    type="primary"
-                    size="medium"
-                    onClick={onClick}
-                    disabled={passwordResetRequest}
-                >
-                    Восстановить
-                </Button>
-            </div>
+            </form>
             <p className={styles.sub}>
                 Вспомнили пароль? <Link to="/login">Войти</Link>
             </p>

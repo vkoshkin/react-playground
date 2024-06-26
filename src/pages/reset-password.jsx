@@ -12,7 +12,8 @@ function ResetPassword() {
 
     const { passwordUpdateRequest, passwordUpdateError, passwordUpdateSuccess } = useSelector(store => store.password);
     const dispatch = useDispatch();
-    const onClick = () => {
+    const onSubmit = e => {
+        e.preventDefault();
         dispatch(updatePassword(password, code));
     };
     if (passwordUpdateSuccess) {
@@ -21,34 +22,35 @@ function ResetPassword() {
     return (
         <section>
             <h1 className={styles.header}>Восстановление пароля</h1>
-            <PasswordInput
-                placeholder="Введите новый пароль"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                extraClass={styles.field}
-            />
-            <Input
-                placeholder="Введите код из письма"
-                value={code}
-                onChange={e => setCode(e.target.value)}
-                extraClass={styles.field}
-            />
-            {passwordUpdateError &&
-                <div className={styles.error_pane}>
-                    <p className={styles.error}>Не удалось обновить пароль</p>
+            <form action={onSubmit}>
+                <PasswordInput
+                    placeholder="Введите новый пароль"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    extraClass={styles.field}
+                />
+                <Input
+                    placeholder="Введите код из письма"
+                    value={code}
+                    onChange={e => setCode(e.target.value)}
+                    extraClass={styles.field}
+                />
+                {passwordUpdateError &&
+                    <div className={styles.error_pane}>
+                        <p className={styles.error}>Не удалось обновить пароль</p>
+                    </div>
+                }
+                <div className={styles.button}>
+                    <Button
+                        htmlType="submit"
+                        type="primary"
+                        size="medium"
+                        disabled={passwordUpdateRequest}
+                    >
+                        Сохранить
+                    </Button>
                 </div>
-            }
-            <div className={styles.button}>
-                <Button
-                    htmlType="button"
-                    type="primary"
-                    size="medium"
-                    onClick={onClick}
-                    disabled={passwordUpdateRequest}
-                >
-                    Сохранить
-                </Button>
-            </div>
+            </form>
             <p className={styles.sub}>
                 Вспомнили пароль? <Link to="/login">Войти</Link>
             </p>
