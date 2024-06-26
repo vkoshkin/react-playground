@@ -14,7 +14,8 @@ function Profile() {
         setChanged(name !== user.name || email !== user.email);
     }, [user, name, email])
     const dispatch = useDispatch();
-    const onSave = () => {
+    const onSubmit = e => {
+        e.preventDefault();
         dispatch(saveUser(name, email));
     };
     const onCancel = () => {
@@ -22,7 +23,7 @@ function Profile() {
         setEmail(user.email);
     };
     return (
-        <div>
+        <form onSubmit={onSubmit}>
             <Input
                 placeholder="Имя"
                 value={name}
@@ -54,10 +55,9 @@ function Profile() {
             {changed &&
                 <div className={styles.buttons}>
                     <Button
-                        htmlType="button"
+                        htmlType="submit"
                         type="primary"
                         size="medium"
-                        onClick={onSave}
                         disabled={saveRequest}
                     >
                         Сохранить
@@ -74,7 +74,7 @@ function Profile() {
                     </Button>
                 </div>
             }
-        </div>
+        </form>
     );
 }
 
