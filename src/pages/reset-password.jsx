@@ -1,20 +1,18 @@
-import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { updatePassword } from "../services/password";
 import styles from "./reset-password.module.css";
+import { useForm } from "../hooks/useForm";
 
 function ResetPassword() {
-    const [password, setPassword] = useState("");
-    const [code, setCode] = useState();
-
     const { passwordUpdateRequest, passwordUpdateError, passwordUpdateSuccess } = useSelector(store => store.password);
+    const { values, handleChange } = useForm({ password: "", code: "" });
     const dispatch = useDispatch();
     const onSubmit = e => {
         e.preventDefault();
-        dispatch(updatePassword(password, code));
+        dispatch(updatePassword(values.password, values.code));
     };
     if (passwordUpdateSuccess) {
         return <Navigate to={"/login"} />
@@ -22,17 +20,19 @@ function ResetPassword() {
     return (
         <section>
             <h1 className={styles.header}>Восстановление пароля</h1>
-            <form action={onSubmit}>
+            <form onSubmit={onSubmit}>
                 <PasswordInput
                     placeholder="Введите новый пароль"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    name="password"
+                    value={values.password}
+                    onChange={e => handleChange(e)}
                     extraClass={styles.field}
                 />
                 <Input
                     placeholder="Введите код из письма"
-                    value={code}
-                    onChange={e => setCode(e.target.value)}
+                    name="code"
+                    value={values.code}
+                    onChange={e => handleChange(e)}
                     extraClass={styles.field}
                 />
                 {passwordUpdateError &&

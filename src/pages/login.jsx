@@ -1,19 +1,18 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { loginUser } from "../services/user";
+import { useForm } from "../hooks/useForm";
 import styles from "./login.module.css";
 
 function Login() {
     const { loginRequest, loginError } = useSelector(store => store.user);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const { values, handleChange } = useForm({ email: "", password: "" });
     const dispatch = useDispatch();
     const onSubmit = e => {
         e.preventDefault();
-        dispatch(loginUser(email, password));
+        dispatch(loginUser(values.email, values.password));
     };
     return (
         <section>
@@ -21,14 +20,16 @@ function Login() {
             <form onSubmit={onSubmit}>
                 <EmailInput
                     placeholder="E-mail"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    name="email"
+                    value={values.email}
+                    onChange={e => handleChange(e)}
                     extraClass={styles.field}
                 />
                 <PasswordInput
                     placeholder="Пароль"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    name="password"
+                    value={values.password}
+                    onChange={e => handleChange(e)}
                     extraClass={styles.field}
                 />
                 {loginError &&

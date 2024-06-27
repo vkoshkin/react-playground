@@ -1,47 +1,48 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { registerUser } from "../services/user";
+import { useForm } from "../hooks/useForm";
 import styles from "./register.module.css";
 
 function Register() {
     const { user, registerRequest, registerError } = useSelector(store => store.user);
+    const { values, handleChange } = useForm({ name: "", email: "", password: "" });
 
     const navigate = useNavigate();
     if (user != null) {
         navigate("/");
     }
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const dispatch = useDispatch();
     const onSubmit = e => {
         e.preventDefault();
-        dispatch(registerUser(name, email, password));
+        dispatch(registerUser(values.name, values.email, values.password));
     };
     return (
         <section>
             <h1 className={styles.header}>Регистрация</h1>
-            <form action={onSubmit}>
+            <form onSubmit={onSubmit}>
                 <Input
                     placeholder="Имя"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
+                    name="name"
+                    value={values.name}
+                    onChange={e => handleChange(e)}
                     extraClass={styles.field}
                 />
                 <EmailInput
                     placeholder="E-mail"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    name="email"
+                    value={values.email}
+                    onChange={e => handleChange(e)}
                     extraClass={styles.field}
                 />
                 <PasswordInput
                     placeholder="Пароль"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    name="password"
+                    value={values.password}
+                    onChange={e => handleChange(e)}
                     extraClass={styles.field}
                 />
                 {registerError &&

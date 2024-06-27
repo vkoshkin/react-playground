@@ -3,38 +3,41 @@ import { useDispatch, useSelector } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { saveUser } from "../services/user";
+import { useForm } from "../hooks/useForm";
 import styles from "./profile.module.css";
 
 function Profile() {
     const { user, saveRequest, saveRequestError } = useSelector(store => store.user);
-    const [name, setName] = useState(user.name);
-    const [email, setEmail] = useState(user.email);
+
+    const { values, handleChange, setValues } = useForm({ name: user.name, email: user.email });
     const [changed, setChanged] = useState(false);
     useEffect(() => {
-        setChanged(name !== user.name || email !== user.email);
-    }, [user, name, email])
+        setChanged(values.name !== user.name || values.email !== user.email);
+    }, [user, values])
+
     const dispatch = useDispatch();
     const onSubmit = e => {
         e.preventDefault();
-        dispatch(saveUser(name, email));
+        dispatch(saveUser(values.name, values.email));
     };
     const onCancel = () => {
-        setName(user.name);
-        setEmail(user.email);
+        setValues(user.name, user.email);
     };
     return (
         <form onSubmit={onSubmit}>
             <Input
                 placeholder="Имя"
-                value={name}
-                onChange={e => { setName(e.target.value) }}
+                name="name"
+                value={values.name}
+                onChange={e => { handleChange(e) }}
                 icon={"EditIcon"}
                 extraClass={styles.field}
             />
             <EmailInput
                 placeholder="Логин"
-                value={email}
-                onChange={e => { setEmail(e.target.value) }}
+                name="email"
+                value={values.email}
+                onChange={e => { handleChange(e) }}
                 icon={"EditIcon"}
                 isIcon={true}
                 extraClass={styles.field}
