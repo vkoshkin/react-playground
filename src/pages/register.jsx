@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { registerUser } from "../services/user";
@@ -10,16 +10,15 @@ function Register() {
     const { user, registerRequest, registerError } = useSelector(store => store.user);
     const { values, handleChange } = useForm({ name: "", email: "", password: "" });
 
-    const navigate = useNavigate();
-    if (user != null) {
-        navigate("/");
-    }
-
     const dispatch = useDispatch();
     const onSubmit = e => {
         e.preventDefault();
         dispatch(registerUser(values.name, values.email, values.password));
     };
+
+    if (user != null) {
+        return <Navigate to={"/"} />
+    }
     return (
         <section>
             <h1 className={styles.header}>Регистрация</h1>
