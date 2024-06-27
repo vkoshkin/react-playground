@@ -53,6 +53,9 @@ const slice = createSlice({
             state.passwordResetRequest = true;
             state.passwordResetError = false;
             state.passwordResetSuccess = false;
+            state.passwordUpdateRequest = false;
+            state.passwordUpdateError = false;
+            state.passwordUpdateSuccess = false;
         },
         passwordResetError(state, action) {
             state.passwordResetRequest = false;
@@ -65,6 +68,9 @@ const slice = createSlice({
             state.passwordResetSuccess = true;
         },
         passwordUpdateRequest(state, action) {
+            state.passwordResetRequest = false;
+            state.passwordResetError = false;
+            state.passwordResetSuccess = false;
             state.passwordUpdateRequest = true;
             state.passwordUpdateError = false;
             state.passwordUpdateSuccess = false;
