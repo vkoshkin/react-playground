@@ -18,4 +18,4 @@ export const {
     showIngredient, 
 } = slice.actions;
 
-export default slice.reducer;
+export default slice;

@@ -33,7 +33,7 @@ function BurgerIngredients(props) {
     const scrollHandler = (e) => {
         const tabs = tabRef.current;
         const tabsBottom = tabs.getBoundingClientRect().bottom;
-        
+
         const bunsHeader = bunsHeaderRef.current.getBoundingClientRect().top;
         const saucesHeader = saucesHeaderRef.current.getBoundingClientRect().top;
         const mainsHeader = mainsHeaderRef.current.getBoundingClientRect().top;

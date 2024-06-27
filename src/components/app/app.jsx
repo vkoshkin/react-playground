@@ -1,38 +1,71 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import { fetchIngredients } from "../../services/ingredients";
-
-import AppError from "./app-error";
-import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import { fetchUser } from "../../services/user";
 import styles from "./app.module.css";
+import AppHeader from "../app-header/app-header";
+import AppError from "./app-error";
+import Home from "../../pages/home";
+import Login from "../../pages/login";
+import Register from "../../pages/register";
+import ForgotPassword from "../../pages/forgot-password";
+import ResetPassword from "../../pages/reset-password";
+import Profile from "../../pages/profile";
+import ProfileMenu from "../../pages/profile-menu";
+import ProfileOrders from "../../pages/profile-orders";
+import IngredientDetails from "../burger-ingredients/ingredient-details";
+import IngredientModal from "../burger-ingredients/ingredient-modal";
+import { AuthenticatedOnly, AnonymousOnly } from "../protected-route";
 
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchIngredients())
-    }, []);
+        dispatch(fetchUser());
+        dispatch(fetchIngredients());
+    }, [dispatch]);
 
     const { request, requestError } = useSelector(state => state.burgerIngredients);
+
+    const location = useLocation();
+    const state = location.state;
     return (
         <div className={styles.app}>
             {!request && !requestError &&
                 <>
-                    <DndProvider backend={HTML5Backend}>
-                        <AppHeader />
-                        <main className={styles.main}>
-                            <div className={styles.panel}>
-                                <BurgerIngredients />
-                            </div>
-                            <div className={styles.panel}>
-                                <BurgerConstructor />
-                            </div>
-                        </main>
-                    </DndProvider>
+                    <AppHeader />
+                    <main className={styles.main}>
+                        <Routes location={state?.backgroundLocation || location}>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/login" element={
+                                <AnonymousOnly component={<Login />} />
+                            } />
+                            <Route path="/register" element={
+                                <AnonymousOnly component={<Register />} />
+                            } />
+                            <Route path="/forgot-password" element={
+                                <AnonymousOnly component={<ForgotPassword />} />
+                            } />
+                            <Route path="/reset-password" element={
+                                <AnonymousOnly component={<ResetPassword />} />
+                            } />
+                            <Route path="/profile" element={
+                                <AuthenticatedOnly component={<Profile />} />
+                            } />
+                            <Route path="profile" element={<ProfileMenu />}>
+                                <Route index element={<AuthenticatedOnly component={<Profile />} />} />
+                                <Route path="orders" element={<AuthenticatedOnly component={<ProfileOrders />} />} />
+                            </Route>
+                            <Route path="/ingredients/:id" element={<IngredientDetails />} />
+                            <Route path="*" element={<AppError />} />
+                        </Routes>
+                        {state?.backgroundLocation && (
+                            <Routes>
+                                <Route path="/ingredients/:id" element={<IngredientModal />} />
+                            </Routes>
+                        )}
+                    </main>
                 </>
             }
             {!request && requestError &&

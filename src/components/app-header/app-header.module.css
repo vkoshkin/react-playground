@@ -25,3 +25,11 @@
     align-items: center;
     text-decoration: none;
 }
+
+.anchor_text {
+    composes: text text_type_main-default text_color_inactive pl-2 from global;
+}
+
+.anchor_text_active {
+    composes: text text_type_main-default pl-2 from global;
+}

@@ -64,4 +64,4 @@ export const {
     clearConstructor,
 } = slice.actions;
 
-export default slice.reducer;
+export default slice;
