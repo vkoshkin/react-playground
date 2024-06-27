@@ -27,13 +27,13 @@ export function fetchUser() {
             return;
         }
 
-        const patchResponse = await postAuthToken().catch(e => {
+        const postResponse = await postAuthToken().catch(e => {
             console.log(`Error refreshing user token ${e}`);
         });
-        if (patchResponse && patchResponse.success) {
+        if (postResponse && postResponse.success) {
             // успешное обновление токена пользователя через refreshToken
-            localStorage.setItem("accessToken", patchResponse.accessToken);
-            localStorage.setItem("refreshToken", patchResponse.refreshToken);
+            localStorage.setItem("accessToken", postResponse.accessToken);
+            localStorage.setItem("refreshToken", postResponse.refreshToken);
             dispatch(setUser(getResponse.user));
             return;
         }
