@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -10,6 +11,7 @@ import styles from "./burger-constructor.module.css";
 
 function BurgerConstructor(props) {
     const { bun, ingredients } = useSelector(state => state.burgerConstructor);
+    const { user } = useSelector(state => state.user);
 
     const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -27,6 +29,15 @@ function BurgerConstructor(props) {
     const orderDisabled = useMemo(() => {
         return bun === null;
     }, [bun]);
+
+    const navigate = useNavigate();
+    const onOrder = () => {
+        if (user !== null) {
+            openModal();
+        } else {
+            navigate("/login");
+        }
+    };
 
     return (
         <div className={styles.constructor}>
@@ -68,7 +79,7 @@ function BurgerConstructor(props) {
                     <span className={styles.footer_price_number}>{price}</span>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType="button" type="primary" size="medium" onClick={openModal} disabled={orderDisabled}>
+                <Button htmlType="button" type="primary" size="medium" onClick={onOrder} disabled={orderDisabled}>
                     Оформить заказ
                 </Button>
             </div>
