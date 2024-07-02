@@ -34,7 +34,7 @@ export function fetchUser() {
             // успешное обновление токена пользователя через refreshToken
             localStorage.setItem("accessToken", postResponse.accessToken);
             localStorage.setItem("refreshToken", postResponse.refreshToken);
-            dispatch(setUser(getResponse.user));
+            dispatch(setUser(postResponse.user));
             return;
         }
 
