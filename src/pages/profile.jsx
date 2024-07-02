@@ -47,7 +47,7 @@ function Profile() {
                 value="ты не имеешь права, о ты не имеешь права"
                 onChange={() => { }}
                 disabled
-                icon={""}
+                icon={"HideIcon"}
                 extraClass={styles.field}
             />
             {saveRequestError &&
