@@ -52,4 +52,4 @@ export const {
     getIngredientsSuccess,
 } = slice.actions;
 
-export default slice.reducer;
+export default slice;
