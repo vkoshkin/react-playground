@@ -1,7 +1,8 @@
 import styles from "./app-error.module.css";
 import error from "../../images/error.gif";
+import { FC } from "react";
 
-function AppError(props) {
+export const AppError : FC<{}> = () => {
     return (
         <div className={styles.error}>
             <p className={styles.header}>Ошибка на бекенде, нам очень жаль</p>
