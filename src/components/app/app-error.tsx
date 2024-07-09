@@ -1,6 +1,7 @@
+import { FC } from "react";
+
 import styles from "./app-error.module.css";
 import error from "../../images/error.gif";
-import { FC } from "react";
 
 export const AppError : FC<{}> = () => {
     return (
