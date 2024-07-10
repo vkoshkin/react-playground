@@ -14,6 +14,7 @@ export function postOrder(bun, ingredients) {
         data.push(bun._id);
         postOrderRequest(data).then(res => {
             if (res && res.success) {
+                console.log(JSON.stringify(res));
                 dispatch(orderRequestSuccess(res));
                 dispatch(clearConstructor());
             } else {

@@ -1,10 +1,17 @@
 import { request } from "../utils/requests";
+import { Ingredient } from "./types";
 
-export function getIngredientsRequest() {
-    return request("ingredients");
+interface GetIngredientsResult {
+    success: boolean;
+    data: Array<Ingredient>;
 }
 
-export function postOrderRequest(data) {
+export function getIngredientsRequest(): Promise<GetIngredientsResult> {
+    return request<GetIngredientsResult>("ingredients");
+}
+
+// fixme any
+export function postOrderRequest(data: any) {
     return request("orders", {
         method: "POST",
         headers: {
@@ -15,7 +22,7 @@ export function postOrderRequest(data) {
     });
 }
 
-export function postAuthRegister(name, email, password) {
+export function postAuthRegister(name: string, email: string, password: string) {
     return request("auth/register", {
         method: "POST",
         headers: {
@@ -29,7 +36,7 @@ export function postAuthRegister(name, email, password) {
     });
 }
 
-export function postAuthLogin(email, password) {
+export function postAuthLogin(email: string, password: string) {
     return request("auth/login", {
         method: "POST",
         headers: {
@@ -70,16 +77,16 @@ export function getAuthUser() {
     return request("auth/user", {
         method: "GET",
         headers: {
-            "Authorization": localStorage.getItem("accessToken"),
+            "Authorization": localStorage.getItem("accessToken")!,
         },
     });
 }
 
-export function patchAuthUser(name, email) {
+export function patchAuthUser(name: string, email: string) {
     return request("auth/user", {
         method: "PATCH",
         headers: {
-            "Authorization": localStorage.getItem("accessToken"),
+            "Authorization": localStorage.getItem("accessToken")!,
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -89,7 +96,7 @@ export function patchAuthUser(name, email) {
     });
 }
 
-export function postPasswordReset(email) {
+export function postPasswordReset(email: string) {
     return request("password-reset", {
         method: "POST",
         headers: {
@@ -101,7 +108,7 @@ export function postPasswordReset(email) {
     });
 }
 
-export function postPasswordUpdate(password, code) {
+export function postPasswordUpdate(password: string, code: string) {
     return request("password-reset/reset", {
         method: "POST",
         headers: {
