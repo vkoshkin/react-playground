@@ -1,6 +1,12 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, Dispatch, SetStateAction } from "react";
 
-export function useForm<T>(inputValues: T) {
+type TUseFormController<T> = {
+    values: T;
+    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    setValues: Dispatch<SetStateAction<T>>;
+};
+
+export function useForm<T>(inputValues: T): TUseFormController<T> {
     const [values, setValues] = useState(inputValues);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { value, name } = event.target;
