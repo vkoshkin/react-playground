@@ -1,16 +1,26 @@
+import { FC, FormEventHandler } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { useAppDispatch, useTypedSelector } from "../services/store";
 import { resetPassword } from "../services/password";
 import { useForm } from "../hooks/useForm";
 import styles from "./register.module.css";
 
-function ForgotPassword() {
-    const { values, handleChange } = useForm({ email: "" });
-    const { passwordResetRequest, passwordResetError, passwordResetSuccess } = useSelector(store => store.password);
-    const dispatch = useDispatch();
-    const onSubmit = e => {
+type ForgotPasswordData = {
+    email: string;
+};
+
+export const ForgotPassword: FC<void> = () => {
+    const { 
+        passwordResetRequest, 
+        passwordResetError, 
+        passwordResetSuccess 
+    } = useTypedSelector(store => store.password);
+    const dispatch = useAppDispatch();
+
+    const { values, handleChange } = useForm<ForgotPasswordData>({ email: "" });
+    const onSubmit: FormEventHandler = (e) => {
         e.preventDefault();
         dispatch(resetPassword(values.email));
     };

@@ -12,7 +12,7 @@ type ResetPasswordData = {
     code: string;
 };
 
-export const ResetPassword : FC<void> = () => {
+export const ResetPassword: FC<void> = () => {
     const { 
         passwordUpdateRequest, 
         passwordUpdateError, 
