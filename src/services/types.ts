@@ -1,6 +1,6 @@
 
 export type Ingredient = {
-    readonly _id: number;
+    readonly _id: string;
     readonly name: string;
     readonly type: string;
     readonly price: number;

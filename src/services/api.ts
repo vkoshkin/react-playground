@@ -2,23 +2,32 @@ import { request } from "../utils/requests";
 import { Ingredient } from "./types";
 
 interface GetIngredientsResult {
-    success: boolean;
-    data: Array<Ingredient>;
+    readonly success: boolean;
+    readonly data: Array<Ingredient>;
 }
 
 export function getIngredientsRequest(): Promise<GetIngredientsResult> {
     return request<GetIngredientsResult>("ingredients");
 }
 
-// fixme any
-export function postOrderRequest(data: any) {
+export interface Order {
+    readonly number: number;
+}
+
+export interface OrderResult {
+    readonly success: boolean;
+    readonly name: string;
+    readonly order: Order;
+}
+
+export function postOrderRequest(data: Array<string>): Promise<OrderResult> {
     return request("orders", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         redirect: "follow",
-        body: JSON.stringify({ ingredients: data }),
+        body: JSON.stringify(data),
     });
 }
 

@@ -1,9 +1,34 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
 
-const initialState = {
+import { Ingredient } from "./types";
+
+type ConstructorIngredientId = string;
+type ConstructorIngredient = {
+    id: ConstructorIngredientId,
+    data: Ingredient,
+};
+type ConstructorState = {
+    bun: Ingredient | null,
+    ingredients: Array<ConstructorIngredient>,
+};
+
+const initialState: ConstructorState = {
     bun: null,
     ingredients: [],
+};
+
+type ConstructorAddAction = {
+    targetId?: ConstructorIngredientId,
+    ingredient: Ingredient,
+    ingredientData?: ConstructorIngredient,
+};
+type ConstructorRemoveAction = {
+    id: ConstructorIngredientId,
+};
+type ConstructorMoveAction = {
+    sourceId: ConstructorIngredientId,
+    targetId: ConstructorIngredientId,
 };
 
 const slice = createSlice({
@@ -11,8 +36,10 @@ const slice = createSlice({
     initialState,
     reducers: {
         addIngredient: {
-            reducer: (state, action) => {
-                const { targetId, ingredientData } = action.payload;
+            reducer: (state: ConstructorState, action: PayloadAction<ConstructorAddAction>) => {
+                const addAction = action.payload;
+                const targetId: ConstructorIngredientId | undefined = addAction.targetId;
+                const ingredientData: ConstructorIngredient = addAction.ingredientData!;
                 if (ingredientData.data.type === "bun") {
                     state.bun = ingredientData.data;
                 } else {
@@ -25,10 +52,11 @@ const slice = createSlice({
                     }
                 }
             },
-            prepare: (ingredientTarget) => {
+            prepare: (ingredientTarget: ConstructorAddAction) => {
                 return {
                     payload: {
                         targetId: ingredientTarget.targetId,
+                        ingredient: ingredientTarget.ingredient,
                         ingredientData: {
                             id: uuid(),
                             data: ingredientTarget.ingredient,
@@ -37,20 +65,20 @@ const slice = createSlice({
                 };
             },
         },
-        removeIngredient(state, action) {
-            const { ingredient, id } = action.payload;
+        removeIngredient: (state: ConstructorState, action: PayloadAction<ConstructorRemoveAction>) => {
+            const { id } = action.payload;
             const ingredientIds = state.ingredients.map(i => i.id);
             const index = ingredientIds.indexOf(id);
             state.ingredients.splice(index, 1);
         },
-        moveIngredient(state, action) {
-            const { sourceId, targetId } = action.payload;
+        moveIngredient: (state: ConstructorState, action: PayloadAction<ConstructorMoveAction>) => {
+            const moveAction = action.payload;
             const ingredientIds = state.ingredients.map(i => i.id);
-            const sourceIndex = ingredientIds.indexOf(sourceId);
-            const targetIndex = ingredientIds.indexOf(targetId);
+            const sourceIndex = ingredientIds.indexOf(moveAction.sourceId);
+            const targetIndex = ingredientIds.indexOf(moveAction.targetId);
             state.ingredients.splice(sourceIndex, 0, state.ingredients.splice(targetIndex, 1)[0]);
         },
-        clearConstructor(state, action) {
+        clearConstructor: (state: ConstructorState) => {
             state.bun = null;
             state.ingredients = [];
         },
