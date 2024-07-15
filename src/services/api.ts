@@ -105,7 +105,12 @@ export function patchAuthUser(name: string, email: string) {
     });
 }
 
-export function postPasswordReset(email: string) {
+export interface PasswordResetResult {
+    readonly success: boolean,
+    readonly message: string,
+};
+
+export function postPasswordReset(email: string): Promise<PasswordResetResult> {
     return request("password-reset", {
         method: "POST",
         headers: {
@@ -117,7 +122,7 @@ export function postPasswordReset(email: string) {
     });
 }
 
-export function postPasswordUpdate(password: string, code: string) {
+export function postPasswordUpdate(password: string, code: string): Promise<PasswordResetResult> {
     return request("password-reset/reset", {
         method: "POST",
         headers: {
