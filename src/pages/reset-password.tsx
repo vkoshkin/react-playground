@@ -1,16 +1,27 @@
+import { FC, FormEventHandler } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { useAppDispatch, useTypedSelector } from "../services/store";
 import { updatePassword } from "../services/password";
 import styles from "./reset-password.module.css";
 import { useForm } from "../hooks/useForm";
 
-function ResetPassword() {
-    const { passwordUpdateRequest, passwordUpdateError, passwordUpdateSuccess } = useSelector(store => store.password);
-    const { values, handleChange } = useForm({ password: "", code: "" });
-    const dispatch = useDispatch();
-    const onSubmit = e => {
+type ResetPasswordData = {
+    password: string;
+    code: string;
+};
+
+export const ResetPassword : FC<void> = () => {
+    const { 
+        passwordUpdateRequest, 
+        passwordUpdateError, 
+        passwordUpdateSuccess 
+    } = useTypedSelector(store => store.password);
+    const dispatch = useAppDispatch();
+
+    const { values, handleChange } = useForm<ResetPasswordData>({ password: "", code: "" });
+    const onSubmit: FormEventHandler = (e) => {
         e.preventDefault();
         dispatch(updatePassword(values.password, values.code));
     };
@@ -33,7 +44,9 @@ function ResetPassword() {
                     name="code"
                     value={values.code}
                     onChange={e => handleChange(e)}
-                    extraClass={styles.field}
+                    onPointerEnterCapture={undefined} 
+                    onPointerLeaveCapture={undefined}
+                    extraClass={styles.field} 
                 />
                 {passwordUpdateError &&
                     <div className={styles.error_pane}>
