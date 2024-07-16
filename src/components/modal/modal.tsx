@@ -8,7 +8,7 @@ import styles from "./modal.module.css";
 const modalRoot: HTMLElement = document.getElementById("modals")!;
 
 export interface ModalProps {
-    readonly header: string;
+    readonly header?: string; // todo @vkoshkin remove
     readonly onClose: () => void;
     readonly children?: ReactNode;
 }

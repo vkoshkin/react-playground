@@ -1,8 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Modal from "../modal/modal";
 import IngredientDetails from "./ingredient-details";
 
-function IngredientModal(props) {
+export const IngredientModal: FC<void> = () => {
     const navigate = useNavigate();
     const onDismiss = () => {
         navigate(-1);
