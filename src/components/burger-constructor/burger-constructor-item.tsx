@@ -36,12 +36,12 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({id, ingredient, 
 
     const dispatch = useAppDispatch();
     const onRemove = () => {
-        if (type !== undefined && id !== undefined) {
+        if (type === undefined && id !== undefined) {
             dispatch(removeIngredient({ id: id! }));
         }
     };
     const onMove = (sourceId: IngredientId, targetId: IngredientId) => {
-        if (type !== undefined) {
+        if (type === undefined) {
             dispatch(moveIngredient({ sourceId, targetId }));
         }
     };
