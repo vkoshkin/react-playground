@@ -9,9 +9,10 @@ import {
     postAuthLogout,
 } from "./api";
 import { User } from "./types";
+import { AppDispatch } from "./store";
 
 export const fetchUser = () => {
-    return async function (dispatch: any) {
+    return async function (dispatch: AppDispatch) {
         if (!localStorage.getItem("accessToken")) {
             // если у меня нет токенов
             localStorage.removeItem("accessToken");
@@ -49,7 +50,7 @@ export const fetchUser = () => {
 }
 
 export const registerUser = (name: string, email: string, password: string) => {
-    return function (dispatch: any) {
+    return function (dispatch: AppDispatch) {
         dispatch(registerRequest());
         postAuthRegister(name, email, password).then(response => {
             if (response && response.success) {
@@ -67,7 +68,7 @@ export const registerUser = (name: string, email: string, password: string) => {
 }
 
 export const loginUser = (email: string, password: string) => {
-    return function (dispatch: any) {
+    return function (dispatch: AppDispatch) {
         dispatch(loginRequest());
         postAuthLogin(email, password).then(response => {
             if (response && response.success) {
@@ -85,7 +86,7 @@ export const loginUser = (email: string, password: string) => {
 }
 
 export const logoutUser = () => {
-    return function (dispatch: any) {
+    return function (dispatch: AppDispatch) {
         dispatch(logoutRequest());
         postAuthLogout().then(response => {
             if (response && response.success) {
@@ -103,7 +104,7 @@ export const logoutUser = () => {
 }
 
 export const saveUser = (name: string, email: string) => {
-    return function (dispatch: any) {
+    return function (dispatch: AppDispatch) {
         dispatch(saveRequest());
         patchAuthUser(name, email).then(response => {
             if (response && response.success) {
