@@ -1,27 +1,28 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, FormEventHandler, useEffect, useState } from "react";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { useAppDispatch, useTypedSelector } from "../services/store";
+import { User } from "../services/types";
 import { saveUser } from "../services/user";
 import { useForm } from "../hooks/useForm";
 import styles from "./profile.module.css";
 
-function Profile() {
-    const { user, saveRequest, saveRequestError } = useSelector(store => store.user);
+export const Profile: FC<{}> = () => {
+    const { user, saveRequest, saveRequestError } = useTypedSelector(store => store.user);
 
-    const { values, handleChange, setValues } = useForm({ name: user.name, email: user.email });
-    const [changed, setChanged] = useState(false);
+    const { values, handleChange, setValues } = useForm<User>({ name: user!.name, email: user!.email });
+    const [changed, setChanged] = useState<boolean>(false);
     useEffect(() => {
-        setChanged(values.name !== user.name || values.email !== user.email);
+        setChanged(values.name !== user!.name || values.email !== user!.email);
     }, [user, values])
 
-    const dispatch = useDispatch();
-    const onSubmit = e => {
+    const dispatch = useAppDispatch();
+    const onSubmit: FormEventHandler = e => {
         e.preventDefault();
         dispatch(saveUser(values.name, values.email));
     };
     const onCancel = () => {
-        setValues(user.name, user.email);
+        setValues({ name: user!.name, email: user!.email });
     };
     return (
         <form onSubmit={onSubmit}>
@@ -29,8 +30,10 @@ function Profile() {
                 placeholder="Имя"
                 name="name"
                 value={values.name}
-                onChange={e => { handleChange(e) }}
                 icon={"EditIcon"}
+                onChange={e => { handleChange(e) }}
+                onPointerEnterCapture={undefined} 
+                onPointerLeaveCapture={undefined}
                 extraClass={styles.field}
             />
             <EmailInput
@@ -38,7 +41,6 @@ function Profile() {
                 name="email"
                 value={values.email}
                 onChange={e => { handleChange(e) }}
-                icon={"EditIcon"}
                 isIcon={true}
                 extraClass={styles.field}
             />

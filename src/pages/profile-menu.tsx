@@ -1,12 +1,13 @@
-import { useDispatch } from "react-redux";
+import { FC, MouseEventHandler } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
+import { useAppDispatch } from "../services/store";
 import { logoutUser } from "../services/user";
 import styles from "./profile-menu.module.css";
 
-function ProfileMenu() {
-    const dispatch = useDispatch();
-    const onExit = e => {
+export const ProfileMenu: FC<{}> = () => {
+    const dispatch = useAppDispatch();
+    const onExit: MouseEventHandler = _ => {
         dispatch(logoutUser());
     };
     const location = useLocation();
