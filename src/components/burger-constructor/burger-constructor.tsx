@@ -1,17 +1,17 @@
-import { useMemo } from "react";
+import { FC, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { useTypedSelector } from "../../services/store";
 import BurgerConstructorItem from "./burger-constructor-item";
 import OrderDetails from "./order-details";
 import Modal from "../modal/modal";
 import { useModal } from "../../hooks/useModal";
 import styles from "./burger-constructor.module.css";
 
-function BurgerConstructor(props) {
-    const { bun, ingredients } = useSelector(state => state.burgerConstructor);
-    const { user } = useSelector(state => state.user);
+export const BurgerConstructor: FC<{}> = () => {
+    const { bun, ingredients } = useTypedSelector(state => state.burgerConstructor);
+    const { user } = useTypedSelector(state => state.user);
 
     const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -40,7 +40,7 @@ function BurgerConstructor(props) {
     };
 
     return (
-        <div className={styles.constructor}>
+        <div className={styles.burger_constructor}>
             <div className={styles.list}>
                 <BurgerConstructorItem
                     ingredient={bun}
@@ -50,7 +50,7 @@ function BurgerConstructor(props) {
                 />
                 <div className={styles.list_scroll}>
                     {ingredients.length > 0 && ingredients.map((ingredient, index) => {
-                        const style = (index !== ingredients.length - 1) ? styles.list_main : null;
+                        const style = (index !== ingredients.length - 1) ? styles.list_main : undefined;
                         return (
                             <BurgerConstructorItem
                                 key={ingredient.id}
