@@ -31,7 +31,7 @@ export const Profile: FC<{}> = () => {
                 name="name"
                 value={values.name}
                 icon={"EditIcon"}
-                onChange={e => { handleChange(e) }}
+                onChange={e => { handleChange(e); } }
                 onPointerEnterCapture={undefined} 
                 onPointerLeaveCapture={undefined}
                 extraClass={styles.field}
