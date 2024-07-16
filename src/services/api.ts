@@ -30,7 +30,7 @@ export function postOrderRequest(data: Array<string>): Promise<OrderResult> {
             "Content-Type": "application/json",
         },
         redirect: "follow",
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ingredients: data }),
     });
 }
 
