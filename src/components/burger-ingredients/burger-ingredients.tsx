@@ -1,42 +1,43 @@
-import { useState, useMemo, useRef } from "react";
-import { useSelector } from "react-redux";
+import { FC, UIEvent, useState, useMemo, useRef } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import BurgerIngredientsItem from "./burger-ingredients-item"
 import styles from "./burger-ingredients.module.css";
+import { useTypedSelector } from "../../services/store";
 
-function BurgerIngredients(props) {
-    const { buns, sauces, mains } = useSelector(state => state.burgerIngredients);
-    const { bun, ingredients } = useSelector(state => state.burgerConstructor);
+export const BurgerIngredients: FC<{}> = () => {
+    const { buns, sauces, mains } = useTypedSelector(state => state.burgerIngredients);
+    const { bun, ingredients } = useTypedSelector(state => state.burgerConstructor);
 
-    const ingredientCount = useMemo(() => {
-        const counts = {};
+    const ingredientCount = useMemo<Map<string, number>>(() => {
+        let countMap = new Map<string, number>();
         if (bun !== null) {
-            counts[bun._id] = 1;
+            countMap.set(bun._id, 1);
         }
         for (const ingredient of ingredients) {
-            if (!counts[ingredient.data._id]) {
-                counts[ingredient.data._id] = 1;
+            if (!countMap.has(ingredient.data._id)) {
+                countMap.set(ingredient.data._id, 1);
             } else {
-                counts[ingredient.data._id] += 1;
+                let count: number = countMap.get(ingredient.data._id)!;
+                countMap.set(ingredient.data._id, count + 1);
             }
         }
-        return counts;
+        return countMap;
     }, [bun, ingredients]);
 
-    const [state, setState] = useState("buns");
+    const [state, setState] = useState<string>("buns");
 
-    const tabRef = useRef(null);
-    const bunsHeaderRef = useRef(null);
-    const saucesHeaderRef = useRef(null);
-    const mainsHeaderRef = useRef(null);
-    const scrollHandler = (e) => {
-        const tabs = tabRef.current;
+    const tabRef = useRef<HTMLElement>(null);
+    const bunsHeaderRef = useRef<HTMLHeadingElement>(null);
+    const saucesHeaderRef = useRef<HTMLHeadingElement>(null);
+    const mainsHeaderRef = useRef<HTMLHeadingElement>(null);
+    const scrollHandler = (_: UIEvent<HTMLElement>) => {
+        const tabs = tabRef.current!;
         const tabsBottom = tabs.getBoundingClientRect().bottom;
 
-        const bunsHeader = bunsHeaderRef.current.getBoundingClientRect().top;
-        const saucesHeader = saucesHeaderRef.current.getBoundingClientRect().top;
-        const mainsHeader = mainsHeaderRef.current.getBoundingClientRect().top;
+        const bunsHeader = bunsHeaderRef.current!.getBoundingClientRect().top;
+        const saucesHeader = saucesHeaderRef.current!.getBoundingClientRect().top;
+        const mainsHeader = mainsHeaderRef.current!.getBoundingClientRect().top;
 
         if (mainsHeader <= tabsBottom) {
             setState("mains");
@@ -47,9 +48,9 @@ function BurgerIngredients(props) {
         }
     };
 
-    const scrollToBuns = () => bunsHeaderRef.current.scrollIntoView();
-    const scrollToSauces = () => saucesHeaderRef.current.scrollIntoView();
-    const scrollToMains = () => mainsHeaderRef.current.scrollIntoView();
+    const scrollToBuns = () => bunsHeaderRef.current!.scrollIntoView();
+    const scrollToSauces = () => saucesHeaderRef.current!.scrollIntoView();
+    const scrollToMains = () => mainsHeaderRef.current!.scrollIntoView();
 
     return (
         <div className={styles.ingredients}>
@@ -77,7 +78,7 @@ function BurgerIngredients(props) {
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={ingredientCount[ingredient._id]} />
+                                count={ingredientCount.get(ingredient._id)} />
                         )}
                     </div>
                 </section>
@@ -91,7 +92,7 @@ function BurgerIngredients(props) {
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={ingredientCount[ingredient._id]} />
+                                count={ingredientCount.get(ingredient._id)} />
                         )}
                     </div>
                 </section>
@@ -105,7 +106,7 @@ function BurgerIngredients(props) {
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
-                                count={ingredientCount[ingredient._id]} />
+                                count={ingredientCount.get(ingredient._id)} />
                         )}
                     </div>
                 </section>

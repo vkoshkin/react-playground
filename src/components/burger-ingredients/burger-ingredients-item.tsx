@@ -1,15 +1,24 @@
-import { useDrag } from "react-dnd";
-import PropTypes from "prop-types";
-import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useDrag } from "react-dnd";
+import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./burger-ingredients-item.module.css";
-import ingredientType from "../../utils/types";
+import { Ingredient } from "../../services/types";
 
-function BurgerIngredientsItem(props) {
-    const { ingredient, count } = props;
+export interface BurgerIngredientsItemProps {
+    readonly ingredient: Ingredient;
+    readonly count: number | undefined;
+}
+
+export type IngredientDrag = {
+    readonly id: string | undefined;
+    readonly item: Ingredient;
+}
+
+export const BurgerIngredientsItem: FC<BurgerIngredientsItemProps> = ({ ingredient, count }) => {
     const location = useLocation();
-    const [{}, dragRef] = useDrag({
+    const [_, dragRef] = useDrag<IngredientDrag>({
         type: "ingredient",
         item: { id: undefined, item: ingredient },
     });
@@ -32,14 +41,9 @@ function BurgerIngredientsItem(props) {
                     <p className={styles.item_description_text}>{ingredient.name}</p>
                 </div>
             </div>
-            {count > 0 && <Counter count={count} size="default" />}
+            {count && <Counter count={count} size="default" />}
         </div>
     );
 }
-
-BurgerIngredientsItem.propTypes = {
-    ingredient: ingredientType,
-    count: PropTypes.number,
-};
 
 export default BurgerIngredientsItem;
