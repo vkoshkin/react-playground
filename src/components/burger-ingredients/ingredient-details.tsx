@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux";
+import { FC } from "react";
 import { useParams } from "react-router-dom";
 
 import styles from "./ingredient-details.module.css";
+import { useTypedSelector } from "../../services/store";
+import { Ingredient } from "../../services/types";
 
-function findIngredientById(ingredients, id) {
+function findIngredientById(ingredients: Array<Ingredient>, id: string): Ingredient | null {
     for (let i of ingredients) {
         if (i._id === id) {
             return i;
@@ -12,12 +14,15 @@ function findIngredientById(ingredients, id) {
     return null;
 }
 
-function IngredientDetails(props) {
+export const IngredientDetails: FC<{}> = () => {
+    const { buns, sauces, mains } = useTypedSelector(store => store.burgerIngredients);
     const { id } = useParams();
-    const { buns, sauces, mains } = useSelector(store => store.burgerIngredients);
+    if (!id) {
+        throw new Error("IngredientDetails shown without params");
+    }
     let ingredient = findIngredientById(buns, id);
     ingredient = ingredient ? ingredient : findIngredientById(sauces, id);
-    ingredient = ingredient ? ingredient : findIngredientById(mains, id);
+    ingredient = ingredient ? ingredient : findIngredientById(mains, id!);
     return (
         <div className={styles.layout}>
             {ingredient &&
