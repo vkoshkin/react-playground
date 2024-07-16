@@ -1,21 +1,20 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useEffect } from "react";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { postOrder } from "../../services/order";
-
+import { useAppDispatch, useTypedSelector } from "../../services/store";
 import styles from "./order-details.module.css";
 import order1 from "../../images/order-1.svg"
 import order2 from "../../images/order-2.svg"
 import order3 from "../../images/order-3.svg"
 
-function OrderDetails(props) {
-    const { bun, ingredients } = useSelector(state => state.burgerConstructor);
-    const { request, requestError, orderId } = useSelector(state => state.order);
+export const OrderDetails: FC<{}> = () => {
+    const { bun, ingredients } = useTypedSelector(state => state.burgerConstructor);
+    const { request, requestError, orderId } = useTypedSelector(state => state.order);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(postOrder(bun, ingredients));
+        dispatch(postOrder(bun!, ingredients.map(e => e.data)));
     }, []);
 
     return (
@@ -47,8 +46,5 @@ function OrderDetails(props) {
         </div>
     );
 }
-
-OrderDetails.propTypes = {
-};
 
 export default OrderDetails;
