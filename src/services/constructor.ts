@@ -1,34 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
 
-import { Ingredient } from "./types";
+import { Ingredient, IngredientId, IngredientItem } from "./types";
 
-type ConstructorIngredientId = string;
-type ConstructorIngredient = {
-    id: ConstructorIngredientId,
-    data: Ingredient,
-};
 type ConstructorState = {
     bun: Ingredient | null,
-    ingredients: Array<ConstructorIngredient>,
+    ingredients: Array<IngredientItem>,
 };
-
 const initialState: ConstructorState = {
     bun: null,
     ingredients: [],
 };
 
 type ConstructorAddAction = {
-    targetId?: ConstructorIngredientId,
+    targetId?: IngredientId,
     ingredient: Ingredient,
-    ingredientData?: ConstructorIngredient,
+    ingredientData?: IngredientItem,
 };
 type ConstructorRemoveAction = {
-    id: ConstructorIngredientId,
+    id: IngredientId,
 };
 type ConstructorMoveAction = {
-    sourceId: ConstructorIngredientId,
-    targetId: ConstructorIngredientId,
+    sourceId: IngredientId,
+    targetId: IngredientId,
 };
 
 const slice = createSlice({
@@ -38,8 +32,8 @@ const slice = createSlice({
         addIngredient: {
             reducer: (state: ConstructorState, action: PayloadAction<ConstructorAddAction>) => {
                 const addAction = action.payload;
-                const targetId: ConstructorIngredientId | undefined = addAction.targetId;
-                const ingredientData: ConstructorIngredient = addAction.ingredientData!;
+                const targetId: IngredientId | undefined = addAction.targetId;
+                const ingredientData: IngredientItem = addAction.ingredientData!;
                 if (ingredientData.data.type === "bun") {
                     state.bun = ingredientData.data;
                 } else {

@@ -63,6 +63,7 @@ export const BurgerConstructor: FC<{}> = () => {
                     })}
                     {ingredients.length === 0 &&
                         <BurgerConstructorItem
+                            ingredient={null}
                             isLocked={true}
                         />
                     }

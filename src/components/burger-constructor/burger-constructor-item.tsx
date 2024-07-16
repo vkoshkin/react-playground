@@ -1,21 +1,29 @@
-import { useRef } from "react";
-import { useDispatch } from "react-redux";
-import { useDrag, useDrop } from "react-dnd";
-import PropTypes from "prop-types";
+import { FC, useRef } from "react";
+import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { useAppDispatch } from "../../services/store";
 import { addIngredient, removeIngredient, moveIngredient } from "../../services/constructor";
-
+import { IngredientDragType, IngredientDrag } from "./burger-constructor-drag";
+import { Ingredient, IngredientId } from "../../services/types";
 import styles from "./burger-constructor-item.module.css";
-import ingredientType from "../../utils/types";
 
-function BurgerConstructorItem(props) {
-    const { id, ingredient, type, isLocked, extraClass } = props;
-    let styleClasses = styles.container;
-    if (extraClass !== null) {
-        styleClasses += " " + extraClass;
+type ConstructorItemType = "top" | "bottom" | undefined;
+
+interface BurgerConstructorItemProps {
+    readonly id?: IngredientId;
+    readonly ingredient: Ingredient | null;
+    readonly type?: ConstructorItemType;
+    readonly isLocked: boolean;
+    readonly extraClass?: string;
+}
+
+const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({id, ingredient, type, isLocked, extraClass}) => {
+    let itemStyles: string = styles.container;
+    if (extraClass !== undefined) {
+        itemStyles += " " + extraClass;
     }
-    let text = "";
+    let text: string = "";
     if (ingredient) {
         text = ingredient.name;
         if (type === "top") {
@@ -24,21 +32,21 @@ function BurgerConstructorItem(props) {
             text += " (низ)"
         }
     }
-    const isBorderItem = type === "top" || type === "bottom";
+    const isBorderItem: boolean = type === "top" || type === "bottom";
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const onRemove = () => {
-        if (!type) {
-            dispatch(removeIngredient({ id }));
+        if (type !== undefined && id !== undefined) {
+            dispatch(removeIngredient({ id: id! }));
         }
     };
-    const onMove = (sourceId, targetId) => {
-        if (!type) {
+    const onMove = (sourceId: IngredientId, targetId: IngredientId) => {
+        if (type !== undefined) {
             dispatch(moveIngredient({ sourceId, targetId }));
         }
     };
-    const onAdd = (ingredientItem, targetId) => {
-        const ingredient = ingredientItem.item;
+    const onAdd = (ingredientItem: IngredientDrag, targetId: IngredientId | undefined) => {
+        const ingredient = ingredientItem.item!;
         if (ingredient.type === "bun" && isBorderItem) {
             dispatch(addIngredient({ ingredient: ingredient }));
         } else if (ingredient.type !== "bun" && !isBorderItem) {
@@ -46,31 +54,34 @@ function BurgerConstructorItem(props) {
         }
     };
 
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
+    const ingredientDrag: IngredientDrag = { id: id, item: ingredient };
     const [{ isDragging }, drag] = useDrag({
-        type: "ingredient",
-        item: { id: id, item: ingredient },
-        collect: monitor => ({
+        type: IngredientDragType,
+        item: ingredientDrag,
+        collect: (monitor: DragSourceMonitor) => ({
             isDragging: monitor.isDragging(),
         }),
-        canDrag: monitor => {
+        canDrag: (_: DragSourceMonitor) => {
             return ingredient !== null;
         }
     });
     const [{ isHover }, drop] = useDrop({
-        accept: "ingredient",
-        collect: monitor => ({
+        accept: IngredientDragType,
+        collect: (monitor: DropTargetMonitor) => ({
             isHover: monitor.isOver()
         }),
-        hover(item, monitor) {
+        hover: (item: IngredientDrag, monitor: DropTargetMonitor) => {
             if (!ref.current) return;
             const dragIndex = item.id;
             const hoverIndex = id;
+            console.log(`${dragIndex} ${hoverIndex}`);
             if (dragIndex === hoverIndex) return;
-            if (dragIndex === undefined) return;
+            if (!dragIndex) return;
+            if (!hoverIndex) return
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-            const clientOffset = monitor.getClientOffset();
+            const clientOffset = monitor.getClientOffset()!;
             const hoverClientY = clientOffset.y - hoverBoundingRect.top;
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return
@@ -80,7 +91,7 @@ function BurgerConstructorItem(props) {
             }
             onMove(dragIndex, hoverIndex);
         },
-        drop(item, monitor) {
+        drop: (item: IngredientDrag, _: DropTargetMonitor) => {
             if (item.id === undefined && item.item != null) {
                 onAdd(item, id);
             }
@@ -88,11 +99,11 @@ function BurgerConstructorItem(props) {
     });
 
     const opacity = isDragging ? 0 : 1;
-    const empty = isHover ? `${styles.element_empty} ${styles.element_empty_hover}` : styles.element_empty;
+    const emptyStyles = isHover ? `${styles.element_empty} ${styles.element_empty_hover}` : styles.element_empty;
     const emptyText = isBorderItem ? "Добавьте булку" : "Добавьте ингредиент";
     drag(drop(ref));
     return (
-        <div className={styleClasses} style={{ opacity }} ref={ref}>
+        <div className={itemStyles} style={{ opacity }} ref={ref}>
             {!isLocked &&
                 <div className={styles.drag}>
                     <DragIcon type="primary" />
@@ -110,7 +121,7 @@ function BurgerConstructorItem(props) {
                 />
             }
             {!ingredient &&
-                <div className={empty}>
+                <div className={emptyStyles}>
                     <div className={styles.element_empty_container}>
                         <span>{emptyText}</span>
                     </div>
@@ -119,13 +130,5 @@ function BurgerConstructorItem(props) {
         </div>
     );
 }
-
-BurgerConstructorItem.propTypes = {
-    id: PropTypes.string,
-    ingredient: ingredientType,
-    type: PropTypes.string,
-    isLocked: PropTypes.bool.isRequired,
-    extraClass: PropTypes.string,
-};
 
 export default BurgerConstructorItem;

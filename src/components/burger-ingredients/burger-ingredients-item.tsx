@@ -5,21 +5,17 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 
 import styles from "./burger-ingredients-item.module.css";
 import { Ingredient } from "../../services/types";
+import { IngredientDragType, IngredientDrag } from "../burger-constructor/burger-constructor-drag";
 
 export interface BurgerIngredientsItemProps {
     readonly ingredient: Ingredient;
     readonly count: number | undefined;
 }
 
-export type IngredientDrag = {
-    readonly id: string | undefined;
-    readonly item: Ingredient;
-}
-
 export const BurgerIngredientsItem: FC<BurgerIngredientsItemProps> = ({ ingredient, count }) => {
     const location = useLocation();
     const [_, dragRef] = useDrag<IngredientDrag>({
-        type: "ingredient",
+        type: IngredientDragType,
         item: { id: undefined, item: ingredient },
     });
     return (

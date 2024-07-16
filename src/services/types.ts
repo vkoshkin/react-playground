@@ -16,3 +16,10 @@ export type Ingredient = {
     readonly image: string,
     readonly image_large: string,
 }
+
+export type IngredientId = string;
+
+export type IngredientItem = {
+    id: IngredientId,
+    data: Ingredient,
+};
