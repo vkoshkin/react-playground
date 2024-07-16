@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { 
     postAuthRegister, 
     postAuthLogin, 
@@ -7,13 +8,14 @@ import {
     patchAuthUser, 
     postAuthLogout,
 } from "./api";
+import { User } from "./types";
 
-export function fetchUser() {
-    return async function (dispatch) {
+export const fetchUser = () => {
+    return async function (dispatch: any) {
         if (!localStorage.getItem("accessToken")) {
             // если у меня нет токенов
-            localStorage.setItem("accessToken", null);
-            localStorage.setItem("refreshToken", null);
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
             dispatch(setUser(null));
             return;
         }
@@ -22,6 +24,7 @@ export function fetchUser() {
             console.log(`Error getting user: ${e}`);
         });
         if (getResponse && getResponse.success) {
+            console.log(`getAuthUser ${JSON.stringify(getResponse)}`);
             // успешное получение данных пользователя через accessToken
             dispatch(setUser(getResponse.user));
             return;
@@ -31,10 +34,10 @@ export function fetchUser() {
             console.log(`Error refreshing user token ${e}`);
         });
         if (postResponse && postResponse.success) {
+            console.log(`postAuthToken ${JSON.stringify(postResponse)}`);
             // успешное обновление токена пользователя через refreshToken
             localStorage.setItem("accessToken", postResponse.accessToken);
             localStorage.setItem("refreshToken", postResponse.refreshToken);
-            dispatch(setUser(postResponse.user));
             return;
         }
 
@@ -45,8 +48,8 @@ export function fetchUser() {
     };
 }
 
-export function registerUser(name, email, password) {
-    return function (dispatch) {
+export const registerUser = (name: string, email: string, password: string) => {
+    return function (dispatch: any) {
         dispatch(registerRequest());
         postAuthRegister(name, email, password).then(response => {
             if (response && response.success) {
@@ -63,8 +66,8 @@ export function registerUser(name, email, password) {
     };
 }
 
-export function loginUser(email, password) {
-    return function (dispatch) {
+export const loginUser = (email: string, password: string) => {
+    return function (dispatch: any) {
         dispatch(loginRequest());
         postAuthLogin(email, password).then(response => {
             if (response && response.success) {
@@ -81,8 +84,8 @@ export function loginUser(email, password) {
     };
 }
 
-export function logoutUser() {
-    return function (dispatch) {
+export const logoutUser = () => {
+    return function (dispatch: any) {
         dispatch(logoutRequest());
         postAuthLogout().then(response => {
             if (response && response.success) {
@@ -99,8 +102,8 @@ export function logoutUser() {
     };
 }
 
-export function saveUser(name, email) {
-    return function (dispatch) {
+export const saveUser = (name: string, email: string) => {
+    return function (dispatch: any) {
         dispatch(saveRequest());
         patchAuthUser(name, email).then(response => {
             if (response && response.success) {
@@ -115,7 +118,20 @@ export function saveUser(name, email) {
     };
 }
 
-const initialState = {
+type UserState = {
+    user: User | null;
+    userChecked: boolean;
+    registerRequest: boolean;
+    registerError: boolean;
+    loginRequest: boolean;
+    loginError: boolean;
+    logoutRequest: boolean;
+    logoutError: boolean;
+    saveRequest: boolean;
+    saveRequestError: boolean;
+};
+
+const initialState: UserState = {
     user: null,
     userChecked: false,
     registerRequest: false,
@@ -132,7 +148,7 @@ const slice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setUser(state, action) {
+        setUser: (state: UserState, action: PayloadAction<User | null>) => {
             state.user = action.payload;
             console.log(`user set to ${JSON.stringify(state.user)}`);
             state.userChecked = true;
@@ -145,35 +161,35 @@ const slice = createSlice({
             state.saveRequest = false;
             state.saveRequestError = false;
         },
-        registerRequest(state, action) {
+        registerRequest: (state: UserState) => {
             state.registerRequest = true;
             state.registerError = false;
         },
-        registerRequestError(state, action) {
+        registerRequestError: (state: UserState) => {
             state.registerRequest = false;
             state.registerError = true;
         },
-        loginRequest(state, action) {
+        loginRequest: (state: UserState) => {
             state.loginRequest = true;
             state.loginError = false;
         },
-        loginRequestError(state, action) {
+        loginRequestError: (state: UserState) => {
             state.loginRequest = false;
             state.loginError = true;
         },
-        logoutRequest(state, action) {
+        logoutRequest: (state: UserState) => {
             state.logoutRequest = true;
             state.logoutError = false;
         },
-        logoutRequestError(state, action) {
+        logoutRequestError: (state: UserState) => {
             state.logoutRequest = false;
             state.logoutError = true;
         },
-        saveRequest(state, action) {
+        saveRequest: (state: UserState) => {
             state.saveRequest = true;
             state.saveRequestError = false;
         },
-        saveRequestError(state, action) {
+        saveRequestError: (state: UserState) => {
             state.saveRequest = false;
             state.saveRequestError = true;
         }

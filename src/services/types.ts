@@ -1,4 +1,9 @@
 
+export type User = {
+    readonly name: string;
+    readonly email: string;
+};
+
 export type Ingredient = {
     readonly _id: string;
     readonly name: string;

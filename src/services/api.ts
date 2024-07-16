@@ -1,8 +1,12 @@
 import { request } from "../utils/requests";
-import { Ingredient } from "./types";
+import { Ingredient, User } from "./types";
 
-interface GetIngredientsResult {
+export interface CommonResult {
     readonly success: boolean;
+    readonly message?: string;
+}
+
+export interface GetIngredientsResult extends CommonResult {
     readonly data: Array<Ingredient>;
 }
 
@@ -14,8 +18,7 @@ export interface Order {
     readonly number: number;
 }
 
-export interface OrderResult {
-    readonly success: boolean;
+export interface OrderResult extends CommonResult {
     readonly name: string;
     readonly order: Order;
 }
@@ -31,7 +34,16 @@ export function postOrderRequest(data: Array<string>): Promise<OrderResult> {
     });
 }
 
-export function postAuthRegister(name: string, email: string, password: string) {
+export interface TokenContainer {
+    readonly accessToken: string;
+    readonly refreshToken: string;
+}
+
+export interface RegisterUserResult extends CommonResult, TokenContainer {
+    readonly user: User;
+}
+
+export function postAuthRegister(name: string, email: string, password: string): Promise<RegisterUserResult> {
     return request("auth/register", {
         method: "POST",
         headers: {
@@ -45,7 +57,11 @@ export function postAuthRegister(name: string, email: string, password: string) 
     });
 }
 
-export function postAuthLogin(email: string, password: string) {
+export interface LoginResult extends CommonResult, TokenContainer {
+    readonly user: User;
+}
+
+export function postAuthLogin(email: string, password: string): Promise<LoginResult> {
     return request("auth/login", {
         method: "POST",
         headers: {
@@ -58,7 +74,7 @@ export function postAuthLogin(email: string, password: string) {
     });
 }
 
-export function postAuthLogout() {
+export function postAuthLogout(): Promise<CommonResult> {
     return request("auth/logout", {
         method: "POST",
         headers: {
@@ -70,7 +86,10 @@ export function postAuthLogout() {
     });
 }
 
-export function postAuthToken() {
+export interface UpdateTokenResult extends CommonResult, TokenContainer {
+}
+
+export function postAuthToken(): Promise<UpdateTokenResult> {
     return request("auth/token", {
         method: "POST",
         headers: {
@@ -82,7 +101,11 @@ export function postAuthToken() {
     });
 }
 
-export function getAuthUser() {
+export interface GetAuthResult extends CommonResult {
+    readonly user: User;
+}
+
+export function getAuthUser(): Promise<GetAuthResult> {
     return request("auth/user", {
         method: "GET",
         headers: {
@@ -91,7 +114,11 @@ export function getAuthUser() {
     });
 }
 
-export function patchAuthUser(name: string, email: string) {
+export interface PatchUserResult extends CommonResult {
+    readonly user: User;
+}
+
+export function patchAuthUser(name: string, email: string): Promise<PatchUserResult> {
     return request("auth/user", {
         method: "PATCH",
         headers: {
@@ -105,12 +132,7 @@ export function patchAuthUser(name: string, email: string) {
     });
 }
 
-export interface PasswordResetResult {
-    readonly success: boolean,
-    readonly message: string,
-};
-
-export function postPasswordReset(email: string): Promise<PasswordResetResult> {
+export function postPasswordReset(email: string): Promise<CommonResult> {
     return request("password-reset", {
         method: "POST",
         headers: {
@@ -122,7 +144,7 @@ export function postPasswordReset(email: string): Promise<PasswordResetResult> {
     });
 }
 
-export function postPasswordUpdate(password: string, code: string): Promise<PasswordResetResult> {
+export function postPasswordUpdate(password: string, code: string): Promise<CommonResult> {
     return request("password-reset/reset", {
         method: "POST",
         headers: {
