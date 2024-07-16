@@ -7,7 +7,7 @@ import { saveUser } from "../services/user";
 import { useForm } from "../hooks/useForm";
 import styles from "./profile.module.css";
 
-export const Profile: FC<{}> = () => {
+const Profile: FC = () => {
     const { user, saveRequest, saveRequestError } = useTypedSelector(store => store.user);
 
     const { values, handleChange, setValues } = useForm<User>({ name: user!.name, email: user!.email });

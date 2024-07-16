@@ -11,7 +11,7 @@ type ForgotPasswordData = {
     email: string;
 };
 
-export const ForgotPassword: FC<{}> = () => {
+export const ForgotPassword: FC = () => {
     const { 
         passwordResetRequest, 
         passwordResetError, 

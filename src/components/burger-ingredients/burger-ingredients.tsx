@@ -5,7 +5,7 @@ import BurgerIngredientsItem from "./burger-ingredients-item"
 import styles from "./burger-ingredients.module.css";
 import { useTypedSelector } from "../../services/store";
 
-export const BurgerIngredients: FC<{}> = () => {
+export const BurgerIngredients: FC = () => {
     const { buns, sauces, mains } = useTypedSelector(state => state.burgerIngredients);
     const { bun, ingredients } = useTypedSelector(state => state.burgerConstructor);
 

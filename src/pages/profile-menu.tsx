@@ -5,7 +5,7 @@ import { useAppDispatch } from "../services/store";
 import { logoutUser } from "../services/user";
 import styles from "./profile-menu.module.css";
 
-export const ProfileMenu: FC<{}> = () => {
+const ProfileMenu: FC = () => {
     const dispatch = useAppDispatch();
     const onExit: MouseEventHandler = _ => {
         dispatch(logoutUser());

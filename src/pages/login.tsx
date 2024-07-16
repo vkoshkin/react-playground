@@ -12,7 +12,7 @@ type MailPassword = {
     password: string;
 }
 
-export const Login: FC<{}> = () => {
+const Login: FC = () => {
     const { loginRequest, loginError } = useTypedSelector(store => store.user);
     const { values, handleChange } = useForm<MailPassword>({ email: "", password: "" });
     const dispatch = useAppDispatch();

@@ -13,7 +13,7 @@ type RegisterForm = {
     password: string;
 }
 
-export const Register: FC<{}> = () => {
+const Register: FC = () => {
     const { user, registerRequest, registerError } = useTypedSelector(store => store.user);
     const { values, handleChange } = useForm<RegisterForm>({ name: "", email: "", password: "" });
 

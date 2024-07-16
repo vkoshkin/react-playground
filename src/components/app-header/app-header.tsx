@@ -4,7 +4,7 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-dev
 
 import styles from "./app-header.module.css";
 
-export const AppHeader : FC<{}> = () => {
+export const AppHeader: FC = () => {
     return (
         <header>
             <nav className={styles.nav}>

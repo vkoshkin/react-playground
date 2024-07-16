@@ -19,7 +19,7 @@ import IngredientDetails from "../burger-ingredients/ingredient-details";
 import IngredientModal from "../burger-ingredients/ingredient-modal";
 import { AuthenticatedOnly, AnonymousOnly } from "../protected-route";
 
-export const App: FC<{}> = () => {
+export const App: FC = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(fetchUser());

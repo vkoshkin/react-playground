@@ -14,7 +14,7 @@ function findIngredientById(ingredients: Array<Ingredient>, id: string): Ingredi
     return null;
 }
 
-export const IngredientDetails: FC<{}> = () => {
+export const IngredientDetails: FC = () => {
     const { buns, sauces, mains } = useTypedSelector(store => store.burgerIngredients);
     const { id } = useParams();
     if (!id) {

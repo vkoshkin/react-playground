@@ -8,7 +8,7 @@ import order1 from "../../images/order-1.svg"
 import order2 from "../../images/order-2.svg"
 import order3 from "../../images/order-3.svg"
 
-export const OrderDetails: FC<{}> = () => {
+export const OrderDetails: FC = () => {
     const { bun, ingredients } = useTypedSelector(state => state.burgerConstructor);
     const { request, requestError, orderId } = useTypedSelector(state => state.order);
 

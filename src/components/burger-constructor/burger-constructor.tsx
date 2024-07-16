@@ -9,7 +9,7 @@ import Modal from "../modal/modal";
 import { useModal } from "../../hooks/useModal";
 import styles from "./burger-constructor.module.css";
 
-export const BurgerConstructor: FC<{}> = () => {
+export const BurgerConstructor: FC = () => {
     const { bun, ingredients } = useTypedSelector(state => state.burgerConstructor);
     const { user } = useTypedSelector(state => state.user);
 

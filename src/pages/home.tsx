@@ -4,7 +4,7 @@ import BurgerIngredients from "../components/burger-ingredients/burger-ingredien
 import BurgerConstructor from "../components/burger-constructor/burger-constructor";
 import styles from "./home.module.css";
 
-export const Home: FC<{}> = () => {
+const Home: FC = () => {
     return (
         <>
             <div className={styles.panel}>
