@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
+import { useAppDispatch, useTypedSelector } from "../../services/store";
 import { fetchIngredients } from "../../services/ingredients";
 import { fetchUser } from "../../services/user";
 import styles from "./app.module.css";
@@ -19,14 +19,14 @@ import IngredientDetails from "../burger-ingredients/ingredient-details";
 import IngredientModal from "../burger-ingredients/ingredient-modal";
 import { AuthenticatedOnly, AnonymousOnly } from "../protected-route";
 
-function App() {
-    const dispatch = useDispatch();
+export const App: FC<{}> = () => {
+    const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(fetchUser());
         dispatch(fetchIngredients());
     }, [dispatch]);
 
-    const { request, requestError } = useSelector(state => state.burgerIngredients);
+    const { request, requestError } = useTypedSelector(state => state.burgerIngredients);
 
     const location = useLocation();
     const state = location.state;
