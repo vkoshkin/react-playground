@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { postPasswordReset, postPasswordUpdate } from "./api";
+import { AppDispatch } from "./store";
 
-export const resetPassword = (email: string) => (dispatch: any) => {
+export const resetPassword = (email: string) => (dispatch: AppDispatch) => {
     dispatch(passwordResetRequest());
     postPasswordReset(email).then(response => {
         if (response && response.success) {
@@ -15,7 +16,7 @@ export const resetPassword = (email: string) => (dispatch: any) => {
     });
 }
 
-export const updatePassword = (password: string, code: string) => (dispatch: any) => {
+export const updatePassword = (password: string, code: string) => (dispatch: AppDispatch) => {
     dispatch(passwordUpdateRequest());
     postPasswordUpdate(password, code).then(response => {
         if (response && response.success) {

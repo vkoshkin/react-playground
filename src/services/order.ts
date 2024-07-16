@@ -3,8 +3,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Order, postOrderRequest } from "./api";
 import { clearConstructor } from "./constructor";
 import { Ingredient } from "./types";
+import { AppDispatch } from "./store";
 
-export const postOrder = (bun: Ingredient, ingredients: Array<Ingredient>) => (dispatch: any) => {
+export const postOrder = (bun: Ingredient, ingredients: Array<Ingredient>) => (dispatch: AppDispatch) => {
     dispatch(orderRequest());
     let data: Array<string> = [];
     data.push(bun._id);

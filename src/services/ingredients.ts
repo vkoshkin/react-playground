@@ -2,8 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { getIngredientsRequest } from "./api";
 import { Ingredient } from "./types";
+import { AppDispatch } from "./store";
 
-export const fetchIngredients = () => (dispatch: any) => {
+export const fetchIngredients = () => (dispatch: AppDispatch) => {
     dispatch(getIngredients());
     getIngredientsRequest().then(res => {
         if (res && res.success) {
