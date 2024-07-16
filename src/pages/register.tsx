@@ -1,17 +1,24 @@
-import { useDispatch, useSelector } from "react-redux";
+import { FC, FormEventHandler } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { useAppDispatch, useTypedSelector } from "../services/store";
 import { registerUser } from "../services/user";
 import { useForm } from "../hooks/useForm";
 import styles from "./register.module.css";
 
-function Register() {
-    const { user, registerRequest, registerError } = useSelector(store => store.user);
-    const { values, handleChange } = useForm({ name: "", email: "", password: "" });
+type RegisterForm = {
+    name: string;
+    email: string;
+    password: string;
+}
 
-    const dispatch = useDispatch();
-    const onSubmit = e => {
+export const Register: FC<{}> = () => {
+    const { user, registerRequest, registerError } = useTypedSelector(store => store.user);
+    const { values, handleChange } = useForm<RegisterForm>({ name: "", email: "", password: "" });
+
+    const dispatch = useAppDispatch();
+    const onSubmit: FormEventHandler = e => {
         e.preventDefault();
         dispatch(registerUser(values.name, values.email, values.password));
     };
@@ -28,6 +35,8 @@ function Register() {
                     name="name"
                     value={values.name}
                     onChange={e => handleChange(e)}
+                    onPointerEnterCapture={undefined} 
+                    onPointerLeaveCapture={undefined}
                     extraClass={styles.field}
                 />
                 <EmailInput

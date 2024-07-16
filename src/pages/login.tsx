@@ -1,16 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
+import { FC, FormEventHandler } from "react";
 import { Link } from "react-router-dom";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { loginUser } from "../services/user";
+import { useAppDispatch, useTypedSelector } from "../services/store";
 import { useForm } from "../hooks/useForm";
 import styles from "./login.module.css";
 
-function Login() {
-    const { loginRequest, loginError } = useSelector(store => store.user);
-    const { values, handleChange } = useForm({ email: "", password: "" });
-    const dispatch = useDispatch();
-    const onSubmit = e => {
+type MailPassword = {
+    email: string;
+    password: string;
+}
+
+export const Login: FC<{}> = () => {
+    const { loginRequest, loginError } = useTypedSelector(store => store.user);
+    const { values, handleChange } = useForm<MailPassword>({ email: "", password: "" });
+    const dispatch = useAppDispatch();
+    const onSubmit: FormEventHandler = e => {
         e.preventDefault();
         dispatch(loginUser(values.email, values.password));
     };
