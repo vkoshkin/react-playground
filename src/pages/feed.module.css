@@ -1,6 +1,25 @@
+.feed {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    border: 1px solid red;
+}
+
+.header {
+    composes: text text_type_main-large pt-10 pb-5 from global;
+}
+
+.panels {
+    display: flex;
+    flex-direction: row;
+}
+
 .panel {
     width: 600px;
     height: 100%;
-    margin-right: 8px;
-    margin-left: 8px;
+
+    border: 1px solid blue;
 }
