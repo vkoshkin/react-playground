@@ -23,7 +23,7 @@ export const AppHeader: FC = () => {
                     </div>
 
                     <div className="ml-2">
-                        <NavLink className={styles.anchor} to="/order-feed">
+                        <NavLink className={styles.anchor} to="/feed">
                             {({ isActive }) => (
                                 <>
                                     <ListIcon type={isActive ? "primary" : "secondary"} />

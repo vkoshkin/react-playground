@@ -7,6 +7,7 @@ import { fetchUser } from "../../services/user";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import AppError from "./app-error";
+import Feed from "../../pages/feed";
 import Home from "../../pages/home";
 import Login from "../../pages/login";
 import Register from "../../pages/register";
@@ -38,6 +39,7 @@ export const App: FC = () => {
                     <main className={styles.main}>
                         <Routes location={state?.backgroundLocation || location}>
                             <Route path="/" element={<Home />} />
+                            <Route path="/feed" element={<Feed />} />
                             <Route path="/login" element={
                                 <AnonymousOnly component={<Login />} />
                             } />
