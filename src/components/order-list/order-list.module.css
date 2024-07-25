@@ -1,4 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .list {
+    flex-grow: 1;
+    height: 0;
+    overflow: scroll;
+    overflow-x: hidden;
+
     list-style-type: none;
     margin: 0;
     padding: 0;
