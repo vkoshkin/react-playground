@@ -1,0 +1,9 @@
+.list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list_item {
+    composes: mb-4 pr-2 from global;
+}

@@ -1,0 +1,69 @@
+.item {
+    background-color: #1C1C21;
+    border-radius: 40px;
+    composes: pt-6 pb-6 pl-6 pr-6 from global;
+}
+
+.order_date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid green;
+}
+
+.order {
+    composes: text text_type_digits-default from global;
+}
+
+.date {
+    composes: text text_type_main-default text_color_inactive from global;
+}
+
+.name {
+    composes: mt-6 mb-6 from global;
+    border: 1px solid magenta;
+}
+
+.items_price {
+    display: flex;
+    flex-direction: row;
+    height: 64px;
+    border: 1px solid yellow;
+}
+
+.items {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin-left: 16px;
+}
+
+.ingredient {
+    display: block;
+    max-width: 64px;
+    max-height: 64px;
+    margin-left: -16px;
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    border-width: 1px;
+    background-color: #131316;
+    border: 1px solid slategray;
+}
+
+.ingredient_image {
+    /* width: 64px; */
+    margin-left: -32px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.price_value {
+    composes: text text_type_digits-default mr-1 from global;
+}
