@@ -12,11 +12,11 @@ const OrderStats: FC = () => {
                             Готовы:
                         </h2>
                         <ul className={styles.row_list}>
-                            <li className={styles.row_list_item}>034533</li>
-                            <li className={styles.row_list_item}>034532</li>
-                            <li className={styles.row_list_item}>034530</li>
-                            <li className={styles.row_list_item}>034527</li>
-                            <li className={styles.row_list_item}>034525</li>
+                            <li className={styles.row_list_item_finished}>034533</li>
+                            <li className={styles.row_list_item_finished}>034532</li>
+                            <li className={styles.row_list_item_finished}>034530</li>
+                            <li className={styles.row_list_item_finished}>034527</li>
+                            <li className={styles.row_list_item_finished}>034525</li>
                         </ul>
                     </div>
                     <div className={styles.row}>

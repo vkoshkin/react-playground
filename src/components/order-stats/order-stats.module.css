@@ -29,7 +29,11 @@
     padding: 0;
 }
 
-.row_list_item {
+.row_list_item, .row_list_item_finished {
     composes: text text_type_digits-default from global;
     composes: mb-2 from global;
+}
+
+.row_list_item_finished {
+    color: #00CCCC;
 }
