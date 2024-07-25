@@ -9,10 +9,10 @@ const Feed: FC = () => {
         <div className={styles.feed}>
             <h1 className={styles.header}>Лента заказов</h1>
             <div className={styles.panels}>
-                <div className={styles.panel}>
+                <div className={styles.list}>
                     <OrderList />
                 </div>
-                <div className={styles.panel}>
+                <div className={styles.stats}>
                     <OrderStats />
                 </div>
             </div>

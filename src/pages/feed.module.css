@@ -1,11 +1,9 @@
 .feed {
     height: 100%;
-
     display: flex;
     flex-direction: column;
     align-items: start;
-
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .header {
@@ -13,13 +11,18 @@
 }
 
 .panels {
+    flex-grow: 1;
     display: flex;
     flex-direction: row;
 }
 
-.panel {
-    width: 600px;
+.list {
+    width: 584px;
     height: 100%;
+}
 
-    border: 1px solid blue;
+.stats {
+    width: 572px;
+    height: 100%;
+    composes: ml-15 from global;
 }
