@@ -7,7 +7,9 @@ import constructorReducer from "./constructor";
 import orderReducer from "./order";
 import userReducer from "./user";
 import passwordReducer from "./password";
+import commonFeedReducer from "./common-feed";
 import { socketMiddleware } from "./middleware/websocket-middleware";
+import { wsClose, wsConnect, wsConnecting, wsDisconnect, wsError, wsMessage, wsOpen } from "./common-feed";
 
 const rootReducer = combineReducers({
     [ingredientReducer.reducerPath]: ingredientReducer.reducer,
@@ -16,9 +18,18 @@ const rootReducer = combineReducers({
     [orderReducer.reducerPath]: orderReducer.reducer,
     [userReducer.reducerPath]: userReducer.reducer,
     [passwordReducer.reducerPath]: passwordReducer.reducer,
+    [commonFeedReducer.reducerPath]: commonFeedReducer.reducer,
 });
 
 const commonFeedMiddleware = socketMiddleware({
+    connect: wsConnect,
+    disconnect: wsDisconnect,
+    // sendMessage: 
+    onConnecting: wsConnecting,
+    onOpen: wsOpen,
+    onClose: wsClose,
+    onMessage: wsMessage,
+    onError: wsError,
 });
 
 const profileFeedMiddleware = socketMiddleware({
