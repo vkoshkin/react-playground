@@ -7,7 +7,7 @@ import constructorReducer from "./constructor";
 import orderReducer from "./order";
 import userReducer from "./user";
 import passwordReducer from "./password";
-import { socketMiddleware } from "./websocket-middleware";
+import { socketMiddleware } from "./middleware/websocket-middleware";
 
 const rootReducer = combineReducers({
     [ingredientReducer.reducerPath]: ingredientReducer.reducer,
