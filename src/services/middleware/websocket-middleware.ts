@@ -40,7 +40,8 @@ export const socketMiddleware = (wsActions: WsActionTypes): Middleware<{}, any> 
                     }
                 };
                 socket.onerror = (event) => {
-                    onError && dispatch(onError(event.type)); 
+                    // fixme @vkoshkin я пока не понимаю, как это отображать, надо спросить на review
+                    onError && dispatch(onError(JSON.stringify(event))); 
                 };
                 socket.onmessage = (event: MessageEvent<any>) => {
                     const { data } = event;
