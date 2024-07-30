@@ -2,9 +2,9 @@ import { FC } from "react";
 
 import OrderList from "../components/order-list/order-list";
 import OrderStats from "../components/order-stats/order-stats";
-import styles from "./feed.module.css";
+import styles from "./common-feed.module.css";
 
-const Feed: FC = () => {
+const CommonFeed: FC = () => {
     return (
         <div className={styles.feed}>
             <h1 className={styles.header}>Лента заказов</h1>
@@ -20,4 +20,4 @@ const Feed: FC = () => {
     );
 }
 
-export default Feed;
+export default CommonFeed;
