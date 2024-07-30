@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Order, postOrderRequest } from "./api";
+import { OrderId, postOrderRequest } from "./api";
 import { clearConstructor } from "./constructor";
 import { Ingredient } from "./types";
 import { AppDispatch } from "./store";
@@ -46,7 +46,7 @@ const slice = createSlice({
         orderRequest: (state: OrderState) => {
             state.request = true;
         },
-        orderRequestSuccess(state: OrderState, action : PayloadAction<Order>) {
+        orderRequestSuccess(state: OrderState, action : PayloadAction<OrderId>) {
             state.request = false;
             state.requestError = false;
             const payload = action.payload;
