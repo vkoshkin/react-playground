@@ -1,14 +1,14 @@
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload, Middleware } from "@reduxjs/toolkit";
 
 export type WsActionTypes = {
-    connect?: ActionCreatorWithPayload<string>, // @vkoshkin remove ?
-    disconnect?: ActionCreatorWithoutPayload,   // @vkoshkin remove ?
-    sendMessage?: ActionCreatorWithPayload<any>,
-    onConnecting?: ActionCreatorWithoutPayload,
-    onOpen?: ActionCreatorWithoutPayload,       // @vkoshkin remove ?
-    onClose?: ActionCreatorWithoutPayload,      // @vkoshkin remove ?
-    onMessage?: ActionCreatorWithPayload<any>,  // @vkoshkin remove ?
-    onError?: ActionCreatorWithPayload<string>, // @vkoshkin remove ?
+    readonly connect?: ActionCreatorWithPayload<string>, // @vkoshkin remove ?
+    readonly disconnect?: ActionCreatorWithoutPayload,   // @vkoshkin remove ?
+    readonly sendMessage?: ActionCreatorWithPayload<any>,
+    readonly onConnecting?: ActionCreatorWithoutPayload,
+    readonly onOpen?: ActionCreatorWithoutPayload,       // @vkoshkin remove ?
+    readonly onClose?: ActionCreatorWithoutPayload,      // @vkoshkin remove ?
+    readonly onMessage?: ActionCreatorWithPayload<any>,  // @vkoshkin remove ?
+    readonly onError?: ActionCreatorWithPayload<string>, // @vkoshkin remove ?
 };
 
 const RECONNECT_PERIOD_MS: number = 1000;
