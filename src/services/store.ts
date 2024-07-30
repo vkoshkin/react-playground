@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 
 import ingredientReducer from "./ingredients";
@@ -7,15 +7,27 @@ import constructorReducer from "./constructor";
 import orderReducer from "./order";
 import userReducer from "./user";
 import passwordReducer from "./password";
+import { socketMiddleware } from "../utils/websocket";
+
+const rootReducer = combineReducers({
+    [ingredientReducer.reducerPath]: ingredientReducer.reducer,
+    [ingredientDetailsReducer.reducerPath]: ingredientDetailsReducer.reducer,
+    [constructorReducer.reducerPath]: constructorReducer.reducer,
+    [orderReducer.reducerPath]: orderReducer.reducer,
+    [userReducer.reducerPath]: userReducer.reducer,
+    [passwordReducer.reducerPath]: passwordReducer.reducer,
+});
+
+const commonFeedMiddleware = socketMiddleware({
+});
+
+const profileFeedMiddleware = socketMiddleware({
+});
 
 const store = configureStore({
-    reducer: {
-        [ingredientReducer.reducerPath]: ingredientReducer.reducer,
-        [ingredientDetailsReducer.reducerPath]: ingredientDetailsReducer.reducer,
-        [constructorReducer.reducerPath]: constructorReducer.reducer,
-        [orderReducer.reducerPath]: orderReducer.reducer,
-        [userReducer.reducerPath]: userReducer.reducer,
-        [passwordReducer.reducerPath]: passwordReducer.reducer,
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => {
+        return getDefaultMiddleware().concat(commonFeedMiddleware, profileFeedMiddleware);
     }
 });
 
