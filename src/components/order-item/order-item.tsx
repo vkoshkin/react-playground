@@ -65,6 +65,7 @@ const OrderItem: FC<OrderItem> = ({ order }) => {
                 <div className={styles.items}>
                     {displayedIngredients.ingredients.map((ingredient, index) =>
                         <div
+                            key={index}
                             className={styles.ingredient}
                             style={{ zIndex: displayedIngredients.ingredients.length - index }}
                         >

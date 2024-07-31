@@ -10,8 +10,11 @@ const OrderList: FC = () => {
         <div className={styles.container}>
             <ul className={styles.list}>
                 {orders.map(order =>
-                    <li className={styles.list_item}>
-                        <OrderItem key={order._id} order={order}/>
+                    <li
+                        key={order._id}
+                        className={styles.list_item}
+                    >
+                        <OrderItem order={order} />
                     </li>
                 )}
             </ul>
