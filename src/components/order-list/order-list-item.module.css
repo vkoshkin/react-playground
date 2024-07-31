@@ -39,10 +39,7 @@
     margin-left: 16px;
 }
 
-.ingredient {
-    background-image: linear-gradient(#131316, #131316), linear-gradient(45deg, #801AB2 0%, #4C4CFF 100%);
-    background-origin: border-box;
-    background-clip: content-box, border-box;
+.ingredient, .ingredient_more {
     border-radius: 32px;
     border: 2px solid transparent;
     box-sizing: border-box;
@@ -54,11 +51,29 @@
     height: 64px;
 }
 
+.ingredient {
+    background-image: linear-gradient(#131316, #131316), linear-gradient(45deg, #801AB2 0%, #4C4CFF 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+.ingredient_more {
+    background-color: rgba(19, 19, 22, 0.5);
+    margin-left: -64px;
+    display: flex;
+    align-items: center;
+}
+
 .ingredient_image {
-    /* width: 64px; */
     margin-left: -32px;
     height: 64px;
     border-radius: 50%;
+}
+
+.ingredient_text {
+    flex: 1;
+    text-align: center;
+    composes: text text_type_digits-default from global;
 }
 
 .price {

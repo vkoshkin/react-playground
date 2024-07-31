@@ -2,20 +2,26 @@ import { FC, useMemo } from "react";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { useTypedSelector } from "../../services/store";
-import { Order } from "../../services/types";
+import { Ingredient, Order } from "../../services/types";
 import styles from "./order-list-item.module.css";
 
 export interface OrderListItem {
     readonly order: Order;
-}
+};
 
-const OrderListItem: FC<OrderListItem> = ({order}) => {
+type DisplayedIngredients = {
+    readonly ingredients: Array<Ingredient>;
+    readonly otherCount: number;
+};
+
+const OrderListItem: FC<OrderListItem> = ({ order }) => {
     const { ingredients } = useTypedSelector(state => state.burgerIngredients);
 
     const orderDate: Date = useMemo(() => {
         const time = Date.parse(order.updatedAt);
         return new Date(time);
     }, [order.updatedAt]);
+
     const price: number = useMemo(() => {
         let price = 0;
         for (const ingredientId of order.ingredients) {
@@ -29,14 +35,24 @@ const OrderListItem: FC<OrderListItem> = ({order}) => {
         return price;
     }, [order.ingredients, ingredients]);
 
+    const displayedIngredients: DisplayedIngredients = useMemo(() => {
+        const displayed: Array<string> = order.ingredients.slice(0, 6);
+        const displayedResult: Array<Ingredient> = [];
+        for (const ingredientId of displayed) {
+            displayedResult.push(ingredients[ingredientId]);
+        }
+        const count = Math.max(order.ingredients.length - 6, 0);
+        return { ingredients: displayedResult, otherCount: count };
+    }, [order, ingredients]);
+
     return (
         <div className={styles.item}>
             <div className={styles.order_date}>
                 <span className={styles.order}>
                     #{order.number}
                 </span>
-                <FormattedDate 
-                    date={orderDate} 
+                <FormattedDate
+                    date={orderDate}
                     className={styles.date}
                 />
             </div>
@@ -47,24 +63,28 @@ const OrderListItem: FC<OrderListItem> = ({order}) => {
             </div>
             <div className={styles.items_price}>
                 <div className={styles.items}>
-                    <div className={styles.ingredient}>
-                        <img className={styles.ingredient_image} src="https://code.s3.yandex.net/react/code/bun-01.png"/>
-                    </div>
-                    <div className={styles.ingredient}>
-                        <img className={styles.ingredient_image} src="https://code.s3.yandex.net/react/code/cheese.png"/>
-                    </div>
-                    <div className={styles.ingredient}>
-                        <img className={styles.ingredient_image} src="https://code.s3.yandex.net/react/code/meat-03.png"/>
-                    </div>
-                    <div className={styles.ingredient}>
-                        <img className={styles.ingredient_image} src="https://code.s3.yandex.net/react/code/mineral_rings.png"/>
-                    </div>
-                    <div className={styles.ingredient}>
-                        <img className={styles.ingredient_image} src="https://code.s3.yandex.net/react/code/sauce-04.png"/>
-                    </div>
-                    <div className={styles.ingredient}>
-                        <img className={styles.ingredient_image} src="https://code.s3.yandex.net/react/code/meat-02.png"/>
-                    </div>
+                    {displayedIngredients.ingredients.map((ingredient, index) =>
+                        <div
+                            className={styles.ingredient}
+                            style={{ zIndex: displayedIngredients.ingredients.length - index }}
+                        >
+                            <img
+                                className={styles.ingredient_image}
+                                src={ingredient.image}
+                                alt={ingredient.name}
+                            />
+                        </div>
+                    )}
+                    {displayedIngredients.otherCount > 0 &&
+                        <div
+                            className={styles.ingredient_more}
+                            style={{ zIndex: 1 }}
+                        >
+                            <p className={styles.ingredient_text}>
+                                +{displayedIngredients.otherCount}
+                            </p>
+                        </div>
+                    }
                 </div>
                 <div className={styles.price}>
                     <p className={styles.price_value}>
