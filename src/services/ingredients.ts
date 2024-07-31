@@ -50,6 +50,9 @@ const slice = createSlice({
         getIngredientsSuccess: (state: IngredientsState, action: PayloadAction<Array<Ingredient>>) => {
             state.request = false;
             const data = action.payload;
+            state.buns = [];
+            state.sauces = [];
+            state.mains = [];
             for (const row of data) {
                 if (row.type === "bun") {
                     state.buns.push(row);
