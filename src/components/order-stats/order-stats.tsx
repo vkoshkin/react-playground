@@ -1,32 +1,32 @@
 import { FC } from "react";
 
+import { useTypedSelector } from "../../services/store";
 import styles from "./order-stats.module.css";
 
 const OrderStats: FC = () => {
+    const { ordersTotal, ordersToday, ready, inProgress } = useTypedSelector(store => store.commonFeed);
     return (
         <div>
             <section className={styles.section}>
-                <div className={styles.rows}>
-                    <div className={styles.row}>
-                        <h2 className={styles.row_section_title}>
+                <div className={styles.columns}>
+                    <div className={styles.column}>
+                        <h2 className={styles.column_section_title}>
                             Готовы:
                         </h2>
-                        <ul className={styles.row_list}>
-                            <li className={styles.row_list_item_finished}>034533</li>
-                            <li className={styles.row_list_item_finished}>034532</li>
-                            <li className={styles.row_list_item_finished}>034530</li>
-                            <li className={styles.row_list_item_finished}>034527</li>
-                            <li className={styles.row_list_item_finished}>034525</li>
+                        <ul className={styles.column_list}>
+                            {ready.map(orderNumber => 
+                                <li key={orderNumber} className={styles.column_list_item_finished}>{orderNumber}</li>
+                            )}
                         </ul>
                     </div>
-                    <div className={styles.row}>
-                        <h2 className={styles.row_section_title}>
+                    <div className={styles.column}>
+                        <h2 className={styles.column_section_title}>
                             В работе:
                         </h2>
-                        <ul className={styles.row_list}>
-                            <li className={styles.row_list_item}>034538</li>
-                            <li className={styles.row_list_item}>034541</li>
-                            <li className={styles.row_list_item}>034542</li>
+                        <ul className={styles.column_list}>
+                            {inProgress.map(orderNumber => 
+                                <li key={orderNumber} className={styles.column_list_item}>{orderNumber}</li>
+                            )}
                         </ul>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ const OrderStats: FC = () => {
                     Выполнено за всё время:
                 </h2>
                 <p className={styles.section_count}>
-                    28752
+                    {ordersTotal}
                 </p>
             </section>
 
@@ -46,7 +46,7 @@ const OrderStats: FC = () => {
                     Выполнено сегодня:
                 </h2>
                 <p className={styles.section_count}>
-                    138
+                    {ordersToday}
                 </p>
             </section>
         </div>
