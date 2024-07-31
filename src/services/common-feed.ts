@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { FeedResult } from "./api";
+import { CommonFeedResult } from "./api";
 import { Order } from "./types";
 import { WebSocketStatus } from "../utils/websockets";
 
@@ -45,7 +45,7 @@ const slice = createSlice({
             console.log(`${state.status} ${action.payload}`);
             state.error = true;
         },
-        feedWsMessage: (state: CommonFeedState, action: PayloadAction<FeedResult>) => {
+        feedWsMessage: (state: CommonFeedState, action: PayloadAction<CommonFeedResult>) => {
             if (!action.payload.success) {
                 state.error = true;
                 return;

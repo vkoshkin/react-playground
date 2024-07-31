@@ -157,7 +157,7 @@ export function postPasswordUpdate(password: string, code: string): Promise<Comm
     });
 }
 
-export interface FeedResult extends CommonResult {
+export interface CommonFeedResult extends CommonResult {
     orders: Array<Order>;
     total: number;
     totalToday: number;
