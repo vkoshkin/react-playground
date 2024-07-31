@@ -1,23 +1,33 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./order-list-item.module.css";
+import { Order } from "../../services/types";
 
-const OrderListItem: FC = () => {
+export interface OrderListItem {
+    readonly order: Order;
+}
+
+const OrderListItem: FC<OrderListItem> = ({order}) => {
+    const orderDate = useMemo(() => {
+        const time = Date.parse(order.updatedAt);
+        return new Date(time);
+    }, [order.updatedAt]);
+
     return (
         <div className={styles.item}>
             <div className={styles.order_date}>
                 <span className={styles.order}>
-                    #034535
+                    #{order.number}
                 </span>
                 <FormattedDate 
-                    date={new Date()} 
+                    date={orderDate} 
                     className={styles.date}
                 />
             </div>
             <div className={styles.name}>
                 <p className="text text_type_main-medium">
-                    Black Hole Singularity острый бургер
+                    {order.name}
                 </p>
             </div>
             <div className={styles.items_price}>
