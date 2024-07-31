@@ -1,12 +1,17 @@
 import { FC, useEffect } from "react";
 
-import { useAppDispatch } from "../services/store";
+import { useAppDispatch, useTypedSelector } from "../services/store";
 import { wsConnect, wsDisconnect } from "../services/common-feed";
 import OrderList from "../components/order-list/order-list";
 import OrderStats from "../components/order-stats/order-stats";
 import styles from "./common-feed.module.css";
+import { WebSocketStatus } from "../utils/websockets";
 
 const CommonFeed: FC = () => {
+    const { ingredients } = useTypedSelector(state => state.burgerIngredients);
+    const { orders, status } = useTypedSelector(state => state.commonFeed);
+    
+    const ingredientCount = Object.keys(ingredients).length;
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(wsConnect("wss://norma.nomoreparties.space/orders/all"));
@@ -17,14 +22,24 @@ const CommonFeed: FC = () => {
     return (
         <div className={styles.feed}>
             <h1 className={styles.header}>Лента заказов</h1>
-            <div className={styles.panels}>
-                <div className={styles.list}>
-                    <OrderList />
+            {(status !== WebSocketStatus.ONLINE || orders.length == 0 || ingredientCount == 0) && 
+                <div className={styles.loading}>
+                    <div>
+                        <div className={styles.loader}></div>
+                        {/* <p className="text text_type_main-medium">Загрузка...</p> */}
+                    </div>
                 </div>
-                <div className={styles.stats}>
-                    <OrderStats />
+            }
+            {status === WebSocketStatus.ONLINE && orders.length > 0 && ingredientCount > 0 &&
+                <div className={styles.panels}>
+                    <div className={styles.list}>
+                        <OrderList />
+                    </div>
+                    <div className={styles.stats}>
+                        <OrderStats />
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     );
 }

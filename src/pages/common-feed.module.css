@@ -24,3 +24,27 @@
     height: 100%;
     composes: ml-15 from global;
 }
+
+.loading {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.loader {
+    composes: mt-15 mb-15 from global;
+    width: 80px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #FFF;
+    --_m: conic-gradient(#0000 10%,#000), linear-gradient(#000 0 0) content-box;
+    mask: var(--_m);
+    mask-composite: subtract;
+    animation: loader 1s infinite linear;
+}
+@keyframes loader {to{transform: rotate(1turn)}}
