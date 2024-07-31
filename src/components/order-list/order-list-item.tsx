@@ -1,18 +1,33 @@
 import { FC, useMemo } from "react";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styles from "./order-list-item.module.css";
+import { useTypedSelector } from "../../services/store";
 import { Order } from "../../services/types";
+import styles from "./order-list-item.module.css";
 
 export interface OrderListItem {
     readonly order: Order;
 }
 
 const OrderListItem: FC<OrderListItem> = ({order}) => {
-    const orderDate = useMemo(() => {
+    const { ingredients } = useTypedSelector(state => state.burgerIngredients);
+
+    const orderDate: Date = useMemo(() => {
         const time = Date.parse(order.updatedAt);
         return new Date(time);
     }, [order.updatedAt]);
+    const price: number = useMemo(() => {
+        let price = 0;
+        for (const ingredientId of order.ingredients) {
+            if (!ingredients.hasOwnProperty(ingredientId)) {
+                // fixme how to handle this one?
+                console.log("wtf?");
+            } else {
+                price += ingredients[ingredientId].price;
+            }
+        }
+        return price;
+    }, [order.ingredients, ingredients]);
 
     return (
         <div className={styles.item}>
@@ -52,7 +67,9 @@ const OrderListItem: FC<OrderListItem> = ({order}) => {
                     </div>
                 </div>
                 <div className={styles.price}>
-                    <p className={styles.price_value}>2240</p>
+                    <p className={styles.price_value}>
+                        {price}
+                    </p>
                     <CurrencyIcon type="primary" />
                 </div>
             </div>
