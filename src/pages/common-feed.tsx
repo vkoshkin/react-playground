@@ -25,8 +25,7 @@ const CommonFeed: FC = () => {
             {(status !== WebSocketStatus.ONLINE || orders.length === 0 || ingredientCount === 0) && 
                 <div className={styles.loading}>
                     <div>
-                        <div className={styles.loader}></div>
-                        {/* <p className="text text_type_main-medium">Загрузка...</p> */}
+                        <div className="loader"></div>
                     </div>
                 </div>
             }
