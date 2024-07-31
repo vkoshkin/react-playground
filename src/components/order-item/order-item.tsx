@@ -3,9 +3,9 @@ import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burge
 
 import { useTypedSelector } from "../../services/store";
 import { Ingredient, Order } from "../../services/types";
-import styles from "./order-list-item.module.css";
+import styles from "./order-item.module.css";
 
-export interface OrderListItem {
+export interface OrderItem {
     readonly order: Order;
 };
 
@@ -14,7 +14,7 @@ type DisplayedIngredients = {
     readonly otherCount: number;
 };
 
-const OrderListItem: FC<OrderListItem> = ({ order }) => {
+const OrderItem: FC<OrderItem> = ({ order }) => {
     const { ingredients } = useTypedSelector(state => state.burgerIngredients);
 
     const orderDate: Date = useMemo(() => {
@@ -97,4 +97,4 @@ const OrderListItem: FC<OrderListItem> = ({ order }) => {
     );
 }
 
-export default OrderListItem;
+export default OrderItem;
