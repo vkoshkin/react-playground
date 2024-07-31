@@ -19,17 +19,19 @@ export const fetchIngredients = () => (dispatch: AppDispatch) => {
 }
 
 type IngredientsState = {
-    buns: Array<Ingredient>,
-    sauces: Array<Ingredient>,
-    mains: Array<Ingredient>,
-    request: boolean,
-    requestError: boolean,
+    buns: Array<Ingredient>;
+    sauces: Array<Ingredient>;
+    mains: Array<Ingredient>;
+    ingredients: { [id: string]: Ingredient };
+    request: boolean;
+    requestError: boolean;
 };
 
 const initialState: IngredientsState = {
     buns: [],
     sauces: [],
     mains: [],
+    ingredients: {},
     request: false,
     requestError: false,
 };
@@ -48,9 +50,16 @@ const slice = createSlice({
         getIngredientsSuccess: (state: IngredientsState, action: PayloadAction<Array<Ingredient>>) => {
             state.request = false;
             const data = action.payload;
-            state.buns = data.filter((row) => row.type === "bun");
-            state.sauces = data.filter((row) => row.type === "sauce");
-            state.mains = data.filter((row) => row.type === "main");
+            for (const row of data) {
+                if (row.type === "bun") {
+                    state.buns.push(row);
+                } else if (row.type === "sauce") {
+                    state.sauces.push(row);
+                } else if (row.type === "main") {
+                    state.mains.push(row);
+                }
+                state.ingredients[row._id] = row;
+            }
         },
     }
 });
