@@ -1,11 +1,11 @@
 import { FC, useEffect } from "react";
 
 import { useAppDispatch, useTypedSelector } from "../services/store";
-import { wsConnect, wsDisconnect } from "../services/common-feed";
+import { feedWsConnect, feedWsDisconnect } from "../services/common-feed";
 import OrderList from "../components/order-list/order-list";
 import OrderStats from "../components/order-stats/order-stats";
 import styles from "./common-feed.module.css";
-import { WebSocketStatus } from "../utils/websockets";
+import { WebSocketStatus, WS_FEED_URL } from "../utils/websockets";
 
 const CommonFeed: FC = () => {
     const { ingredients } = useTypedSelector(state => state.burgerIngredients);
@@ -14,9 +14,9 @@ const CommonFeed: FC = () => {
     const ingredientCount = Object.keys(ingredients).length;
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(wsConnect("wss://norma.nomoreparties.space/orders/all"));
+        dispatch(feedWsConnect(WS_FEED_URL));
         return () => {
-            dispatch(wsDisconnect());
+            dispatch(feedWsDisconnect());
         };
     }, []);
     return (

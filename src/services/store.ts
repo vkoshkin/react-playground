@@ -10,7 +10,7 @@ import passwordReducer from "./password";
 import commonFeedReducer from "./common-feed";
 import orderFeedReducer from "./order-feed";
 import { socketMiddleware } from "./middleware/websocket-middleware";
-import { wsClose, wsConnect, wsConnecting, wsDisconnect, wsError, wsMessage, wsOpen } from "./common-feed";
+import { feedWsClose, feedWsConnect, feedWsConnecting, feedWsDisconnect, feedWsError, feedWsMessage, feedWsOpen } from "./common-feed";
 
 const rootReducer = combineReducers({
     [ingredientReducer.reducerPath]: ingredientReducer.reducer,
@@ -24,14 +24,14 @@ const rootReducer = combineReducers({
 });
 
 const commonFeedMiddleware = socketMiddleware({
-    connect: wsConnect,
-    disconnect: wsDisconnect,
+    connect: feedWsConnect,
+    disconnect: feedWsDisconnect,
     // sendMessage: 
-    onConnecting: wsConnecting,
-    onOpen: wsOpen,
-    onClose: wsClose,
-    onMessage: wsMessage,
-    onError: wsError,
+    onConnecting: feedWsConnecting,
+    onOpen: feedWsOpen,
+    onClose: feedWsClose,
+    onMessage: feedWsMessage,
+    onError: feedWsError,
 });
 
 const profileFeedMiddleware = socketMiddleware({

@@ -28,24 +28,24 @@ const slice = createSlice({
     name: "commonFeed",
     initialState,
     reducers: {
-        wsConnect: (state: CommonFeedState, action: PayloadAction<string>) => {
+        feedWsConnect: (state: CommonFeedState, action: PayloadAction<string>) => {
         },
-        wsConnecting: (state: CommonFeedState) => {
+        feedWsConnecting: (state: CommonFeedState) => {
             state.status = WebSocketStatus.CONNECTING;
             state.error = false;
         },
-        wsOpen: (state: CommonFeedState) => {
+        feedWsOpen: (state: CommonFeedState) => {
             state.status = WebSocketStatus.ONLINE;
             state.error = false;
         },
-        wsClose: (state: CommonFeedState) => {
+        feedWsClose: (state: CommonFeedState) => {
             state.status = WebSocketStatus.OFFLINE;
         },
-        wsError: (state: CommonFeedState, action: PayloadAction<string>) => {
+        feedWsError: (state: CommonFeedState, action: PayloadAction<string>) => {
             console.log(`${state.status} ${action.payload}`);
             state.error = true;
         },
-        wsMessage: (state: CommonFeedState, action: PayloadAction<FeedResult>) => {
+        feedWsMessage: (state: CommonFeedState, action: PayloadAction<FeedResult>) => {
             if (!action.payload.success) {
                 state.error = true;
                 return;
@@ -73,7 +73,7 @@ const slice = createSlice({
             state.inProgress = inProgress;
             state.error = false;
         },
-        wsDisconnect: (state: CommonFeedState) => {
+        feedWsDisconnect: (state: CommonFeedState) => {
             state.status = WebSocketStatus.OFFLINE;
             state.error = false;
         },
@@ -81,13 +81,13 @@ const slice = createSlice({
 });
 
 export const {
-    wsConnect,
-    wsConnecting,
-    wsOpen,
-    wsClose,
-    wsError,
-    wsMessage,
-    wsDisconnect,
+    feedWsConnect,
+    feedWsConnecting,
+    feedWsOpen,
+    feedWsClose,
+    feedWsError,
+    feedWsMessage,
+    feedWsDisconnect,
 } = slice.actions;
 
 export default slice;
