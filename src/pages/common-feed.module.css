@@ -18,13 +18,11 @@
 
 .list {
     height: 100%;
-    border: 1px solid red;
 }
 
 .stats {
     height: 100%;
     composes: ml-15 from global;
-    border: 1px solid blue;
 }
 
 .loading {

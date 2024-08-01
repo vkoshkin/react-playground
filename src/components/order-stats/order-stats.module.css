@@ -1,39 +1,52 @@
-.section {
-    composes: mb-15 from global;
+.stats {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.section_title, .row_section_title {
+.columns {
+    composes: mb-15 from global;
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.column_scroll {
+    flex-grow: 1;
+    height: 0;
+    overflow: scroll;
+    overflow-x: hidden;
+    composes: mt-6 from global;
+}
+
+.column_list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.column_list_item, .column_list_item_finished {
+    composes: text text_type_digits-default mb-2 from global;
+}
+
+.column_list_item_finished {
+    color: #00CCCC;
+}
+
+.section {
+    composes: mb-15 from global;
+    grid-column: 1/-1;
+}
+
+.section_title {
     composes: text text_type_main-medium from global;
 }
 
 .section_count {
     composes: text text_type_digits-large from global;
-}
-
-.columns {
-    display: flex;
-    flex-direction: row;
-}
-
-.column {
-    flex: 1;
-}
-
-.column_section_title {
-    composes: mb-6 from global;
-}
-
-.column_list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.column_list_item, .column_list_item_finished {
-    composes: text text_type_digits-default from global;
-    composes: mb-2 from global;
-}
-
-.column_list_item_finished {
-    color: #00CCCC;
 }
