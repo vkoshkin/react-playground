@@ -12,17 +12,19 @@
 
 .panels {
     flex-grow: 1;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .list {
     height: 100%;
+    border: 1px solid red;
 }
 
 .stats {
     height: 100%;
     composes: ml-15 from global;
+    border: 1px solid blue;
 }
 
 .loading {
