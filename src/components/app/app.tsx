@@ -19,6 +19,8 @@ import ProfileOrders from "../../pages/profile-orders";
 import IngredientDetails from "../burger-ingredients/ingredient-details";
 import IngredientModal from "../burger-ingredients/ingredient-modal";
 import { AuthenticatedOnly, AnonymousOnly } from "../protected-route";
+import OrderDescription from "../order-description/order-description";
+import OrderDescriptionModal from "../order-description/order-description-modal";
 
 export const App: FC = () => {
     const dispatch = useAppDispatch();
@@ -60,11 +62,13 @@ export const App: FC = () => {
                                 <Route path="orders" element={<AuthenticatedOnly component={<ProfileOrders />} />} />
                             </Route>
                             <Route path="/ingredients/:id" element={<IngredientDetails />} />
+                            <Route path="/feed/:orderId" element={<OrderDescription />} />
                             <Route path="*" element={<AppError />} />
                         </Routes>
                         {state?.backgroundLocation && (
                             <Routes>
                                 <Route path="/ingredients/:id" element={<IngredientModal />} />
+                                <Route path="/feed/:orderId" element={<OrderDescriptionModal />} />
                             </Routes>
                         )}
                     </main>
