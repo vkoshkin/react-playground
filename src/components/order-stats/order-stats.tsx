@@ -29,16 +29,18 @@ const OrderStats: FC = () => {
                     <h2 className={styles.section_title}>
                         В работе:
                     </h2>
-                    <ul className={styles.column_list}>
-                        {inProgress.map(orderNumber =>
-                            <li
-                                key={orderNumber}
-                                className={styles.column_list_item}
-                            >
-                                {orderNumber}
-                            </li>
-                        )}
-                    </ul>
+                    <div className={styles.column_scroll}>
+                        <ul className={styles.column_list}>
+                            {inProgress.map(orderNumber =>
+                                <li
+                                    key={orderNumber}
+                                    className={styles.column_list_item}
+                                >
+                                    {orderNumber}
+                                </li>
+                            )}
+                        </ul>
+                    </div>
                 </section>
             </div>
 
