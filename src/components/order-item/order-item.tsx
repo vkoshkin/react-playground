@@ -1,6 +1,8 @@
 import { FC, useMemo } from "react";
-import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import Price from "../price/price";
 import { useTypedSelector } from "../../services/store";
 import { Ingredient, Order } from "../../services/types";
 import styles from "./order-item.module.css";
@@ -45,8 +47,14 @@ const OrderItem: FC<OrderItem> = ({ order }) => {
         return { ingredients: displayedResult, otherCount: count };
     }, [order, ingredients]);
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const click = () => {
+        navigate(`${order._id}`, {state: { backgroundLocation: location }});
+    };
+
     return (
-        <div className={styles.item}>
+        <div className={styles.item} onClick={click}>
             <div className={styles.order_date}>
                 <span className={styles.order}>
                     #{order.number}
@@ -87,12 +95,7 @@ const OrderItem: FC<OrderItem> = ({ order }) => {
                         </div>
                     }
                 </div>
-                <div className={styles.price}>
-                    <p className={styles.price_value}>
-                        {price}
-                    </p>
-                    <CurrencyIcon type="primary" />
-                </div>
+                <Price price={price} />
             </div>
         </div>
     );
