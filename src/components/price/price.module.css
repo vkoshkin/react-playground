@@ -1,0 +1,8 @@
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.price_value {
+    composes: text text_type_digits-default mr-1 from global;
+}
