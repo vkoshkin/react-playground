@@ -80,6 +80,7 @@ const OrderItem: FC<OrderItem> = ({ order }) => {
                                     ? `+${otherCount}`
                                     : undefined
                             }
+                            extraClass={styles.ingredient_item}
                         />
                     )}
                 </div>

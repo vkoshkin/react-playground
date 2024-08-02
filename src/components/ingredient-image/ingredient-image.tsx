@@ -6,17 +6,22 @@ interface IngredientImageProps {
     readonly image: string;
     readonly altName: string;
     readonly zIndex?: number;
-    readonly topText?: string
+    readonly topText?: string;
+    readonly extraClass?: string;
 };
 
-const IngredientImage: FC<IngredientImageProps> = ({ image, altName, zIndex, topText }) => {
+const IngredientImage: FC<IngredientImageProps> = ({ image, altName, zIndex, topText, extraClass }) => {
     let style = {};
     if (zIndex) {
         style = { zIndex: zIndex };
     }
+    let className = styles.ingredient;
+    if (extraClass) {
+        className += " " + extraClass;
+    }
     return (
         <div
-            className={styles.ingredient}
+            className={className}
             style={style}
         >
             <img

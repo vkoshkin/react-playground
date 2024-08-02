@@ -36,3 +36,7 @@
     list-style: none;
     margin-left: 16px;
 }
+
+.ingredient_item {
+    margin-left: -16px;
+}
