@@ -18,7 +18,7 @@ const CommonFeed: FC = () => {
         return () => {
             dispatch(feedWsDisconnect());
         };
-    }, []);
+    }, [dispatch]);
     return (
         <div className={styles.feed}>
             <h1 className={styles.header}>Лента заказов</h1>

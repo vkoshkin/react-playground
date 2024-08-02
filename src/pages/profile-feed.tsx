@@ -12,7 +12,7 @@ const ProfileFeed: FC = () => {
         return () => {
             dispatch(profileWsDisconnect());
         };
-    }, []);
+    }, [dispatch]);
 
     const { status, orders } = useTypedSelector(store => store.profileFeed);
 
