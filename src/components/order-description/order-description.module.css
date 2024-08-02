@@ -22,7 +22,7 @@
 }
 
 .order_status {
-    composes: text text_type_main-small mt-3 from global;
+    composes: text text_type_main-default mt-3 from global;
 }
 
 .order_ingredients {
