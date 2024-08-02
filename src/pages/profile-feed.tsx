@@ -20,9 +20,7 @@ const ProfileFeed: FC = () => {
         <div className={styles.orders}>
             {(status !== WebSocketStatus.ONLINE || orders.length === 0) &&
                 <div className={styles.loading}>
-                    <div>
-                        <div className="loader"></div>
-                    </div>
+                    <div className="loader" />
                 </div>
             }
             {status === WebSocketStatus.ONLINE &&

@@ -10,7 +10,7 @@ import { WebSocketStatus, WS_FEED_URL } from "../utils/websockets";
 const CommonFeed: FC = () => {
     const { ingredients } = useTypedSelector(state => state.burgerIngredients);
     const { orders, status } = useTypedSelector(state => state.commonFeed);
-    
+
     const ingredientCount = Object.keys(ingredients).length;
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -22,11 +22,9 @@ const CommonFeed: FC = () => {
     return (
         <div className={styles.feed}>
             <h1 className={styles.header}>Лента заказов</h1>
-            {(status !== WebSocketStatus.ONLINE || orders.length === 0 || ingredientCount === 0) && 
+            {(status !== WebSocketStatus.ONLINE || orders.length === 0 || ingredientCount === 0) &&
                 <div className={styles.loading}>
-                    <div>
-                        <div className="loader"></div>
-                    </div>
+                    <div className="loader" />
                 </div>
             }
             {status === WebSocketStatus.ONLINE && orders.length > 0 && ingredientCount > 0 &&
