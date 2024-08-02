@@ -1,9 +1,9 @@
 import { FC } from "react";
 
 import { useTypedSelector } from "../../services/store";
-import styles from "./order-stats.module.css";
+import styles from "./feed-stats.module.css";
 
-const OrderStats: FC = () => {
+const FeedStats: FC = () => {
     const { ordersTotal, ordersToday, ready, inProgress } = useTypedSelector(store => store.commonFeed);
     return (
         <div className={styles.stats}>
@@ -65,4 +65,4 @@ const OrderStats: FC = () => {
     );
 }
 
-export default OrderStats;
+export default FeedStats;
