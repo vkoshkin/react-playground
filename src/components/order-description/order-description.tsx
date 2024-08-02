@@ -64,7 +64,7 @@ const OrderDescription: FC = () => {
                         <div className={styles.order_ingredients_scroll}>
                             <ul className={styles.order_ingredients_list}>
                                 {displayedIngredients.map(ingredient => 
-                                    <li>
+                                    <li key={ingredient._id}>
                                         <OrderDescriptionItem ingredient={ingredient} />
                                     </li>
                                 )}
