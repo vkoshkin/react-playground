@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 
 import { useAppDispatch, useTypedSelector } from "../services/store";
 import { feedWsConnect, feedWsDisconnect } from "../services/common-feed";
-import OrderList from "../components/order-list/order-list";
+import FeedOrders from "../components/feed-orders/feed-orders";
 import OrderStats from "../components/order-stats/order-stats";
 import styles from "./common-feed.module.css";
 import { WebSocketStatus, WS_FEED_URL } from "../utils/websockets";
@@ -32,7 +32,7 @@ const CommonFeed: FC = () => {
             {status === WebSocketStatus.ONLINE && orders.length > 0 && ingredientCount > 0 &&
                 <div className={styles.panels}>
                     <div className={styles.list}>
-                        <OrderList />
+                        <FeedOrders />
                     </div>
                     <div className={styles.stats}>
                         <OrderStats />

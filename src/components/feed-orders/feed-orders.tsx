@@ -2,9 +2,9 @@ import { FC } from "react";
 
 import { useTypedSelector } from "../../services/store";
 import OrderItem from "../order-item/order-item";
-import styles from "./order-list.module.css";
+import styles from "./feed-orders.module.css";
 
-const OrderList: FC = () => {
+const FeedOrders: FC = () => {
     const { orders } = useTypedSelector(store => store.commonFeed);
     return (
         <div className={styles.container}>
@@ -22,4 +22,4 @@ const OrderList: FC = () => {
     );
 }
 
-export default OrderList;
+export default FeedOrders;
