@@ -3,7 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import Price from "../price/price";
-import { useTypedSelector } from "../../services/store";
+import { useAppDispatch, useTypedSelector } from "../../services/store";
+import { feedSelectOrder } from "../../services/common-feed";
 import { Ingredient, Order } from "../../services/types";
 import styles from "./order-item.module.css";
 
@@ -47,9 +48,11 @@ const OrderItem: FC<OrderItem> = ({ order }) => {
         return { ingredients: displayedResult, otherCount: count };
     }, [order, ingredients]);
 
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const click = () => {
+        dispatch(feedSelectOrder(order._id));
         navigate(`${order._id}`, {state: { backgroundLocation: location }});
     };
 
