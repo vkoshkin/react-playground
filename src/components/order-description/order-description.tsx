@@ -53,9 +53,16 @@ const OrderDescription: FC = () => {
                         <h2 className={styles.order_name}>
                             {selectedOrder.name}
                         </h2>
-                        <p className={styles.order_status}>
-                            Выполнен
-                        </p>
+                        {selectedOrder.status === "done" &&
+                            <p className={styles.order_status}>
+                                Выполнен
+                            </p>
+                        }
+                        {selectedOrder.status === "pending" &&
+                            <p className={styles.order_status}>
+                                В работе
+                            </p>
+                        }
                     </section>
                     <section className={styles.order_ingredients}>
                         <h2 className={styles.order_ingredients_header}>
@@ -63,7 +70,7 @@ const OrderDescription: FC = () => {
                         </h2>
                         <div className={styles.order_ingredients_scroll}>
                             <ul className={styles.order_ingredients_list}>
-                                {displayedIngredients.map(ingredient => 
+                                {displayedIngredients.map(ingredient =>
                                     <li key={ingredient._id}>
                                         <OrderDescriptionItem ingredient={ingredient} />
                                     </li>
