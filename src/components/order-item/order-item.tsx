@@ -9,11 +9,11 @@ import { Ingredient, Order } from "../../services/types";
 import styles from "./order-item.module.css";
 import IngredientImage from "../ingredient-image/ingredient-image";
 
-export interface OrderItem {
+export interface OrderItemProps {
     readonly order: Order;
 };
 
-const OrderItem: FC<OrderItem> = ({ order }) => {
+const OrderItem: FC<OrderItemProps> = ({ order }) => {
     const { ingredients } = useTypedSelector(state => state.burgerIngredients);
 
     const orderDate: Date = useMemo(() => {
@@ -40,7 +40,7 @@ const OrderItem: FC<OrderItem> = ({ order }) => {
     
     const otherCount: number = useMemo(() => {
         return Math.max(order.ingredients.length - 6, 0);
-    }, [order, ingredients]);
+    }, [order]);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
