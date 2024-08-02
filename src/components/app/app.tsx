@@ -15,7 +15,7 @@ import ForgotPassword from "../../pages/forgot-password";
 import ResetPassword from "../../pages/reset-password";
 import Profile from "../../pages/profile";
 import ProfileMenu from "../../pages/profile-menu";
-import ProfileOrders from "../../pages/profile-orders";
+import ProfileFeed from "../../pages/profile-feed";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import IngredientModal from "../ingredient-details/ingredient-modal";
 import { AuthenticatedOnly, AnonymousOnly } from "../protected-route";
@@ -59,7 +59,7 @@ export const App: FC = () => {
                             } />
                             <Route path="profile" element={<ProfileMenu />}>
                                 <Route index element={<AuthenticatedOnly component={<Profile />} />} />
-                                <Route path="orders" element={<AuthenticatedOnly component={<ProfileOrders />} />} />
+                                <Route path="orders" element={<AuthenticatedOnly component={<ProfileFeed />} />} />
                             </Route>
                             <Route path="/ingredients/:id" element={<IngredientDetails />} />
                             <Route path="/feed/:orderId" element={<OrderDescription />} />

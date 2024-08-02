@@ -3,9 +3,9 @@ import { FC, useEffect } from "react";
 import { useAppDispatch, useTypedSelector } from "../services/store";
 import { WebSocketStatus, WS_PROFILE_URL } from "../utils/websockets";
 import { profileWsConnect, profileWsDisconnect } from "../services/profile-feed";
-import styles from "./profile-orders.module.css";
+import styles from "./profile-feed.module.css";
 
-const ProfileOrders: FC = () => {
+const ProfileFeed: FC = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(profileWsConnect(WS_PROFILE_URL));
@@ -26,10 +26,10 @@ const ProfileOrders: FC = () => {
                 </div>
             }
             {status === WebSocketStatus.ONLINE &&
-                <></>
+                <ProfileFeed />
             }
         </div>
     );
 }
 
-export default ProfileOrders;
+export default ProfileFeed;
