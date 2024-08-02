@@ -35,13 +35,9 @@ const OrderItem: FC<OrderItem> = ({ order }) => {
     }, [order.ingredients, ingredients]);
 
     const displayedIngredients: Array<Ingredient> = useMemo(() => {
-        const displayed: Array<string> = order.ingredients.slice(0, 6);
-        const displayedResult: Array<Ingredient> = [];
-        for (const ingredientId of displayed) {
-            displayedResult.push(ingredients[ingredientId]);
-        }
-        return displayedResult;
+        return order.ingredients.slice(0, 6).map(ingredientId => ingredients[ingredientId]);
     }, [order, ingredients]);
+    
     const otherCount: number = useMemo(() => {
         return Math.max(order.ingredients.length - 6, 0);
     }, [order, ingredients]);
