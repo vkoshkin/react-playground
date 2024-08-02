@@ -7,14 +7,10 @@ import { useAppDispatch, useTypedSelector } from "../../services/store";
 import { feedSelectOrder } from "../../services/common-feed";
 import { Ingredient, Order } from "../../services/types";
 import styles from "./order-item.module.css";
+import IngredientImage from "../ingredient-image/ingredient-image";
 
 export interface OrderItem {
     readonly order: Order;
-};
-
-type DisplayedIngredients = {
-    readonly ingredients: Array<Ingredient>;
-    readonly otherCount: number;
 };
 
 const OrderItem: FC<OrderItem> = ({ order }) => {
@@ -38,14 +34,16 @@ const OrderItem: FC<OrderItem> = ({ order }) => {
         return price;
     }, [order.ingredients, ingredients]);
 
-    const displayedIngredients: DisplayedIngredients = useMemo(() => {
+    const displayedIngredients: Array<Ingredient> = useMemo(() => {
         const displayed: Array<string> = order.ingredients.slice(0, 6);
         const displayedResult: Array<Ingredient> = [];
         for (const ingredientId of displayed) {
             displayedResult.push(ingredients[ingredientId]);
         }
-        const count = Math.max(order.ingredients.length - 6, 0);
-        return { ingredients: displayedResult, otherCount: count };
+        return displayedResult;
+    }, [order, ingredients]);
+    const otherCount: number = useMemo(() => {
+        return Math.max(order.ingredients.length - 6, 0);
     }, [order, ingredients]);
 
     const dispatch = useAppDispatch();
@@ -53,7 +51,7 @@ const OrderItem: FC<OrderItem> = ({ order }) => {
     const location = useLocation();
     const click = () => {
         dispatch(feedSelectOrder(order._id));
-        navigate(`${order._id}`, {state: { backgroundLocation: location }});
+        navigate(`${order._id}`, { state: { backgroundLocation: location } });
     };
 
     return (
@@ -74,29 +72,20 @@ const OrderItem: FC<OrderItem> = ({ order }) => {
             </div>
             <div className={styles.items_price}>
                 <div className={styles.items}>
-                    {displayedIngredients.ingredients.map((ingredient, index) =>
-                        <div
+                    {displayedIngredients.map((ingredient, index) =>
+                        <IngredientImage
                             key={index}
-                            className={styles.ingredient}
-                            style={{ zIndex: displayedIngredients.ingredients.length - index }}
-                        >
-                            <img
-                                className={styles.ingredient_image}
-                                src={ingredient.image}
-                                alt={ingredient.name}
-                            />
-                        </div>
+                            image={ingredient.image}
+                            altName={ingredient.name}
+                            zIndex={displayedIngredients.length - index}
+                            topText={
+                                index === displayedIngredients.length - 1
+                                    && otherCount > 0
+                                    ? `+${otherCount}`
+                                    : undefined
+                            }
+                        />
                     )}
-                    {displayedIngredients.otherCount > 0 &&
-                        <div
-                            className={styles.ingredient_more}
-                            style={{ zIndex: 1 }}
-                        >
-                            <p className={styles.ingredient_text}>
-                                +{displayedIngredients.otherCount}
-                            </p>
-                        </div>
-                    }
                 </div>
                 <Price price={price} />
             </div>
