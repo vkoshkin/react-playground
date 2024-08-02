@@ -45,11 +45,15 @@ const objectFromWss = {
     "totalToday": 1
 };
 
+export type OrderId = string;
+
+export type OrderNumber = number;
+
 export type Order = {
     readonly ingredients: Array<string>;
-    readonly _id: string;
+    readonly _id: OrderId;
     readonly status: string;
-    readonly number: number;
+    readonly number: OrderNumber;
     readonly name: string;
     readonly createdAt: string;
     readonly updatedAt: string;

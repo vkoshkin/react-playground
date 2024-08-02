@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { CommonFeedResult } from "./api";
-import { Order } from "./types";
+import { OrderId, OrderNumber, Order } from "./types";
 import { WebSocketStatus } from "../utils/websockets";
 
 type CommonFeedState = {
@@ -9,9 +9,10 @@ type CommonFeedState = {
     orders: Array<Order>;
     ordersTotal: number;
     ordersToday: number;
-    ready: Array<number>;
-    inProgress: Array<number>;
+    ready: Array<OrderNumber>;
+    inProgress: Array<OrderNumber>;
     error: boolean;
+    selectedOrder: Order | null;
 };
 
 const initialState: CommonFeedState = {
@@ -22,6 +23,7 @@ const initialState: CommonFeedState = {
     ready: [],
     inProgress: [],
     error: false,
+    selectedOrder: null,
 };
 
 const slice = createSlice({
@@ -52,8 +54,8 @@ const slice = createSlice({
             }
             console.log(action.payload);
 
-            const ready: Array<number> = [];
-            const inProgress: Array<number> = [];
+            const ready: Array<OrderNumber> = [];
+            const inProgress: Array<OrderNumber> = [];
             const set = new Set<string>();
 
             for (const order of action.payload.orders) {
@@ -64,7 +66,6 @@ const slice = createSlice({
                     inProgress.push(order.number);
                 }
             }
-            console.log(set);
 
             state.orders = action.payload.orders;
             state.ordersTotal = action.payload.total;
@@ -77,6 +78,10 @@ const slice = createSlice({
             state.status = WebSocketStatus.OFFLINE;
             state.error = false;
         },
+        feedSelectOrder: (state: CommonFeedState, action: PayloadAction<OrderId>) => {
+            const orderId: OrderId = action.payload;
+            state.selectedOrder = state.orders.find(order => order._id === orderId)!;
+        },
     }
 });
 
@@ -88,6 +93,7 @@ export const {
     feedWsError,
     feedWsMessage,
     feedWsDisconnect,
+    feedSelectOrder,
 } = slice.actions;
 
 export default slice;
