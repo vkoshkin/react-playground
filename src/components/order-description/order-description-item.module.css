@@ -1,0 +1,5 @@
+.item {
+    height: 64px;
+    border: 1px solid red;
+    composes: mb-4 mr-4 from global;
+}

@@ -1,7 +1,11 @@
 .desc {
     width: 640px;
+    max-height: 640px;
+    display: flex;
+    flex-direction: column;
+    
     /* border: 1px solid red; */
-    composes: ml-10 mr-10 from global;
+    composes: ml-10 mr-10 mb-10 from global;
 }
 
 .order_name_status {
@@ -22,7 +26,26 @@
 }
 
 .order_ingredients {
+    flex-grow: 1;
     composes: mb-10 from global;
+    display: flex;
+    flex-direction: column;
+}
+
+.order_ingredients_header {
+    composes: mb-6 from global;
+}
+
+.order_ingredients_scroll {
+    max-height: 320px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.order_ingredients_list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .order_footer {
