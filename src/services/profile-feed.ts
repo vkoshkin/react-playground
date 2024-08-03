@@ -19,7 +19,16 @@ const slice = createSlice({
     name: "profileFeed",
     initialState,
     reducers: {
-        profileWsConnect: (state: ProfileFeedState, action: PayloadAction<string>) => {
+        profileWsConnect: {
+            reducer: (state: ProfileFeedState, action: PayloadAction<string>) => {
+            },
+            prepare: (url: string) => {
+                const accessToken = localStorage.getItem("accessToken")?.substring(7);
+                console.log(`${url}?token=${accessToken}`);
+                return {
+                    payload: `${url}?token=${accessToken}`
+                };
+            }
         },
         profileWsConnecting: (state: ProfileFeedState) => {
             state.status = WebSocketStatus.CONNECTING;
