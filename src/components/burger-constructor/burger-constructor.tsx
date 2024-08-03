@@ -2,7 +2,8 @@ import { FC, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { useTypedSelector } from "../../services/store";
+import { useAppDispatch, useTypedSelector } from "../../services/store";
+import { postOrder } from "../../services/order";
 import BurgerConstructorItem from "./burger-constructor-item";
 import OrderDetails from "./order-details";
 import Modal from "../modal/modal";
@@ -30,9 +31,11 @@ export const BurgerConstructor: FC = () => {
         return bun === null;
     }, [bun]);
 
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const onOrder = () => {
         if (user !== null) {
+            dispatch(postOrder(bun!, ingredients.map(e => e.data)));
             openModal();
         } else {
             navigate("/login");

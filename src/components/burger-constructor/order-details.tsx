@@ -1,21 +1,14 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { postOrder } from "../../services/order";
-import { useAppDispatch, useTypedSelector } from "../../services/store";
+import { useTypedSelector } from "../../services/store";
 import styles from "./order-details.module.css";
 import order1 from "../../images/order-1.svg"
 import order2 from "../../images/order-2.svg"
 import order3 from "../../images/order-3.svg"
 
 export const OrderDetails: FC = () => {
-    const { bun, ingredients } = useTypedSelector(state => state.burgerConstructor);
     const { request, requestError, orderId } = useTypedSelector(state => state.order);
-
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(postOrder(bun!, ingredients.map(e => e.data)));
-    }, []);
 
     return (
         <div className={styles.layout}>
