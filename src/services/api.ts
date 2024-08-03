@@ -28,6 +28,7 @@ export function postOrderRequest(data: Array<string>): Promise<OrderResult> {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("accessToken")!,
         },
         redirect: "follow",
         body: JSON.stringify({ ingredients: data }),
