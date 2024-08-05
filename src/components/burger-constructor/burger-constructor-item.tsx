@@ -75,7 +75,7 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({id, ingredient, 
             if (!ref.current) return;
             const dragIndex = item.id;
             const hoverIndex = id;
-            console.log(`${dragIndex} ${hoverIndex}`);
+            // console.log(`${dragIndex} ${hoverIndex}`);
             if (dragIndex === hoverIndex) return;
             if (!dragIndex) return;
             if (!hoverIndex) return

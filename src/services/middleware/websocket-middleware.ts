@@ -1,14 +1,14 @@
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload, Middleware } from "@reduxjs/toolkit";
 
 export type WsActionTypes = {
-    readonly connect?: ActionCreatorWithPayload<string>, // @vkoshkin remove ?
-    readonly disconnect?: ActionCreatorWithoutPayload,   // @vkoshkin remove ?
+    readonly connect: ActionCreatorWithPayload<string>,
+    readonly disconnect: ActionCreatorWithoutPayload,
     readonly sendMessage?: ActionCreatorWithPayload<any>,
-    readonly onConnecting?: ActionCreatorWithoutPayload,
-    readonly onOpen?: ActionCreatorWithoutPayload,       // @vkoshkin remove ?
-    readonly onClose?: ActionCreatorWithoutPayload,      // @vkoshkin remove ?
-    readonly onMessage?: ActionCreatorWithPayload<any>,  // @vkoshkin remove ?
-    readonly onError?: ActionCreatorWithPayload<string>, // @vkoshkin remove ?
+    readonly onConnecting: ActionCreatorWithoutPayload,
+    readonly onOpen: ActionCreatorWithoutPayload,
+    readonly onClose: ActionCreatorWithoutPayload,
+    readonly onMessage: ActionCreatorWithPayload<any>,
+    readonly onError: ActionCreatorWithPayload<string>,
 };
 
 const RECONNECT_PERIOD_MS: number = 1000;
@@ -21,12 +21,12 @@ export const socketMiddleware = (wsActions: WsActionTypes): Middleware<{}, any> 
         const { connect, disconnect, sendMessage, onConnecting, onOpen, onClose, onMessage, onError } = wsActions;
 
         return next => action => {
-            if (connect?.match(action)) {
+            if (!socket && connect?.match(action)) {
                 socket = new WebSocket(action.payload);
                 url = action.payload;
                 connected = true;
                 onConnecting && dispatch(onConnecting());
-                
+
                 socket.onopen = () => {
                     onOpen && dispatch(onOpen());
                 };
@@ -40,8 +40,7 @@ export const socketMiddleware = (wsActions: WsActionTypes): Middleware<{}, any> 
                     }
                 };
                 socket.onerror = (event) => {
-                    // fixme @vkoshkin я пока не понимаю, как это отображать, надо спросить на review
-                    onError && dispatch(onError(JSON.stringify(event))); 
+                    onError && dispatch(onError(JSON.stringify(event)));
                 };
                 socket.onmessage = (event: MessageEvent<any>) => {
                     const { data } = event;
@@ -53,7 +52,7 @@ export const socketMiddleware = (wsActions: WsActionTypes): Middleware<{}, any> 
                     }
                 };
 
-            } 
+            }
 
             if (socket && sendMessage?.match(action)) {
                 try {
