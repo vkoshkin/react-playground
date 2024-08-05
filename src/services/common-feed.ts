@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { CommonFeedResult } from "./api";
-import { OrderId, OrderNumber, Order } from "./types";
+import { OrderNumber, Order } from "./types";
 import { WebSocketStatus } from "../utils/websockets";
 
 type CommonFeedState = {

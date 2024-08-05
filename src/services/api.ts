@@ -1,6 +1,5 @@
-import { Extension } from "typescript";
 import { request } from "../utils/requests";
-import { Ingredient, Order, OrderId, OrderNumber, User } from "./types";
+import { Ingredient, Order, OrderNumber, User } from "./types";
 
 export interface CommonResult {
     readonly success: boolean;
