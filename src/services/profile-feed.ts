@@ -51,6 +51,9 @@ const slice = createSlice({
                 return;
             }
             console.log(action.payload);
+
+            state.orders = action.payload.orders;
+            state.error = false;
         },
         profileWsDisconnect: (state: ProfileFeedState) => {
             state.status = WebSocketStatus.OFFLINE;

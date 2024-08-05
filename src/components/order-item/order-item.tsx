@@ -11,9 +11,10 @@ import IngredientImage from "../ingredient-image/ingredient-image";
 
 export interface OrderItemProps {
     readonly order: Order;
+    readonly displayStatus?: boolean;
 };
 
-const OrderItem: FC<OrderItemProps> = ({ order }) => {
+const OrderItem: FC<OrderItemProps> = ({ order, displayStatus }) => {
     const { ingredients } = useTypedSelector(state => state.burgerIngredients);
 
     const orderDate: Date = useMemo(() => {
@@ -37,7 +38,7 @@ const OrderItem: FC<OrderItemProps> = ({ order }) => {
     const displayedIngredients: Array<Ingredient> = useMemo(() => {
         return order.ingredients.slice(0, 6).map(ingredientId => ingredients[ingredientId]);
     }, [order, ingredients]);
-    
+
     const otherCount: number = useMemo(() => {
         return Math.max(order.ingredients.length - 6, 0);
     }, [order]);
@@ -66,6 +67,25 @@ const OrderItem: FC<OrderItemProps> = ({ order }) => {
                     {order.name}
                 </p>
             </div>
+            {displayStatus &&
+                <div className={styles.status}>
+                    {order.status === "created" &&
+                        <p className={styles.status_text}>
+                            Создан
+                        </p>
+                    }
+                    {order.status === "pending" &&
+                        <p className={styles.status_text}>
+                            Готовится
+                        </p>
+                    }
+                    {order.status === "done" &&
+                        <p className={styles.status_text_finished}>
+                            Выполнен
+                        </p>
+                    }
+                </div>
+            }
             <div className={styles.items_price}>
                 <div className={styles.items}>
                     {displayedIngredients.map((ingredient, index) =>
