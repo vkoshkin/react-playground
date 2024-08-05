@@ -2,10 +2,10 @@ import { FC, useEffect } from "react";
 
 import { useAppDispatch, useTypedSelector } from "../services/store";
 import { feedWsConnect, feedWsDisconnect } from "../services/common-feed";
+import { WebSocketStatus, WS_FEED_URL } from "../utils/websockets";
 import FeedOrders from "../components/feed-orders/feed-orders";
 import FeedStats from "../components/feed-stats/feed-stats";
 import styles from "./common-feed.module.css";
-import { WebSocketStatus, WS_FEED_URL } from "../utils/websockets";
 
 const CommonFeed: FC = () => {
     const { ingredients } = useTypedSelector(state => state.burgerIngredients);

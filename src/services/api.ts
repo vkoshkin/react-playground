@@ -1,5 +1,6 @@
+import { Extension } from "typescript";
 import { request } from "../utils/requests";
-import { Ingredient, Order, OrderNumber, User } from "./types";
+import { Ingredient, Order, OrderId, OrderNumber, User } from "./types";
 
 export interface CommonResult {
     readonly success: boolean;
@@ -33,6 +34,20 @@ export function postOrderRequest(data: Array<string>): Promise<OrderResult> {
         },
         redirect: "follow",
         body: JSON.stringify({ ingredients: data }),
+    });
+}
+
+export interface GetOrderResult extends CommonResult {
+    orders: Array<Order>;
+}
+
+export function getOrderRequest(orderNumber: OrderNumber): Promise<GetOrderResult> {
+    return request(`orders/${orderNumber}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        redirect: "follow",
     });
 }
 

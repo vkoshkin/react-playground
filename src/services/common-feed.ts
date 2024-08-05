@@ -12,7 +12,6 @@ type CommonFeedState = {
     ready: Array<OrderNumber>;
     inProgress: Array<OrderNumber>;
     error: boolean;
-    selectedOrder: Order | null;
 };
 
 const initialState: CommonFeedState = {
@@ -23,7 +22,6 @@ const initialState: CommonFeedState = {
     ready: [],
     inProgress: [],
     error: false,
-    selectedOrder: null,
 };
 
 const slice = createSlice({
@@ -78,10 +76,6 @@ const slice = createSlice({
             state.status = WebSocketStatus.OFFLINE;
             state.error = false;
         },
-        feedSelectOrder: (state: CommonFeedState, action: PayloadAction<OrderId>) => {
-            const orderId: OrderId = action.payload;
-            state.selectedOrder = state.orders.find(order => order._id === orderId)!;
-        },
     }
 });
 
@@ -93,7 +87,6 @@ export const {
     feedWsError,
     feedWsMessage,
     feedWsDisconnect,
-    feedSelectOrder,
 } = slice.actions;
 
 export default slice;

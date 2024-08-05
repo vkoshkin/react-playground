@@ -2,12 +2,12 @@ import { FC, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import Price from "../price/price";
 import { useAppDispatch, useTypedSelector } from "../../services/store";
-import { feedSelectOrder } from "../../services/common-feed";
 import { Ingredient, Order } from "../../services/types";
-import styles from "./order-item.module.css";
+import { orderSelect } from "../../services/order";
 import IngredientImage from "../ingredient-image/ingredient-image";
+import Price from "../price/price";
+import styles from "./order-item.module.css";
 
 export interface OrderItemProps {
     readonly order: Order;
@@ -47,8 +47,8 @@ const OrderItem: FC<OrderItemProps> = ({ order, displayStatus }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const click = () => {
-        dispatch(feedSelectOrder(order._id));
-        navigate(`${order._id}`, { state: { backgroundLocation: location } });
+        dispatch(orderSelect(order));
+        navigate(`${order.number}`, { state: { backgroundLocation: location } });
     };
 
     return (

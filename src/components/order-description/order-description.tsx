@@ -8,7 +8,7 @@ import Price from "../price/price";
 import styles from "./order-description.module.css";
 
 const OrderDescription: FC = () => {
-    const { selectedOrder } = useTypedSelector(state => state.commonFeed);
+    const { selectedOrder } = useTypedSelector(state => state.order);
     const { ingredients } = useTypedSelector(state => state.burgerIngredients);
 
     const orderDate: Date = useMemo(() => {
