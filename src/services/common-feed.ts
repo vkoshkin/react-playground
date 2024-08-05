@@ -50,7 +50,7 @@ const slice = createSlice({
                 state.error = true;
                 return;
             }
-            console.log(action.payload);
+            // console.log(action.payload);
 
             const ready: Array<OrderNumber> = [];
             const inProgress: Array<OrderNumber> = [];

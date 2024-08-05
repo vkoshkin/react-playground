@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { CommonFeedResult } from "./api";
 import { Order } from "./types";
 import { WebSocketStatus } from "../utils/websockets";
 
@@ -24,7 +25,6 @@ const slice = createSlice({
             },
             prepare: (url: string) => {
                 const accessToken = localStorage.getItem("accessToken")?.substring(7);
-                console.log(`${url}?token=${accessToken}`);
                 return {
                     payload: `${url}?token=${accessToken}`
                 };
@@ -45,12 +45,12 @@ const slice = createSlice({
             console.log(`${state.status} ${action.payload}`);
             state.error = true;
         },
-        profileWsMessage: (state: ProfileFeedState, action: PayloadAction<any>) => {
+        profileWsMessage: (state: ProfileFeedState, action: PayloadAction<CommonFeedResult>) => {
             if (!action.payload.success) {
                 state.error = true;
                 return;
             }
-            console.log(action.payload);
+            // console.log(action.payload);
 
             state.orders = action.payload.orders;
             state.error = false;
