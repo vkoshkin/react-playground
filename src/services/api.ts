@@ -1,5 +1,5 @@
 import { request } from "../utils/requests";
-import { Ingredient, Order, User } from "./types";
+import { Ingredient, Order, OrderNumber, User } from "./types";
 
 export interface CommonResult {
     readonly success: boolean;
@@ -14,13 +14,14 @@ export function getIngredientsRequest(): Promise<GetIngredientsResult> {
     return request<GetIngredientsResult>("ingredients");
 }
 
-export interface OrderId {
-    readonly number: number;
+export interface ResponseOrder {
+    readonly ingredients: Array<Ingredient>;
+    readonly number: OrderNumber;
 }
 
 export interface OrderResult extends CommonResult {
     readonly name: string;
-    readonly order: OrderId;
+    readonly order: ResponseOrder;
 }
 
 export function postOrderRequest(data: Array<string>): Promise<OrderResult> {

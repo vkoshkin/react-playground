@@ -5,7 +5,7 @@ import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-co
 import { useAppDispatch, useTypedSelector } from "../../services/store";
 import { postOrder } from "../../services/order";
 import BurgerConstructorItem from "./burger-constructor-item";
-import OrderDetails from "./order-details";
+import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import { useModal } from "../../hooks/useModal";
 import styles from "./burger-constructor.module.css";

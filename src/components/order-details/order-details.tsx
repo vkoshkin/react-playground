@@ -8,16 +8,18 @@ import order2 from "../../images/order-2.svg"
 import order3 from "../../images/order-3.svg"
 
 export const OrderDetails: FC = () => {
-    const { request, requestError, orderId } = useTypedSelector(state => state.order);
+    const { request, requestError, orderNumber } = useTypedSelector(state => state.order);
 
     return (
         <div className={styles.layout}>
             {request && !requestError &&
-                <span className={styles.loader}></span>
+                <div className={styles.loading}>
+                    <div className="loader" />
+                </div>
             }
             {!request && !requestError &&
                 <>
-                    <p className={styles.order_id}>{orderId}</p>
+                    <p className={styles.order_id}>{orderNumber}</p>
                     <p className={styles.order_id_desc}>идентификатор заказа</p>
                     <div className={styles.order_icon}>
                         <img src={order1} alt="Заказ" />

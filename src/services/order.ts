@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { OrderId, postOrderRequest } from "./api";
+import { postOrderRequest } from "./api";
 import { clearConstructor } from "./constructor";
-import { Ingredient } from "./types";
+import { Ingredient, Order, OrderNumber } from "./types";
 import { AppDispatch } from "./store";
 
 export const postOrder = (bun: Ingredient, ingredients: Array<Ingredient>) => (dispatch: AppDispatch) => {
@@ -15,8 +15,8 @@ export const postOrder = (bun: Ingredient, ingredients: Array<Ingredient>) => (d
     data.push(bun._id);
     postOrderRequest(data).then(res => {
         if (res && res.success) {
-            // console.log(JSON.stringify(res));
-            dispatch(orderRequestSuccess(res.order));
+            console.log(JSON.stringify(res));
+            dispatch(orderRequestSuccess(res.order.number));
             dispatch(clearConstructor());
         } else {
             dispatch(orderRequestError());
@@ -30,13 +30,13 @@ export const postOrder = (bun: Ingredient, ingredients: Array<Ingredient>) => (d
 type OrderState = {
     request: boolean;
     requestError: boolean;
-    orderId: number;
+    orderNumber: number;
 };
 
 const initialState: OrderState = {
     request: false,
     requestError: false,
-    orderId: -1,
+    orderNumber: -1,
 };
 
 const slice = createSlice({
@@ -46,11 +46,10 @@ const slice = createSlice({
         orderRequest: (state: OrderState) => {
             state.request = true;
         },
-        orderRequestSuccess(state: OrderState, action : PayloadAction<OrderId>) {
+        orderRequestSuccess(state: OrderState, action : PayloadAction<OrderNumber>) {
             state.request = false;
             state.requestError = false;
-            const payload = action.payload;
-            state.orderId = payload.number;
+            state.orderNumber = action.payload;
         },
         orderRequestError: (state: OrderState) => {
             state.request = false;
