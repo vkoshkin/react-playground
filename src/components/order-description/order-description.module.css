@@ -1,11 +1,8 @@
 .desc {
+    composes: ml-10 mr-10 mb-10 from global;
     width: 640px;
-    max-height: 640px;
     display: flex;
     flex-direction: column;
-    
-    /* border: 1px solid red; */
-    composes: ml-10 mr-10 mb-10 from global;
 }
 
 .order_name_status {
@@ -21,13 +18,18 @@
     composes: text text_type_main-medium from global;
 }
 
-.order_status {
+.status_text, .status_text_finished {
     composes: text text_type_main-default mt-3 from global;
 }
 
+.status_text_finished {
+    color: #00CCCC;
+}
+
 .order_ingredients {
-    flex-grow: 1;
     composes: mb-10 from global;
+    flex-grow: 1;
+    max-height: 360px;
     display: flex;
     flex-direction: column;
 }
@@ -37,7 +39,6 @@
 }
 
 .order_ingredients_scroll {
-    max-height: 320px;
     overflow: scroll;
     overflow-x: hidden;
 }

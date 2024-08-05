@@ -33,13 +33,18 @@ const OrderDescription: FC = () => {
         return price;
     }, [selectedOrder, ingredients]);
 
-    const displayedIngredients: Array<Ingredient> = useMemo(() => {
-        if (!selectedOrder) return [];
-        const displayedResult: Array<Ingredient> = [];
+    const displayedIngredients: Map<Ingredient, number> = useMemo(() => {
+        const resultMap = new Map<Ingredient, number>();
+        if (!selectedOrder) return resultMap;
         for (const ingredientId of selectedOrder.ingredients) {
-            displayedResult.push(ingredients[ingredientId]);
+            const ingredient = ingredients[ingredientId];
+            if (resultMap.has(ingredient)) {
+                resultMap.set(ingredient, resultMap.get(ingredient)! + 1);
+            } else {
+                resultMap.set(ingredient, 1);
+            }
         }
-        return displayedResult;
+        return resultMap;
     }, [selectedOrder, ingredients]);
 
     return (
@@ -54,12 +59,12 @@ const OrderDescription: FC = () => {
                             {selectedOrder.name}
                         </h2>
                         {selectedOrder.status === "done" &&
-                            <p className={styles.order_status}>
+                            <p className={styles.status_text_finished}>
                                 Выполнен
                             </p>
                         }
                         {selectedOrder.status === "pending" &&
-                            <p className={styles.order_status}>
+                            <p className={styles.status_text}>
                                 В работе
                             </p>
                         }
@@ -70,9 +75,9 @@ const OrderDescription: FC = () => {
                         </h2>
                         <div className={styles.order_ingredients_scroll}>
                             <ul className={styles.order_ingredients_list}>
-                                {displayedIngredients.map(ingredient =>
+                                {Array.from(displayedIngredients).map(([ingredient, count]) =>
                                     <li key={ingredient._id}>
-                                        <OrderDescriptionItem ingredient={ingredient} />
+                                        <OrderDescriptionItem ingredient={ingredient} count={count}/>
                                     </li>
                                 )}
                             </ul>

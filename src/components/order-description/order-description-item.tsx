@@ -7,9 +7,10 @@ import styles from "./order-description-item.module.css";
 
 interface OrderDescriptionItemProps {
     readonly ingredient: Ingredient;
+    readonly count: number;
 };
 
-const OrderDescriptionItem: FC<OrderDescriptionItemProps> = ({ ingredient }) => {
+const OrderDescriptionItem: FC<OrderDescriptionItemProps> = ({ ingredient, count }) => {
     return (
         <div className={styles.item}>
             <IngredientPreview
@@ -21,7 +22,7 @@ const OrderDescriptionItem: FC<OrderDescriptionItemProps> = ({ ingredient }) => 
                     {ingredient.name}
                 </p>
             </div>
-            <Price price={ingredient.price}/>
+            <Price price={ingredient.price} count={count} />
         </div>
     );
 };

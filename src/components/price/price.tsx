@@ -5,14 +5,23 @@ import styles from "./price.module.css";
 
 interface PriceProps {
     price: number;
+    count?: number;
 };
 
-const Price: FC<PriceProps> = ({ price }) => {
+const Price: FC<PriceProps> = ({ price, count }) => {
+    const countValid = count !== null && count !== undefined;
     return (
         <div className={styles.price}>
-            <p className={styles.price_value}>
-                {price}
-            </p>
+            {countValid &&
+                <p className={styles.price_value}>
+                    {count} x {price}
+                </p>
+            }
+            {!countValid &&
+                <p className={styles.price_value}>
+                    {price}
+                </p>
+            }
             <CurrencyIcon type="primary" />
         </div>
     );
