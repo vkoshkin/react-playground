@@ -5,7 +5,7 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 import { useAppDispatch, useTypedSelector } from "../../services/store";
 import { Ingredient, Order } from "../../services/types";
 import { orderSelect } from "../../services/order";
-import IngredientImage from "../ingredient-image/ingredient-image";
+import IngredientPreview from "../ingredient-preview/ingredient-preview";
 import Price from "../price/price";
 import styles from "./order-item.module.css";
 
@@ -89,7 +89,7 @@ const OrderItem: FC<OrderItemProps> = ({ order, displayStatus }) => {
             <div className={styles.items_price}>
                 <div className={styles.items}>
                     {displayedIngredients.map((ingredient, index) =>
-                        <IngredientImage
+                        <IngredientPreview
                             key={index}
                             image={ingredient.image}
                             altName={ingredient.name}

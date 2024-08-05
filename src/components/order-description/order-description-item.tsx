@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { Ingredient } from "../../services/types";
-import IngredientImage from "../ingredient-image/ingredient-image";
+import IngredientPreview from "../ingredient-preview/ingredient-preview";
 import Price from "../price/price";
 import styles from "./order-description-item.module.css";
 
@@ -12,7 +12,7 @@ interface OrderDescriptionItemProps {
 const OrderDescriptionItem: FC<OrderDescriptionItemProps> = ({ ingredient }) => {
     return (
         <div className={styles.item}>
-            <IngredientImage
+            <IngredientPreview
                 image={ingredient.image}
                 altName={ingredient.name}
             />

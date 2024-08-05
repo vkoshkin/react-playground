@@ -1,8 +1,8 @@
 import { FC } from "react"
 
-import styles from "./ingredient-image.module.css";
+import styles from "./ingredient-preview.module.css";
 
-interface IngredientImageProps {
+interface IngredientPreviewProps {
     readonly image: string;
     readonly altName: string;
     readonly zIndex?: number;
@@ -10,7 +10,7 @@ interface IngredientImageProps {
     readonly extraClass?: string;
 };
 
-const IngredientImage: FC<IngredientImageProps> = ({ image, altName, zIndex, topText, extraClass }) => {
+const IngredientPreview: FC<IngredientPreviewProps> = ({ image, altName, zIndex, topText, extraClass }) => {
     let style = {};
     if (zIndex) {
         style = { zIndex: zIndex };
@@ -40,4 +40,4 @@ const IngredientImage: FC<IngredientImageProps> = ({ image, altName, zIndex, top
     );
 };
 
-export default IngredientImage;
+export default IngredientPreview;

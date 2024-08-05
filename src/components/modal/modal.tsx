@@ -8,7 +8,7 @@ import styles from "./modal.module.css";
 const modalRoot: HTMLElement = document.getElementById("modals")!;
 
 export interface ModalProps {
-    readonly header?: string; // todo @vkoshkin remove
+    readonly header?: string;
     readonly onClose: () => void;
     readonly children?: ReactNode;
 }
@@ -29,12 +29,19 @@ export const Modal: FC<ModalProps> = ({ header, onClose, children }) => {
         ReactDOM.createPortal(
             <ModalOverlay onClose={onClose}>
                 <div className={styles.modal} onClick={e => e.stopPropagation()}>
-                    <div className={styles.header}>
-                        <p className={styles.header_text}>{header}</p>
-                        <div className={styles.close}>
+                    {header &&
+                        <div className={styles.header}>
+                            <p className={styles.header_text}>{header}</p>
+                            <div className={styles.close}>
+                                <CloseIcon type="primary" onClick={onClose} />
+                            </div>
+                        </div>
+                    }
+                    {!header &&
+                        <div className={styles.close_detached}>
                             <CloseIcon type="primary" onClick={onClose} />
                         </div>
-                    </div>
+                    }
                     <div>
                         {children}
                     </div>
