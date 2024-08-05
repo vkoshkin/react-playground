@@ -63,7 +63,7 @@ export const App: FC = () => {
                             </Route>
                             <Route path="/ingredients/:id" element={<IngredientDetails />} />
                             <Route path="/feed/:orderNumber" element={<OrderPage />} />
-                            <Route path="/profile/orders/:orderNumber" element={<OrderPage />} />
+                            <Route path="/profile/orders/:orderNumber" element={<AuthenticatedOnly component={<OrderPage />} /> } />
                             <Route path="*" element={<AppError />} />
                         </Routes>
                         {state?.backgroundLocation && (
