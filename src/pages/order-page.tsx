@@ -22,12 +22,13 @@ const OrderPage: FC = () => {
     return (
         <div className={styles.page}>
             {fetchRequest &&
-                <div className={styles.loading}>
+                <div className={styles.center}>
                     <div className="loader" />
                 </div>
             }
             {fetchError &&
-                <div>
+                <div className={styles.center}>
+                    <p className="text text_type_main-medium">Не удалось загрузить заказ</p>
                 </div>
             }
             {!fetchRequest && !fetchError && selectedOrder &&
