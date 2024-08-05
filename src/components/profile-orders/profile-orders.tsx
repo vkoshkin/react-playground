@@ -18,7 +18,7 @@ const ProfileOrders: FC = () => {
             }
         }
         return result;
-    }, [orders]);
+    }, [orders, ingredients]);
 
     return (
         <div className={styles.container}>
