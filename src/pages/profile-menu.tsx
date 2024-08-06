@@ -25,7 +25,16 @@ const ProfileMenu: FC = () => {
                 <div className={styles.nav_link} onClick={onExit}>
                     <p className={styles.nav_exit}>Выход</p>
                 </div>
-                <p className={styles.nav_sub}>В этом разделе вы можете изменить свои персональные данные</p>
+                {profileActive &&
+                    <p className={styles.nav_sub}>
+                        В этом разделе вы можете изменить свои персональные данные
+                    </p>
+                }
+                {ordersActive &&
+                    <p className={styles.nav_sub}>
+                        В этом разделе вы можете просмотреть свою историю заказов
+                    </p>
+                }
             </nav>
             <section className={styles.section}>
                 <Outlet />

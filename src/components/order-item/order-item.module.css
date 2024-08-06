@@ -1,0 +1,55 @@
+.item {
+    background-color: #1C1C21;
+    border-radius: 40px;
+    cursor: pointer;
+    composes: pt-6 pb-6 pl-6 pr-6 from global;
+}
+
+.order_date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.order {
+    composes: text text_type_digits-default from global;
+}
+
+.date {
+    composes: text text_type_main-default text_color_inactive from global;
+}
+
+.name {
+    composes: mt-6 from global;
+}
+
+.status {
+    composes: mt-2 from global;
+}
+
+.status_text, .status_text_finished {
+    composes: text text_type_main-default from global;
+}
+
+.status_text_finished {
+    color: #00CCCC;
+}
+
+.items_price {
+    composes: mt-6 from global;
+    display: flex;
+    flex-direction: row;
+    height: 64px;
+}
+
+.items {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin-left: 16px;
+}
+
+.ingredient_item {
+    margin-left: -16px;
+}

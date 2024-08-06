@@ -1,5 +1,5 @@
 import { request } from "../utils/requests";
-import { Ingredient, User } from "./types";
+import { Ingredient, Order, OrderNumber, User } from "./types";
 
 export interface CommonResult {
     readonly success: boolean;
@@ -14,13 +14,14 @@ export function getIngredientsRequest(): Promise<GetIngredientsResult> {
     return request<GetIngredientsResult>("ingredients");
 }
 
-export interface Order {
-    readonly number: number;
+export interface ResponseOrder {
+    readonly ingredients: Array<Ingredient>;
+    readonly number: OrderNumber;
 }
 
 export interface OrderResult extends CommonResult {
     readonly name: string;
-    readonly order: Order;
+    readonly order: ResponseOrder;
 }
 
 export function postOrderRequest(data: Array<string>): Promise<OrderResult> {
@@ -28,9 +29,24 @@ export function postOrderRequest(data: Array<string>): Promise<OrderResult> {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("accessToken")!,
         },
         redirect: "follow",
         body: JSON.stringify({ ingredients: data }),
+    });
+}
+
+export interface GetOrderResult extends CommonResult {
+    orders: Array<Order>;
+}
+
+export function getOrderRequest(orderNumber: OrderNumber): Promise<GetOrderResult> {
+    return request(`orders/${orderNumber}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        redirect: "follow",
     });
 }
 
@@ -155,4 +171,10 @@ export function postPasswordUpdate(password: string, code: string): Promise<Comm
             "token": code,
         }),
     });
+}
+
+export interface CommonFeedResult extends CommonResult {
+    orders: Array<Order>;
+    total: number;
+    totalToday: number;
 }

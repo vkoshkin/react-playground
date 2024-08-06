@@ -1,0 +1,36 @@
+.feed {
+    width: 1200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.header {
+    composes: text text_type_main-large pt-10 pb-5 from global;
+}
+
+.panels {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.list {
+    height: 100%;
+}
+
+.stats {
+    height: 100%;
+    composes: ml-15 from global;
+}
+
+.loading {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}

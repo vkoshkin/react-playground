@@ -1,0 +1,60 @@
+.desc {
+    composes: ml-10 mr-10 mb-10 from global;
+    width: 640px;
+    display: flex;
+    flex-direction: column;
+}
+
+.order_name_status {
+    composes: mb-15 from global;
+}
+
+.order_number {
+    composes: text text_type_digits-default mb-10 mt-15 from global;
+    text-align: center;
+}
+
+.order_name, .order_ingredients_header {
+    composes: text text_type_main-medium from global;
+}
+
+.status_text, .status_text_finished {
+    composes: text text_type_main-default mt-3 from global;
+}
+
+.status_text_finished {
+    color: #00CCCC;
+}
+
+.order_ingredients {
+    composes: mb-10 from global;
+    flex-grow: 1;
+    max-height: 360px;
+    display: flex;
+    flex-direction: column;
+}
+
+.order_ingredients_header {
+    composes: mb-6 from global;
+}
+
+.order_ingredients_scroll {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.order_ingredients_list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.order_footer {
+    display: flex;
+    flex-direction: row;
+}
+
+.order_date {
+    composes: text text_type_main-default text_color_inactive from global;
+    flex-grow: 1;
+}

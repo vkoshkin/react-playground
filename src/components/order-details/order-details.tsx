@@ -1,30 +1,25 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { postOrder } from "../../services/order";
-import { useAppDispatch, useTypedSelector } from "../../services/store";
+import { useTypedSelector } from "../../services/store";
 import styles from "./order-details.module.css";
 import order1 from "../../images/order-1.svg"
 import order2 from "../../images/order-2.svg"
 import order3 from "../../images/order-3.svg"
 
 export const OrderDetails: FC = () => {
-    const { bun, ingredients } = useTypedSelector(state => state.burgerConstructor);
-    const { request, requestError, orderId } = useTypedSelector(state => state.order);
-
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(postOrder(bun!, ingredients.map(e => e.data)));
-    }, []);
+    const { request, requestError, orderNumber } = useTypedSelector(state => state.order);
 
     return (
         <div className={styles.layout}>
             {request && !requestError &&
-                <span className={styles.loader}></span>
+                <div className={styles.loading}>
+                    <div className="loader" />
+                </div>
             }
             {!request && !requestError &&
                 <>
-                    <p className={styles.order_id}>{orderId}</p>
+                    <p className={styles.order_id}>{orderNumber}</p>
                     <p className={styles.order_id_desc}>идентификатор заказа</p>
                     <div className={styles.order_icon}>
                         <img src={order1} alt="Заказ" />

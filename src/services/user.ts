@@ -39,6 +39,7 @@ export const fetchUser = () => {
             // успешное обновление токена пользователя через refreshToken
             localStorage.setItem("accessToken", postResponse.accessToken);
             localStorage.setItem("refreshToken", postResponse.refreshToken);
+            dispatch(checkUser());
             return;
         }
 
@@ -162,6 +163,9 @@ const slice = createSlice({
             state.saveRequest = false;
             state.saveRequestError = false;
         },
+        checkUser: (state: UserState) => {
+            state.userChecked = true;
+        },
         registerRequest: (state: UserState) => {
             state.registerRequest = true;
             state.registerError = false;
@@ -199,6 +203,7 @@ const slice = createSlice({
 
 export const {
     setUser,
+    checkUser,
     registerRequest,
     registerRequestError,
     loginRequest,

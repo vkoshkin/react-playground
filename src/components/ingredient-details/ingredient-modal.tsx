@@ -9,9 +9,12 @@ export const IngredientModal: FC = () => {
     const onDismiss = () => {
         navigate(-1);
     };
-    
+
     return (
-        <Modal onClose={onDismiss}>
+        <Modal
+            header={"Детали ингредиента"}
+            onClose={onDismiss}
+        >
             <IngredientDetails />
         </Modal>
     );
