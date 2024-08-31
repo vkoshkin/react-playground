@@ -3,7 +3,7 @@ import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-de
 
 import { useAppDispatch, useTypedSelector } from "../services/store";
 import { User } from "../services/types";
-import { saveUser } from "../services/user";
+import { updateUserProfile } from "../services/user";
 import { useForm } from "../hooks/useForm";
 import styles from "./profile.module.css";
 
@@ -19,7 +19,7 @@ const Profile: FC = () => {
     const dispatch = useAppDispatch();
     const onSubmit: FormEventHandler = e => {
         e.preventDefault();
-        dispatch(saveUser(values.name, values.email));
+        dispatch(updateUserProfile(values.name, values.email));
     };
     const onCancel = () => {
         setValues({ name: user!.name, email: user!.email });

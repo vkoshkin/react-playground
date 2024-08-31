@@ -105,7 +105,7 @@ export function postAuthLogout(): Promise<CommonResult> {
 export interface UpdateTokenResult extends CommonResult, TokenContainer {
 }
 
-export function postAuthToken(): Promise<UpdateTokenResult> {
+export function postRefreshAuthToken(): Promise<UpdateTokenResult> {
     return request("auth/token", {
         method: "POST",
         headers: {
