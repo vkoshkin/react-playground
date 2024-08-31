@@ -28,7 +28,7 @@ export type OrderId = string;
 
 export type OrderNumber = number;
 
-export type Order = {
+export interface Order {
     readonly ingredients: Array<string>;
     readonly _id: OrderId;
     readonly status: string;

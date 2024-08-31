@@ -41,7 +41,7 @@ export const fetchOrder = (orderNumber: OrderNumber) => (dispatch: AppDispatch) 
     });
 };
 
-type OrderState = {
+export type OrderState = {
     request: boolean;
     requestError: boolean;
     orderNumber: number;
@@ -51,7 +51,7 @@ type OrderState = {
     fetchError: boolean;
 };
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
     request: false,
     requestError: false,
     orderNumber: -1,
