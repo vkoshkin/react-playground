@@ -4,13 +4,13 @@ import { CommonFeedResult } from "./api";
 import { Order } from "./types";
 import { WebSocketStatus } from "../utils/websockets";
 
-type ProfileFeedState = {
+export type ProfileFeedState = {
     status: WebSocketStatus;
     orders: Array<Order>;
     error: boolean;
 }
 
-const initialState: ProfileFeedState = {
+export const initialState: ProfileFeedState = {
     status: WebSocketStatus.OFFLINE,
     orders: [],
     error: false,
