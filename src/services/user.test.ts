@@ -16,21 +16,21 @@ import {
 } from "./user";
 
 describe("user", () => {
-    beforeEach(() => {
-        jest.spyOn(global, "fetch").mockResolvedValue(
-            Promise.resolve({
-                status: 200,
-                ok: true,
-                json: Promise.resolve({
-                    result: "ok"
-                }),
-            } as any)
-        );
-    });
+    // beforeEach(() => {
+    //     jest.spyOn(global, "fetch").mockResolvedValue(
+    //         Promise.resolve({
+    //             status: 200,
+    //             ok: true,
+    //             json: Promise.resolve({
+    //                 result: "ok"
+    //             }),
+    //         } as any)
+    //     );
+    // });
 
-    afterEach(() => {
-        jest.restoreAllMocks();
-    });
+    // afterEach(() => {
+    //     jest.restoreAllMocks();
+    // });
 
     const testUser: User = { name: "test", email: "test@test.com" };
 

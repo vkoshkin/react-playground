@@ -8,7 +8,7 @@ import { useForm } from "../hooks/useForm";
 import styles from "./profile.module.css";
 
 const Profile: FC = () => {
-    const { user, saveRequest, saveRequestError } = useTypedSelector(store => store.user);
+    const { user, updateRequest, updateError } = useTypedSelector(store => store.user);
 
     const { values, handleChange, setValues } = useForm<User>({ name: user!.name, email: user!.email });
     const [changed, setChanged] = useState<boolean>(false);
@@ -52,7 +52,7 @@ const Profile: FC = () => {
                 icon={"HideIcon"}
                 extraClass={styles.field}
             />
-            {saveRequestError &&
+            {updateError &&
                 <div className={styles.error_pane}>
                     <p className={styles.error}>Ошибка сохранения пользователя</p>
                 </div>
@@ -63,7 +63,7 @@ const Profile: FC = () => {
                         htmlType="submit"
                         type="primary"
                         size="medium"
-                        disabled={saveRequest}
+                        disabled={updateRequest}
                     >
                         Сохранить
                     </Button>
@@ -72,7 +72,7 @@ const Profile: FC = () => {
                         type="secondary"
                         size="medium"
                         onClick={onCancel}
-                        disabled={saveRequest}
+                        disabled={updateRequest}
                         extraClass={styles.cancel}
                     >
                         Отмена
