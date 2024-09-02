@@ -5,9 +5,7 @@ import {
     passwordUpdateRequest,
     passwordUpdateError,
     passwordUpdateSuccess,
-    PasswordState,
     initialState,
-    resetPassword
 } from "./password";
 import reducer from "./password";
 
@@ -19,7 +17,7 @@ describe("password", () => {
                 passwordResetRequest: true,
                 passwordResetError: false,
                 passwordResetSuccess: false,
-            })
+            });
     });
     it("should set reset request error", () => {
         expect(reducer.reducer({ ...initialState }, passwordResetError()))
@@ -28,7 +26,7 @@ describe("password", () => {
                 passwordResetRequest: false,
                 passwordResetError: true,
                 passwordResetSuccess: false,
-            })
+            });
     });
     it("should set reset request success", () => {
         expect(reducer.reducer({ ...initialState }, passwordResetSuccess()))
@@ -37,7 +35,7 @@ describe("password", () => {
                 passwordResetRequest: false,
                 passwordResetError: false,
                 passwordResetSuccess: true,
-            })
+            });
     });
 
     it("should set update request", () => {
@@ -47,7 +45,7 @@ describe("password", () => {
                 passwordUpdateRequest: true,
                 passwordUpdateError: false,
                 passwordUpdateSuccess: false,
-            })
+            });
     });
     it("should set update request error", () => {
         expect(reducer.reducer({ ...initialState }, passwordUpdateError()))
@@ -56,7 +54,7 @@ describe("password", () => {
                 passwordUpdateRequest: false,
                 passwordUpdateError: true,
                 passwordUpdateSuccess: false,
-            })
+            });
     });
     it("should set update request success", () => {
         expect(reducer.reducer({ ...initialState }, passwordUpdateSuccess()))
@@ -65,6 +63,6 @@ describe("password", () => {
                 passwordUpdateRequest: false,
                 passwordUpdateError: false,
                 passwordUpdateSuccess: true,
-            })
+            });
     });
 });

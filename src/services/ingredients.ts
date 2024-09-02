@@ -18,7 +18,7 @@ export const fetchIngredients = () => (dispatch: AppDispatch) => {
     });
 }
 
-type IngredientsState = {
+export type IngredientsState = {
     buns: Array<Ingredient>;
     sauces: Array<Ingredient>;
     mains: Array<Ingredient>;
@@ -27,7 +27,7 @@ type IngredientsState = {
     requestError: boolean;
 };
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
     buns: [],
     sauces: [],
     mains: [],
@@ -42,6 +42,7 @@ const slice = createSlice({
     reducers: {
         getIngredients: (state: IngredientsState) => {
             state.request = true;
+            state.requestError = false;
         },
         getIngredientsError: (state: IngredientsState) => {
             state.request = false;
