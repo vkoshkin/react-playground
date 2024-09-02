@@ -4,7 +4,7 @@ import { CommonFeedResult } from "./api";
 import { OrderNumber, Order } from "./types";
 import { WebSocketStatus } from "../utils/websockets";
 
-type CommonFeedState = {
+export type CommonFeedState = {
     status: WebSocketStatus;
     orders: Array<Order>;
     ordersTotal: number;
@@ -14,7 +14,7 @@ type CommonFeedState = {
     error: boolean;
 };
 
-const initialState: CommonFeedState = {
+export const initialState: CommonFeedState = {
     status: WebSocketStatus.OFFLINE,
     orders: [],
     ordersTotal: 0,
@@ -54,10 +54,7 @@ const slice = createSlice({
 
             const ready: Array<OrderNumber> = [];
             const inProgress: Array<OrderNumber> = [];
-            const set = new Set<string>();
-
             for (const order of action.payload.orders) {
-                set.add(order.status);
                 if (order.status === "done") {
                     ready.push(order.number);
                 } else {
