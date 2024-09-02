@@ -78,16 +78,16 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({id, ingredient, 
             // console.log(`${dragIndex} ${hoverIndex}`);
             if (dragIndex === hoverIndex) return;
             if (!dragIndex) return;
-            if (!hoverIndex) return
+            if (!hoverIndex) return;
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset()!;
             const hoverClientY = clientOffset.y - hoverBoundingRect.top;
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                return
+                return;
             }
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-                return
+                return;
             }
             onMove(dragIndex, hoverIndex);
         },
