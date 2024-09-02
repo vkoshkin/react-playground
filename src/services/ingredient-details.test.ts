@@ -1,11 +1,11 @@
 import {
     showIngredient,
     initialState,
-} from "./ingredientDetails";
-import reducer from "./ingredientDetails";
+} from "./ingredient-details";
+import reducer from "./ingredient-details";
 import { Ingredient } from "./types";
 
-describe("ingredientDetails", () => {
+describe("ingredient-details", () => {
     const testIngredient: Ingredient = {
         "_id": "60666c42cc7b410027a1a9b5",
         "name": "Говяжий метеорит (отбивная)",
