@@ -19,7 +19,7 @@ export const BurgerIngredientsItem: FC<BurgerIngredientsItemProps> = ({ ingredie
         item: { id: undefined, item: ingredient },
     });
     return (
-        <div className={styles.item} ref={dragRef}>
+        <li className={styles.item} ref={dragRef} data-testid="ingredient-item">
             <div>
                 <Link
                     to={`/ingredients/${ingredient._id}`}
@@ -38,7 +38,7 @@ export const BurgerIngredientsItem: FC<BurgerIngredientsItemProps> = ({ ingredie
                 </div>
             </div>
             {count && <Counter count={count} size="default" />}
-        </div>
+        </li>
     );
 }
 

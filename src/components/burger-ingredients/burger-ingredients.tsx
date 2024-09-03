@@ -73,42 +73,42 @@ export const BurgerIngredients: FC = () => {
                     <h2 className={styles.section_header} ref={bunsHeaderRef}>
                         Булки
                     </h2>
-                    <div className={styles.section_container}>
+                    <ul className={styles.section_container}>
                         {buns.map(ingredient =>
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
                                 count={ingredientCount.get(ingredient._id)} />
                         )}
-                    </div>
+                    </ul>
                 </section>
 
                 <section>
                     <h2 className={styles.section_header} ref={saucesHeaderRef}>
                         Соусы
                     </h2>
-                    <div className={styles.section_container}>
+                    <ul className={styles.section_container}>
                         {sauces.map(ingredient =>
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
                                 count={ingredientCount.get(ingredient._id)} />
                         )}
-                    </div>
+                    </ul>
                 </section>
 
                 <section>
                     <h2 className={styles.section_header} ref={mainsHeaderRef}>
                         Начинки
                     </h2>
-                    <div className={styles.section_container}>
+                    <ul className={styles.section_container}>
                         {mains.map(ingredient =>
                             <BurgerIngredientsItem
                                 key={ingredient._id}
                                 ingredient={ingredient}
                                 count={ingredientCount.get(ingredient._id)} />
                         )}
-                    </div>
+                    </ul>
                 </section>
             </div>
         </div>
