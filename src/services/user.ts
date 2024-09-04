@@ -18,6 +18,7 @@ export const fetchUser = () => {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
             dispatch(clearUser());
+            dispatch(checkUser());
             return;
         }
 
