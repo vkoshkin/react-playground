@@ -9,7 +9,18 @@ describe("constructor", () => {
         cy.visit("http://localhost:3000/");
     });
 
-    it("should pass", () => {
-        cy.get('[data-test-id="test-example"]').should("not.exist");
+    it("should not display error screen", () => {
+        cy.get('[data-testid="error"]').should("not.exist");
+    });
+
+    it("should show ingredient modal on click", () => {
+        cy.get('[data-testid="ingredient-item"]').should("exist");
+        cy.get('[data-testid="ingredient-item-link"]').each((element, index, list) => {
+            cy.wrap(element).click();
+            cy.get('[data-testid="modal"]').should("exist");
+            
+            cy.get('[data-testid="modal-close"]').should("exist");
+            cy.get('[data-testid="modal-close"]').click();
+        });
     });
 });

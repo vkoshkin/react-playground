@@ -23,23 +23,23 @@ export const Modal: FC<ModalProps> = ({ header, onClose, children }) => {
         document.addEventListener("keydown", trackKeyDown);
         return () => {
             document.removeEventListener("keydown", trackKeyDown);
-        }
+        };
     }, [onClose]);
     return (
         ReactDOM.createPortal(
             <ModalOverlay onClose={onClose}>
-                <div className={styles.modal} onClick={e => e.stopPropagation()}>
+                <div className={styles.modal} onClick={e => e.stopPropagation()} data-testid="modal">
                     {header &&
                         <div className={styles.header}>
                             <p className={styles.header_text}>{header}</p>
-                            <div className={styles.close}>
-                                <CloseIcon type="primary" onClick={onClose} />
+                            <div className={styles.close} onClick={onClose} data-testid="modal-close">
+                                <CloseIcon type="primary" />
                             </div>
                         </div>
                     }
                     {!header &&
-                        <div className={styles.close_detached}>
-                            <CloseIcon type="primary" onClick={onClose} />
+                        <div className={styles.close_detached} onClick={onClose} data-testid="modal-close">
+                            <CloseIcon type="primary" />
                         </div>
                     }
                     <div>
