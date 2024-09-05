@@ -19,7 +19,7 @@ export const OrderDetails: FC = () => {
             }
             {!request && !requestError &&
                 <>
-                    <p className={styles.order_id}>{orderNumber}</p>
+                    <p id="order-id" className={styles.order_id}>{orderNumber}</p>
                     <p className={styles.order_id_desc}>идентификатор заказа</p>
                     <div className={styles.order_icon}>
                         <img src={order1} alt="Заказ" />
