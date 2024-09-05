@@ -11,14 +11,14 @@ import styles from "./burger-constructor-item.module.css";
 type ConstructorItemType = "top" | "bottom" | undefined;
 
 interface BurgerConstructorItemProps {
-    readonly id?: IngredientId;
+    readonly ingredientId?: IngredientId;
     readonly ingredient: Ingredient | null;
     readonly type?: ConstructorItemType;
     readonly isLocked: boolean;
     readonly extraClass?: string;
 }
 
-const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({id, ingredient, type, isLocked, extraClass}) => {
+const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({ingredientId, ingredient, type, isLocked, extraClass}) => {
     let itemStyles: string = styles.container;
     if (extraClass !== undefined) {
         itemStyles += " " + extraClass;
@@ -36,8 +36,8 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({id, ingredient, 
 
     const dispatch = useAppDispatch();
     const onRemove = () => {
-        if (type === undefined && id !== undefined) {
-            dispatch(removeIngredient({ id: id! }));
+        if (type === undefined && ingredientId !== undefined) {
+            dispatch(removeIngredient({ id: ingredientId! }));
         }
     };
     const onMove = (sourceId: IngredientId, targetId: IngredientId) => {
@@ -55,7 +55,7 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({id, ingredient, 
     };
 
     const ref = useRef<HTMLDivElement>(null);
-    const ingredientDrag: IngredientDrag = { id: id, item: ingredient };
+    const ingredientDrag: IngredientDrag = { id: ingredientId, item: ingredient };
     const [{ isDragging }, drag] = useDrag({
         type: IngredientDragType,
         item: ingredientDrag,
@@ -74,7 +74,7 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({id, ingredient, 
         hover: (item: IngredientDrag, monitor: DropTargetMonitor) => {
             if (!ref.current) return;
             const dragIndex = item.id;
-            const hoverIndex = id;
+            const hoverIndex = ingredientId;
             // console.log(`${dragIndex} ${hoverIndex}`);
             if (dragIndex === hoverIndex) return;
             if (!dragIndex) return;
@@ -93,7 +93,7 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({id, ingredient, 
         },
         drop: (item: IngredientDrag, _: DropTargetMonitor) => {
             if (item.id === undefined && item.item != null) {
-                onAdd(item, id);
+                onAdd(item, ingredientId);
             }
         },
     });
@@ -103,7 +103,7 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({id, ingredient, 
     const emptyText = isBorderItem ? "Добавьте булку" : "Добавьте ингредиент";
     drag(drop(ref));
     return (
-        <div className={itemStyles} style={{ opacity }} ref={ref}>
+        <div className={itemStyles} style={{ opacity }} ref={ref} data-testid="constructor-element">
             {!isLocked &&
                 <div className={styles.drag}>
                     <DragIcon type="primary" />
