@@ -89,7 +89,7 @@ describe("constructor", () => {
         cy.url().should('include', 'login');
     });
 
-    it("should show success modal on ", () => {
+    it("should show success order modal", () => {
         window.localStorage.setItem("accessToken", "test");
         cy.intercept("GET", "/api/auth/user", { fixture: "login" }).as("getUser");
         cy.intercept("POST", "/api/orders", { fixture: "order" }).as("postOrder");
@@ -112,6 +112,33 @@ describe("constructor", () => {
         cy.get(constructorOrder).click();
         cy.get(modal).should("exist");
         cy.get(orderId).should("exist");
+        cy.get(modalClose).should("exist");
+        cy.get(modalClose).click();
+    });
+
+    it("should show error order modal", () => {
+        window.localStorage.setItem("accessToken", "test");
+        cy.intercept("GET", "/api/auth/user", { fixture: "login" }).as("getUser");
+        cy.intercept("POST", "/api/orders", { fixture: "orderError" }).as("postOrder");
+        cy.visit("http://localhost:3000/");
+
+        cy.get(ingredientBuns).within(() => {
+            cy.get(ingredientItem).first().trigger('dragstart');
+        });
+        cy.get(constructorBunTop).within(() => {
+            cy.get(constructorElement).first().trigger('drop');
+        });
+
+        cy.get(ingredientMains).within(() => {
+            cy.get(ingredientItem).last().trigger('dragstart');
+        });
+        cy.get(constructorMains).within(() => {
+            cy.get(constructorElement).first().trigger('drop');
+        });
+
+        cy.get(constructorOrder).click();
+        cy.get(modal).should("exist");
+        cy.get(orderId).should("not.exist");
         cy.get(modalClose).should("exist");
         cy.get(modalClose).click();
     });
