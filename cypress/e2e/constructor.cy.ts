@@ -26,12 +26,12 @@ describe("constructor", () => {
     });
 
     it("should not display error screen", () => {
-        cy.visit("http://localhost:3000/");
+        cy.visit("/");
         cy.get('[data-testid="error"]').should("not.exist");
     });
 
     it("should show ingredient modal on click", () => {
-        cy.visit("http://localhost:3000/");
+        cy.visit("/");
         cy.get(ingredientItem).should("exist");
         cy.get('[data-testid="ingredient-item-link"]').each((element, index, list) => {
             cy.wrap(element).click();
@@ -43,7 +43,7 @@ describe("constructor", () => {
     });
 
     it("should add bun on drag", () => {
-        cy.visit("http://localhost:3000/");
+        cy.visit("/");
         cy.get(ingredientBuns).within(() => {
             cy.get(ingredientItem).first().trigger('dragstart');
         });
@@ -53,7 +53,7 @@ describe("constructor", () => {
     });
 
     it("should replace bun on drag", () => {
-        cy.visit("http://localhost:3000/");
+        cy.visit("/");
         cy.get(ingredientBuns).within(() => {
             cy.get(ingredientItem).first().trigger('dragstart');
         });
@@ -70,7 +70,7 @@ describe("constructor", () => {
     });
 
     it("should navigate to login on order submit if user is anonymous", () => {
-        cy.visit("http://localhost:3000/");
+        cy.visit("/");
         cy.get(ingredientBuns).within(() => {
             cy.get(ingredientItem).first().trigger('dragstart');
         });
@@ -93,7 +93,7 @@ describe("constructor", () => {
         window.localStorage.setItem("accessToken", "test");
         cy.intercept("GET", "/api/auth/user", { fixture: "login" }).as("getUser");
         cy.intercept("POST", "/api/orders", { fixture: "order" }).as("postOrder");
-        cy.visit("http://localhost:3000/");
+        cy.visit("/");
 
         cy.get(ingredientBuns).within(() => {
             cy.get(ingredientItem).first().trigger('dragstart');
@@ -120,7 +120,7 @@ describe("constructor", () => {
         window.localStorage.setItem("accessToken", "test");
         cy.intercept("GET", "/api/auth/user", { fixture: "login" }).as("getUser");
         cy.intercept("POST", "/api/orders", { fixture: "orderError" }).as("postOrder");
-        cy.visit("http://localhost:3000/");
+        cy.visit("/");
 
         cy.get(ingredientBuns).within(() => {
             cy.get(ingredientItem).first().trigger('dragstart');
