@@ -69,7 +69,7 @@ export const BurgerIngredients: FC = () => {
             </nav>
 
             <div className={styles.sections} onScroll={scrollHandler}>
-                <section id="ingredient-buns">
+                <section data-test="ingredient-buns">
                     <h2 className={styles.section_header} ref={bunsHeaderRef}>
                         Булки
                     </h2>
@@ -83,7 +83,7 @@ export const BurgerIngredients: FC = () => {
                     </ul>
                 </section>
 
-                <section id="ingredient-sauces">
+                <section data-test="ingredient-sauces">
                     <h2 className={styles.section_header} ref={saucesHeaderRef}>
                         Соусы
                     </h2>
@@ -97,7 +97,7 @@ export const BurgerIngredients: FC = () => {
                     </ul>
                 </section>
 
-                <section id="ingredient-mains">
+                <section data-test="ingredient-mains">
                     <h2 className={styles.section_header} ref={mainsHeaderRef}>
                         Начинки
                     </h2>

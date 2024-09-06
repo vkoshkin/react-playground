@@ -19,12 +19,12 @@ export const BurgerIngredientsItem: FC<BurgerIngredientsItemProps> = ({ ingredie
         item: { id: undefined, item: ingredient },
     });
     return (
-        <li className={styles.item} ref={dragRef} data-testid="ingredient-item">
+        <li className={styles.item} ref={dragRef} data-test="ingredient-item">
             <div>
                 <Link
                     to={`/ingredients/${ingredient._id}`}
                     state={{ backgroundLocation: location }}
-                    data-testid="ingredient-item-link"
+                    data-test="ingredient-item-link"
                 >
                     <img
                         className={styles.item_image}

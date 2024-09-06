@@ -45,7 +45,7 @@ export const BurgerConstructor: FC = () => {
     return (
         <div className={styles.burger_constructor}>
             <div className={styles.list}>
-                <div id="constructor-bun-top">
+                <div data-test="constructor-bun-top">
                     <BurgerConstructorItem
                         ingredient={bun}
                         type="top"
@@ -53,7 +53,7 @@ export const BurgerConstructor: FC = () => {
                         extraClass={styles.list_top}
                     />
                 </div>
-                <div className={styles.list_scroll} id="constructor-mains">
+                <div className={styles.list_scroll} data-test="constructor-mains">
                     {ingredients.length > 0 && ingredients.map((ingredient, index) => {
                         const style = (index !== ingredients.length - 1) ? styles.list_main : undefined;
                         return (
@@ -73,7 +73,7 @@ export const BurgerConstructor: FC = () => {
                         />
                     }
                 </div>
-                <div id="constructor-bun-bottom">
+                <div data-test="constructor-bun-bottom">
                     <BurgerConstructorItem
                         ingredient={bun}
                         type="bottom"
@@ -88,7 +88,7 @@ export const BurgerConstructor: FC = () => {
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button
-                    id="constructor-order"
+                    data-test="constructor-order"
                     htmlType="button"
                     type="primary"
                     size="medium"

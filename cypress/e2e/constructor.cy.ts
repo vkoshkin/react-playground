@@ -5,19 +5,19 @@
 // Другими словами, нужно протестировать путь пользователя от сбора бургера 
 // перетаскиванием ингредиентов до получения информации о созданном заказе.
 
-const ingredientBuns = '#ingredient-buns';
-const ingredientMains = '#ingredient-mains';
-const ingredientItem = '[data-testid="ingredient-item"]';
+const ingredientBuns = '[data-test="ingredient-buns"]';
+const ingredientMains = '[data-test="ingredient-mains"]';
+const ingredientItem = '[data-test="ingredient-item"]';
 
-const constructorBunTop = '#constructor-bun-top';
-const constructorElement = '[data-testid="constructor-element"]';
-const constructorMains = '#constructor-mains';
-const constructorOrder = '#constructor-order';
+const constructorBunTop = '[data-test="constructor-bun-top"]';
+const constructorElement = '[data-test="constructor-element"]';
+const constructorMains = '[data-test="constructor-mains"]';
+const constructorOrder = '[data-test="constructor-order"]';
 
-const modal = '[data-testid="modal"]';
-const modalClose = '[data-testid="modal-close"]';
+const modal = '[data-test="modal"]';
+const modalClose = '[data-test="modal-close"]';
 
-const orderId = "#order-id";
+const orderId = '[data-test="order-id"]';
 
 describe("constructor", () => {
     beforeEach(() => {
@@ -27,13 +27,13 @@ describe("constructor", () => {
 
     it("should not display error screen", () => {
         cy.visit("/");
-        cy.get('[data-testid="error"]').should("not.exist");
+        cy.get('[data-test="error"]').should("not.exist");
     });
 
     it("should show ingredient modal on click", () => {
         cy.visit("/");
         cy.get(ingredientItem).should("exist");
-        cy.get('[data-testid="ingredient-item-link"]').each((element, index, list) => {
+        cy.get('[data-test="ingredient-item-link"]').each((element, index, list) => {
             cy.wrap(element).click();
             cy.get(modal).should("exist");
             
@@ -54,19 +54,19 @@ describe("constructor", () => {
 
     it("should replace bun on drag", () => {
         cy.visit("/");
-        cy.get(ingredientBuns).within(() => {
+        cy.get(ingredientBuns).as("ingredientBuns");
+        cy.get("@ingredientBuns").within(() => {
             cy.get(ingredientItem).first().trigger('dragstart');
         });
         cy.get(constructorBunTop).within(() => {
-            cy.get(constructorElement).first().trigger('drop');
+            cy.get(constructorElement).first().as("constructorBunTopElement");
         });
+        cy.get("@constructorBunTopElement").trigger('drop');
 
-        cy.get(ingredientBuns).within(() => {
+        cy.get("@ingredientBuns").within(() => {
             cy.get(ingredientItem).last().trigger('dragstart');
         });
-        cy.get(constructorBunTop).within(() => {
-            cy.get(constructorElement).first().trigger('drop');
-        });
+        cy.get("@constructorBunTopElement").trigger('drop');
     });
 
     it("should navigate to login on order submit if user is anonymous", () => {

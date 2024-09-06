@@ -103,7 +103,7 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({ingredientId, in
     const emptyText = isBorderItem ? "Добавьте булку" : "Добавьте ингредиент";
     drag(drop(ref));
     return (
-        <div className={itemStyles} style={{ opacity }} ref={ref} data-testid="constructor-element">
+        <div className={itemStyles} style={{ opacity }} ref={ref} data-test="constructor-element">
             {!isLocked &&
                 <div className={styles.drag}>
                     <DragIcon type="primary" />
