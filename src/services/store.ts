@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 
 import ingredientReducer from "./ingredients";
-import ingredientDetailsReducer from "./ingredientDetails";
+import ingredientDetailsReducer from "./ingredient-details";
 import constructorReducer from "./constructor";
 import orderReducer from "./order";
 import userReducer from "./user";

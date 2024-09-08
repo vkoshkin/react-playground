@@ -3,24 +3,24 @@ import { v4 as uuid } from "uuid";
 
 import { Ingredient, IngredientId, IngredientItem } from "./types";
 
-type ConstructorState = {
+export type ConstructorState = {
     bun: Ingredient | null,
     ingredients: Array<IngredientItem>,
 };
-const initialState: ConstructorState = {
+export const initialState: ConstructorState = {
     bun: null,
     ingredients: [],
 };
 
-type ConstructorAddAction = {
+export type ConstructorAddAction = {
     targetId?: IngredientId,
     ingredient: Ingredient,
     ingredientData?: IngredientItem,
 };
-type ConstructorRemoveAction = {
+export type ConstructorRemoveAction = {
     id: IngredientId,
 };
-type ConstructorMoveAction = {
+export type ConstructorMoveAction = {
     sourceId: IngredientId,
     targetId: IngredientId,
 };

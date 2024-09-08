@@ -4,7 +4,7 @@ import {
     postAuthRegister, 
     postAuthLogin, 
     getAuthUser, 
-    postAuthToken,
+    postRefreshAuthToken,
     patchAuthUser, 
     postAuthLogout,
 } from "./api";
@@ -17,7 +17,8 @@ export const fetchUser = () => {
             // если у меня нет токенов
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
-            dispatch(setUser(null));
+            dispatch(clearUser());
+            dispatch(checkUser());
             return;
         }
 
@@ -27,25 +28,25 @@ export const fetchUser = () => {
         if (getResponse && getResponse.success) {
             console.log(`getAuthUser ${JSON.stringify(getResponse)}`);
             // успешное получение данных пользователя через accessToken
-            dispatch(setUser(getResponse.user));
+            dispatch(initUser(getResponse.user));
             return;
         }
 
-        const postResponse = await postAuthToken().catch(e => {
+        const refreshResponse = await postRefreshAuthToken().catch(e => {
             console.log(`Error refreshing user token ${e}`);
         });
-        if (postResponse && postResponse.success) {
-            console.log(`postAuthToken ${JSON.stringify(postResponse)}`);
+        if (refreshResponse && refreshResponse.success) {
+            console.log(`postAuthToken ${JSON.stringify(refreshResponse)}`);
             // успешное обновление токена пользователя через refreshToken
-            localStorage.setItem("accessToken", postResponse.accessToken);
-            localStorage.setItem("refreshToken", postResponse.refreshToken);
+            localStorage.setItem("accessToken", refreshResponse.accessToken);
+            localStorage.setItem("refreshToken", refreshResponse.refreshToken);
             dispatch(checkUser());
             return;
         }
 
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-        dispatch(setUser(null));
+        dispatch(clearUser());
         return;
     };
 }
@@ -57,7 +58,7 @@ export const registerUser = (name: string, email: string, password: string) => {
             if (response && response.success) {
                 localStorage.setItem("accessToken", response.accessToken);
                 localStorage.setItem("refreshToken", response.refreshToken);
-                dispatch(setUser(response.user));
+                dispatch(initUser(response.user));
             } else {
                 dispatch(registerRequestError());
             }
@@ -75,7 +76,7 @@ export const loginUser = (email: string, password: string) => {
             if (response && response.success) {
                 localStorage.setItem("accessToken", response.accessToken);
                 localStorage.setItem("refreshToken", response.refreshToken);
-                dispatch(setUser(response.user));
+                dispatch(initUser(response.user));
             } else {
                 dispatch(loginRequestError());
             }
@@ -93,7 +94,7 @@ export const logoutUser = () => {
             if (response && response.success) {
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
-                dispatch(setUser(null));
+                dispatch(clearUser());
             } else {
                 dispatch(logoutRequestError());
             }
@@ -104,23 +105,23 @@ export const logoutUser = () => {
     };
 }
 
-export const saveUser = (name: string, email: string) => {
+export const updateUserProfile = (name: string, email: string) => {
     return function (dispatch: AppDispatch) {
-        dispatch(saveRequest());
+        dispatch(updateProfileRequest());
         patchAuthUser(name, email).then(response => {
             if (response && response.success) {
-                dispatch(setUser(response.user));
+                dispatch(initUser(response.user));
             } else {
-                dispatch(saveRequestError());
+                dispatch(updateProfileError());
             }
         }).catch(e => {
             console.log(`Exception occurred while user save ${e}`);
-            dispatch(logoutRequestError());
+            dispatch(updateProfileError());
         });
     };
 }
 
-type UserState = {
+export type UserState = {
     user: User | null;
     userChecked: boolean;
     registerRequest: boolean;
@@ -129,11 +130,11 @@ type UserState = {
     loginError: boolean;
     logoutRequest: boolean;
     logoutError: boolean;
-    saveRequest: boolean;
-    saveRequestError: boolean;
+    updateRequest: boolean;
+    updateError: boolean;
 };
 
-const initialState: UserState = {
+export const initialState: UserState = {
     user: null,
     userChecked: false,
     registerRequest: false,
@@ -142,17 +143,16 @@ const initialState: UserState = {
     loginError: false,
     logoutRequest: false,
     logoutError: false,
-    saveRequest: false,
-    saveRequestError: false,
+    updateRequest: false,
+    updateError: false,
 };
 
 const slice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setUser: (state: UserState, action: PayloadAction<User | null>) => {
+        initUser: (state: UserState, action: PayloadAction<User>) => {
             state.user = action.payload;
-            console.log(`user set to ${JSON.stringify(state.user)}`);
             state.userChecked = true;
             state.registerRequest = false;
             state.registerError = false;
@@ -160,8 +160,19 @@ const slice = createSlice({
             state.loginError = false;
             state.logoutRequest = false;
             state.logoutError = false;
-            state.saveRequest = false;
-            state.saveRequestError = false;
+            state.updateRequest = false;
+            state.updateError = false;
+        },
+        clearUser: (state: UserState) => {
+            state.user = null;
+            state.registerRequest = false;
+            state.registerError = false;
+            state.loginRequest = false;
+            state.loginError = false;
+            state.logoutRequest = false;
+            state.logoutError = false;
+            state.updateRequest = false;
+            state.updateError = false;
         },
         checkUser: (state: UserState) => {
             state.userChecked = true;
@@ -190,19 +201,20 @@ const slice = createSlice({
             state.logoutRequest = false;
             state.logoutError = true;
         },
-        saveRequest: (state: UserState) => {
-            state.saveRequest = true;
-            state.saveRequestError = false;
+        updateProfileRequest: (state: UserState) => {
+            state.updateRequest = true;
+            state.updateError = false;
         },
-        saveRequestError: (state: UserState) => {
-            state.saveRequest = false;
-            state.saveRequestError = true;
+        updateProfileError: (state: UserState) => {
+            state.updateRequest = false;
+            state.updateError = true;
         }
     }
 });
 
 export const {
-    setUser,
+    initUser,
+    clearUser,
     checkUser,
     registerRequest,
     registerRequestError,
@@ -210,8 +222,8 @@ export const {
     loginRequestError,
     logoutRequest,
     logoutRequestError,
-    saveRequest,
-    saveRequestError,
+    updateProfileRequest,
+    updateProfileError,
 } = slice.actions;
 
 export default slice;

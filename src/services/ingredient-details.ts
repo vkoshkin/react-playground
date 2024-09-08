@@ -5,7 +5,7 @@ type IngredientDetailsState = {
     ingredient: Ingredient | null,
 };
 
-const initialState : IngredientDetailsState= {
+export const initialState: IngredientDetailsState = {
     ingredient: null,
 };
 
@@ -19,8 +19,8 @@ const slice = createSlice({
     }
 });
 
-export const { 
-    showIngredient, 
+export const {
+    showIngredient,
 } = slice.actions;
 
 export default slice;

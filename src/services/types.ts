@@ -4,7 +4,7 @@ export type User = {
     readonly email: string;
 };
 
-export type Ingredient = {
+export interface Ingredient {
     readonly _id: string;
     readonly name: string;
     readonly type: string;
@@ -14,6 +14,7 @@ export type Ingredient = {
     readonly fat: number,
     readonly carbohydrates: number,
     readonly image: string,
+    readonly image_mobile: string,
     readonly image_large: string,
 };
 
@@ -28,7 +29,7 @@ export type OrderId = string;
 
 export type OrderNumber = number;
 
-export type Order = {
+export interface Order {
     readonly ingredients: Array<string>;
     readonly _id: OrderId;
     readonly status: string;

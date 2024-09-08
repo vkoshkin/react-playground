@@ -45,19 +45,21 @@ export const BurgerConstructor: FC = () => {
     return (
         <div className={styles.burger_constructor}>
             <div className={styles.list}>
-                <BurgerConstructorItem
-                    ingredient={bun}
-                    type="top"
-                    isLocked={true}
-                    extraClass={styles.list_top}
-                />
-                <div className={styles.list_scroll}>
+                <div data-test="constructor-bun-top">
+                    <BurgerConstructorItem
+                        ingredient={bun}
+                        type="top"
+                        isLocked={true}
+                        extraClass={styles.list_top}
+                    />
+                </div>
+                <div className={styles.list_scroll} data-test="constructor-mains">
                     {ingredients.length > 0 && ingredients.map((ingredient, index) => {
                         const style = (index !== ingredients.length - 1) ? styles.list_main : undefined;
                         return (
                             <BurgerConstructorItem
                                 key={ingredient.id}
-                                id={ingredient.id}
+                                ingredientId={ingredient.id}
                                 ingredient={ingredient.data}
                                 isLocked={false}
                                 extraClass={style}
@@ -71,19 +73,28 @@ export const BurgerConstructor: FC = () => {
                         />
                     }
                 </div>
-                <BurgerConstructorItem
-                    ingredient={bun}
-                    type="bottom"
-                    isLocked={true}
-                    extraClass={styles.list_bottom}
-                />
+                <div data-test="constructor-bun-bottom">
+                    <BurgerConstructorItem
+                        ingredient={bun}
+                        type="bottom"
+                        isLocked={true}
+                        extraClass={styles.list_bottom}
+                    />
+                </div>
             </div>
             <div className={styles.footer}>
                 <div className={styles.footer_price}>
                     <span className={styles.footer_price_number}>{price}</span>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType="button" type="primary" size="medium" onClick={onOrder} disabled={orderDisabled}>
+                <Button
+                    data-test="constructor-order"
+                    htmlType="button"
+                    type="primary"
+                    size="medium"
+                    onClick={onOrder}
+                    disabled={orderDisabled}
+                >
                     Оформить заказ
                 </Button>
             </div>

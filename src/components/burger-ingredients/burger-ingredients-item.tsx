@@ -19,15 +19,18 @@ export const BurgerIngredientsItem: FC<BurgerIngredientsItemProps> = ({ ingredie
         item: { id: undefined, item: ingredient },
     });
     return (
-        <div className={styles.item} ref={dragRef}>
+        <li className={styles.item} ref={dragRef} data-test="ingredient-item">
             <div>
                 <Link
                     to={`/ingredients/${ingredient._id}`}
                     state={{ backgroundLocation: location }}
+                    data-test="ingredient-item-link"
                 >
-                    <img className={styles.item_image}
+                    <img
+                        className={styles.item_image}
                         src={ingredient.image}
-                        alt={ingredient.name}/>
+                        alt={ingredient.name}
+                    />
                 </Link>
                 <div className={styles.item_price}>
                     <p className={styles.item_price_value}>{ingredient.price}</p>
@@ -38,7 +41,7 @@ export const BurgerIngredientsItem: FC<BurgerIngredientsItemProps> = ({ ingredie
                 </div>
             </div>
             {count && <Counter count={count} size="default" />}
-        </div>
+        </li>
     );
 }
 

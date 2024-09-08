@@ -1,6 +1,6 @@
 const BASE_URL = "https://norma.nomoreparties.space/api";
 
-export function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+export function request<T>(endpoint: string, options: RequestInit = { method: "GET" }): Promise<T> {
     return fetch(`${BASE_URL}/${endpoint}`, options).then(checkResponse<T>)
 }
 

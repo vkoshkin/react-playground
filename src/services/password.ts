@@ -30,7 +30,7 @@ export const updatePassword = (password: string, code: string) => (dispatch: App
     });
 }
 
-type PasswordState = {
+export type PasswordState = {
     passwordResetRequest: boolean;
     passwordResetError: boolean;
     passwordResetSuccess: boolean;
@@ -39,7 +39,7 @@ type PasswordState = {
     passwordUpdateSuccess: boolean;
 };
 
-const initialState: PasswordState = {
+export const initialState: PasswordState = {
     passwordResetRequest: false,
     passwordResetError: false,
     passwordResetSuccess: false,

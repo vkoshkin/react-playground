@@ -1,0 +1,5 @@
+services:
+  web:
+    image: practicum/react-burger:1
+    ports:
+      - "8000:80"
